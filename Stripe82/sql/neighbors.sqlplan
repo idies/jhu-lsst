@@ -1,0 +1,694 @@
+﻿<ShowPlanXML xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan" Version="1.6" Build="14.0.500.272">
+	<BatchSequence>
+		<Batch>
+			<Statements>
+				<StmtSimple StatementText="SELECT U.objid as objid1, U.ra as ra1, U.dec as dec1,&#xD;&#xA; S.objid as objid2, S.ra as ra2, S.dec as dec2,&#xD;&#xA; 120*degrees(asin(sqrt(&#xD;&#xA; power(U.cx-S.cx,2)+power(U.cy-S.cy,2)+power(U.cz-S.cz,2)&#xD;&#xA; )/2)) distance&#xD;&#xA;INTO test.neighbors&#xD;&#xA;FROM test.zone1 U&#xD;&#xA;INNER LOOP JOIN test.zoneZone ZZ on ZZ.zone1=U.zoneid&#xD;&#xA;INNER LOOP JOIN test.zone2 S on ZZ.zone2 = S.zoneid&#xD;&#xA;WHERE S.dec between U.dec-@theta and U.dec+@theta&#xD;&#xA; and S.ra between U.ra-ZZ.alpha and U.ra+ZZ.alpha&#xD;&#xA; and power(U.cx-S.cx,2)+power(U.cy-S.cy,2)&#xD;&#xA; +power(U.cz-S.cz,2) &lt; @sintheta2" StatementId="1" StatementCompId="4" StatementType="SELECT INTO" RetrievedFromCache="true" StatementSubTreeCost="2.61255e+006" StatementEstRows="9.37493e+009" SecurityPolicyApplied="false" StatementOptmLevel="FULL" QueryHash="0xE1AF0C478CF92505" QueryPlanHash="0xE9E490569E214734" CardinalityEstimationModelVersion="70">
+					<StatementSetOptions QUOTED_IDENTIFIER="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" NUMERIC_ROUNDABORT="false" />
+					<QueryPlan CachedPlanSize="112" CompileTime="13532" CompileCPU="9083" CompileMemory="1080">
+						<ThreadStat Branches="2" />
+						<MemoryGrantInfo SerialRequiredMemory="512" SerialDesiredMemory="1926216" />
+						<OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="164283" EstimatedPagesCached="246425" EstimatedAvailableDegreeOfParallelism="12" MaxCompileMemory="28489848" />
+						<TraceFlags IsCompileTime="1">
+							<TraceFlag Value="835" Scope="Global" />
+							<TraceFlag Value="3105" Scope="Global" />
+							<TraceFlag Value="5504" Scope="Global" />
+							<TraceFlag Value="5521" Scope="Global" />
+							<TraceFlag Value="6529" Scope="Global" />
+							<TraceFlag Value="8020" Scope="Global" />
+							<TraceFlag Value="8415" Scope="Global" />
+							<TraceFlag Value="610" Scope="Session" />
+						</TraceFlags>
+						<RelOp NodeId="0" PhysicalOp="Table Insert" LogicalOp="Insert" EstimateRows="9.37493e+009" EstimateIO="487144" EstimateCPU="9374.93" AvgRowSize="9" EstimatedTotalSubtreeCost="2.61255e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+							<OutputList />
+							<Update DMLRequestSort="0">
+								<Object Schema="[test]" Table="[neighbors]" Storage="RowStore" />
+								<SetPredicate>
+									<ScalarOperator ScalarString="[test.neighbors].[objid1] = [Stripe82].[test].[zone1].[objid] as [U].[objid],[test.neighbors].[ra1] = [Stripe82].[test].[zone1].[ra] as [U].[ra],[test.neighbors].[dec1] = [Stripe82].[test].[zone1].[dec] as [U].[dec],[test.neighbors].[objid2] = [Stripe82].[test].[zone2].[objid] as [S].[objid],[test.neighbors].[ra2] = [Stripe82].[test].[zone2].[ra] as [S].[ra],[test.neighbors].[dec2] = [Stripe82].[test].[zone2].[dec] as [S].[dec],[test.neighbors].[distance] = [Expr1006]">
+										<ScalarExpressionList>
+											<ScalarOperator>
+												<MultipleAssign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="objid1" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="ra1" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="dec1" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="objid2" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="ra2" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="dec2" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+													<Assign>
+														<ColumnReference Table="[test.neighbors]" Column="distance" />
+														<ScalarOperator>
+															<Identifier>
+																<ColumnReference Column="Expr1006" />
+															</Identifier>
+														</ScalarOperator>
+													</Assign>
+												</MultipleAssign>
+											</ScalarOperator>
+										</ScalarExpressionList>
+									</ScalarOperator>
+								</SetPredicate>
+								<RelOp NodeId="1" PhysicalOp="Compute Scalar" LogicalOp="Compute Scalar" EstimateRows="9.37493e+009" EstimateIO="0" EstimateCPU="937.493" AvgRowSize="63" EstimatedTotalSubtreeCost="2.11604e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+									<OutputList>
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+										<ColumnReference Column="Expr1006" />
+									</OutputList>
+									<ComputeScalar>
+										<DefinedValues>
+											<DefinedValue>
+												<ColumnReference Column="Expr1006" />
+												<ScalarOperator ScalarString="(1.200000000000000e+002)*degrees(asin(sqrt(power([Stripe82].[test].[zone1].[cx] as [U].[cx]-[Stripe82].[test].[zone2].[cx] as [S].[cx],(2.000000000000000e+000))+power([Stripe82].[test].[zone1].[cy] as [U].[cy]-[Stripe82].[test].[zone2].[cy] as [S].[cy],(2.000000000000000e+000))+power([Stripe82].[test].[zone1].[cz] as [U].[cz]-[Stripe82].[test].[zone2].[cz] as [S].[cz],(2.000000000000000e+000)))/(2.000000000000000e+000)))">
+													<Arithmetic Operation="MULT">
+														<ScalarOperator>
+															<Const ConstValue="(1.200000000000000e+002)" />
+														</ScalarOperator>
+														<ScalarOperator>
+															<Intrinsic FunctionName="degrees">
+																<ScalarOperator>
+																	<Intrinsic FunctionName="asin">
+																		<ScalarOperator>
+																			<Arithmetic Operation="DIV">
+																				<ScalarOperator>
+																					<Intrinsic FunctionName="sqrt">
+																						<ScalarOperator>
+																							<Arithmetic Operation="ADD">
+																								<ScalarOperator>
+																									<Arithmetic Operation="ADD">
+																										<ScalarOperator>
+																											<Intrinsic FunctionName="power">
+																												<ScalarOperator>
+																													<Arithmetic Operation="SUB">
+																														<ScalarOperator>
+																															<Identifier>
+																																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																															</Identifier>
+																														</ScalarOperator>
+																														<ScalarOperator>
+																															<Identifier>
+																																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																															</Identifier>
+																														</ScalarOperator>
+																													</Arithmetic>
+																												</ScalarOperator>
+																												<ScalarOperator>
+																													<Const ConstValue="(2.000000000000000e+000)" />
+																												</ScalarOperator>
+																											</Intrinsic>
+																										</ScalarOperator>
+																										<ScalarOperator>
+																											<Intrinsic FunctionName="power">
+																												<ScalarOperator>
+																													<Arithmetic Operation="SUB">
+																														<ScalarOperator>
+																															<Identifier>
+																																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																															</Identifier>
+																														</ScalarOperator>
+																														<ScalarOperator>
+																															<Identifier>
+																																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																															</Identifier>
+																														</ScalarOperator>
+																													</Arithmetic>
+																												</ScalarOperator>
+																												<ScalarOperator>
+																													<Const ConstValue="(2.000000000000000e+000)" />
+																												</ScalarOperator>
+																											</Intrinsic>
+																										</ScalarOperator>
+																									</Arithmetic>
+																								</ScalarOperator>
+																								<ScalarOperator>
+																									<Intrinsic FunctionName="power">
+																										<ScalarOperator>
+																											<Arithmetic Operation="SUB">
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																													</Identifier>
+																												</ScalarOperator>
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																													</Identifier>
+																												</ScalarOperator>
+																											</Arithmetic>
+																										</ScalarOperator>
+																										<ScalarOperator>
+																											<Const ConstValue="(2.000000000000000e+000)" />
+																										</ScalarOperator>
+																									</Intrinsic>
+																								</ScalarOperator>
+																							</Arithmetic>
+																						</ScalarOperator>
+																					</Intrinsic>
+																				</ScalarOperator>
+																				<ScalarOperator>
+																					<Const ConstValue="(2.000000000000000e+000)" />
+																				</ScalarOperator>
+																			</Arithmetic>
+																		</ScalarOperator>
+																	</Intrinsic>
+																</ScalarOperator>
+															</Intrinsic>
+														</ScalarOperator>
+													</Arithmetic>
+												</ScalarOperator>
+											</DefinedValue>
+										</DefinedValues>
+										<RelOp NodeId="2" PhysicalOp="Top" LogicalOp="Top" EstimateRows="9.37493e+009" EstimateIO="0" EstimateCPU="937.493" AvgRowSize="104" EstimatedTotalSubtreeCost="2.1151e+006" Parallel="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+											<OutputList>
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+											</OutputList>
+											<Top RowCount="1" IsPercent="0" WithTies="0">
+												<TopExpression>
+													<ScalarOperator ScalarString="(0)">
+														<Const ConstValue="(0)" />
+													</ScalarOperator>
+												</TopExpression>
+												<RelOp NodeId="3" PhysicalOp="Parallelism" LogicalOp="Gather Streams" EstimateRows="9.37493e+009" EstimateIO="0" EstimateCPU="10627.7" AvgRowSize="104" EstimatedTotalSubtreeCost="2.11416e+006" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+													<OutputList>
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+													</OutputList>
+													<Parallelism>
+														<RelOp NodeId="4" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="9.37493e+009" EstimateIO="0" EstimateCPU="3497.58" AvgRowSize="104" EstimatedTotalSubtreeCost="2.10353e+006" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+															<OutputList>
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+															</OutputList>
+															<NestedLoops Optimized="0">
+																<OuterReferences>
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																</OuterReferences>
+																<RelOp NodeId="5" PhysicalOp="Sort" LogicalOp="Sort" EstimateRows="1.47217e+007" EstimateIO="160.645" EstimateCPU="53.4139" AvgRowSize="67" EstimatedTotalSubtreeCost="1086.3" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																	<OutputList>
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																	</OutputList>
+																	<MemoryFractions Input="1" Output="1" />
+																	<Sort Distinct="0">
+																		<OrderBy>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																			</OrderByColumn>
+																			<OrderByColumn Ascending="1">
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																			</OrderByColumn>
+																		</OrderBy>
+																		<RelOp NodeId="6" PhysicalOp="Parallelism" LogicalOp="Repartition Streams" EstimateRows="1.47217e+007" EstimateIO="0" EstimateCPU="15.1578" AvgRowSize="67" EstimatedTotalSubtreeCost="872.245" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																			<OutputList>
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																			</OutputList>
+																			<Parallelism PartitioningType="Hash">
+																				<PartitionColumns>
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																					<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																				</PartitionColumns>
+																				<RelOp NodeId="7" PhysicalOp="Nested Loops" LogicalOp="Inner Join" EstimateRows="1.47217e+007" EstimateIO="0" EstimateCPU="5.12805" AvgRowSize="67" EstimatedTotalSubtreeCost="857.087" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																					<OutputList>
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																					</OutputList>
+																					<NestedLoops Optimized="0">
+																						<OuterReferences>
+																							<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="zoneid" />
+																						</OuterReferences>
+																						<RelOp NodeId="8" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="5.13656e+006" EstimatedRowsRead="5.13656e+006" EstimateIO="28.8276" EstimateCPU="0.470864" AvgRowSize="59" EstimatedTotalSubtreeCost="29.2984" TableCardinality="5.13656e+006" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																							<OutputList>
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="zoneid" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																							</OutputList>
+																							<IndexScan Ordered="0" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+																								<DefinedValues>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="zoneid" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="objid" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																									</DefinedValue>
+																								</DefinedValues>
+																								<Object Database="[Stripe82]" Schema="[test]" Table="[zone1]" Index="[PK__zone1__A906950FF4AA1B51]" Alias="[U]" IndexKind="Clustered" Storage="RowStore" />
+																							</IndexScan>
+																						</RelOp>
+																						<RelOp NodeId="9" PhysicalOp="Clustered Index Seek" LogicalOp="Clustered Index Seek" EstimateRows="2.86606" EstimatedRowsRead="2.86606" EstimateIO="0.003125" EstimateCPU="0.000160153" AvgRowSize="19" EstimatedTotalSubtreeCost="822.661" TableCardinality="2773" Parallel="1" EstimateRebinds="5.12791e+006" EstimateRewinds="8650.46" EstimatedExecutionMode="Row">
+																							<OutputList>
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																							</OutputList>
+																							<IndexScan Ordered="1" ScanDirection="FORWARD" ForcedIndex="0" ForceSeek="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+																								<DefinedValues>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																									</DefinedValue>
+																								</DefinedValues>
+																								<Object Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Index="[PK__zoneZone__38CFC11427EAC691]" Alias="[ZZ]" IndexKind="Clustered" Storage="RowStore" />
+																								<SeekPredicates>
+																									<SeekPredicateNew>
+																										<SeekKeys>
+																											<Prefix ScanType="EQ">
+																												<RangeColumns>
+																													<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone1" />
+																												</RangeColumns>
+																												<RangeExpressions>
+																													<ScalarOperator ScalarString="[Stripe82].[test].[zone1].[zoneid] as [U].[zoneid]">
+																														<Identifier>
+																															<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="zoneid" />
+																														</Identifier>
+																													</ScalarOperator>
+																												</RangeExpressions>
+																											</Prefix>
+																										</SeekKeys>
+																									</SeekPredicateNew>
+																								</SeekPredicates>
+																							</IndexScan>
+																						</RelOp>
+																					</NestedLoops>
+																				</RelOp>
+																			</Parallelism>
+																		</RelOp>
+																	</Sort>
+																</RelOp>
+																<RelOp NodeId="10" PhysicalOp="Table Spool" LogicalOp="Lazy Spool" EstimateRows="682.049" EstimateIO="0.01" EstimateCPU="0.000223369" AvgRowSize="55" EstimatedTotalSubtreeCost="2.09895e+006" Parallel="1" EstimateRebinds="1.47217e+007" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																	<OutputList>
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																		<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																	</OutputList>
+																	<Spool>
+																		<RelOp NodeId="11" PhysicalOp="Filter" LogicalOp="Filter" EstimateRows="682.049" EstimateIO="0" EstimateCPU="0.0803302" AvgRowSize="55" EstimatedTotalSubtreeCost="1.94844e+006" Parallel="1" EstimateRebinds="1.47217e+007" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																			<OutputList>
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																				<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																			</OutputList>
+																			<Filter StartupExpression="0">
+																				<RelOp NodeId="12" PhysicalOp="Index Spool" LogicalOp="Eager Spool" EstimateRows="25261.1" EstimateIO="14350.2" EstimateCPU="254.884" AvgRowSize="55" EstimatedTotalSubtreeCost="765849" Parallel="1" EstimateRebinds="1.47217e+007" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																					<OutputList>
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																						<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																					</OutputList>
+																					<Spool>
+																						<SeekPredicateNew>
+																							<SeekKeys>
+																								<Prefix ScanType="EQ">
+																									<RangeColumns>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="zoneid" />
+																									</RangeColumns>
+																									<RangeExpressions>
+																										<ScalarOperator ScalarString="[Stripe82].[test].[zoneZone].[zone2] as [ZZ].[zone2]">
+																											<Identifier>
+																												<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="zone2" />
+																											</Identifier>
+																										</ScalarOperator>
+																									</RangeExpressions>
+																								</Prefix>
+																								<StartRange ScanType="GE">
+																									<RangeColumns>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																									</RangeColumns>
+																									<RangeExpressions>
+																										<ScalarOperator ScalarString="[Stripe82].[test].[zone1].[dec] as [U].[dec]-[@theta]">
+																											<Arithmetic Operation="SUB">
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																													</Identifier>
+																												</ScalarOperator>
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Column="@theta" />
+																													</Identifier>
+																												</ScalarOperator>
+																											</Arithmetic>
+																										</ScalarOperator>
+																									</RangeExpressions>
+																								</StartRange>
+																								<EndRange ScanType="LE">
+																									<RangeColumns>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																									</RangeColumns>
+																									<RangeExpressions>
+																										<ScalarOperator ScalarString="[Stripe82].[test].[zone1].[dec] as [U].[dec]+[@theta]">
+																											<Arithmetic Operation="ADD">
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="dec" />
+																													</Identifier>
+																												</ScalarOperator>
+																												<ScalarOperator>
+																													<Identifier>
+																														<ColumnReference Column="@theta" />
+																													</Identifier>
+																												</ScalarOperator>
+																											</Arithmetic>
+																										</ScalarOperator>
+																									</RangeExpressions>
+																								</EndRange>
+																							</SeekKeys>
+																						</SeekPredicateNew>
+																						<RelOp NodeId="13" PhysicalOp="Clustered Index Scan" LogicalOp="Clustered Index Scan" EstimateRows="2.54856e+008" EstimatedRowsRead="2.54856e+008" EstimateIO="1430.17" EstimateCPU="280.342" AvgRowSize="59" EstimatedTotalSubtreeCost="1710.51" TableCardinality="2.54856e+008" Parallel="1" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row">
+																							<OutputList>
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="zoneid" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																								<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																							</OutputList>
+																							<IndexScan Ordered="0" ForcedIndex="0" ForceScan="0" NoExpandHint="0" Storage="RowStore">
+																								<DefinedValues>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="zoneid" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="objid" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="dec" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																									</DefinedValue>
+																									<DefinedValue>
+																										<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																									</DefinedValue>
+																								</DefinedValues>
+																								<Object Database="[Stripe82]" Schema="[test]" Table="[zone2]" Index="[PK__zone2__A906950F7570B9E1]" Alias="[S]" IndexKind="Clustered" Storage="RowStore" />
+																							</IndexScan>
+																						</RelOp>
+																					</Spool>
+																				</RelOp>
+																				<Predicate>
+																					<ScalarOperator ScalarString="[Stripe82].[test].[zone2].[ra] as [S].[ra]&gt;=([Stripe82].[test].[zone1].[ra] as [U].[ra]-[Stripe82].[test].[zoneZone].[alpha] as [ZZ].[alpha]) AND [Stripe82].[test].[zone2].[ra] as [S].[ra]&lt;=([Stripe82].[test].[zone1].[ra] as [U].[ra]+[Stripe82].[test].[zoneZone].[alpha] as [ZZ].[alpha]) AND (power([Stripe82].[test].[zone1].[cx] as [U].[cx]-[Stripe82].[test].[zone2].[cx] as [S].[cx],(2.000000000000000e+000))+power([Stripe82].[test].[zone1].[cy] as [U].[cy]-[Stripe82].[test].[zone2].[cy] as [S].[cy],(2.000000000000000e+000))+power([Stripe82].[test].[zone1].[cz] as [U].[cz]-[Stripe82].[test].[zone2].[cz] as [S].[cz],(2.000000000000000e+000)))&lt;[@sintheta2]">
+																						<Logical Operation="AND">
+																							<ScalarOperator>
+																								<Compare CompareOp="GE">
+																									<ScalarOperator>
+																										<Identifier>
+																											<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																										</Identifier>
+																									</ScalarOperator>
+																									<ScalarOperator>
+																										<Arithmetic Operation="SUB">
+																											<ScalarOperator>
+																												<Identifier>
+																													<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																												</Identifier>
+																											</ScalarOperator>
+																											<ScalarOperator>
+																												<Identifier>
+																													<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																												</Identifier>
+																											</ScalarOperator>
+																										</Arithmetic>
+																									</ScalarOperator>
+																								</Compare>
+																							</ScalarOperator>
+																							<ScalarOperator>
+																								<Compare CompareOp="LE">
+																									<ScalarOperator>
+																										<Identifier>
+																											<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="ra" />
+																										</Identifier>
+																									</ScalarOperator>
+																									<ScalarOperator>
+																										<Arithmetic Operation="ADD">
+																											<ScalarOperator>
+																												<Identifier>
+																													<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="ra" />
+																												</Identifier>
+																											</ScalarOperator>
+																											<ScalarOperator>
+																												<Identifier>
+																													<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zoneZone]" Alias="[ZZ]" Column="alpha" />
+																												</Identifier>
+																											</ScalarOperator>
+																										</Arithmetic>
+																									</ScalarOperator>
+																								</Compare>
+																							</ScalarOperator>
+																							<ScalarOperator>
+																								<Compare CompareOp="LT">
+																									<ScalarOperator>
+																										<Arithmetic Operation="ADD">
+																											<ScalarOperator>
+																												<Arithmetic Operation="ADD">
+																													<ScalarOperator>
+																														<Intrinsic FunctionName="power">
+																															<ScalarOperator>
+																																<Arithmetic Operation="SUB">
+																																	<ScalarOperator>
+																																		<Identifier>
+																																			<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cx" />
+																																		</Identifier>
+																																	</ScalarOperator>
+																																	<ScalarOperator>
+																																		<Identifier>
+																																			<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cx" />
+																																		</Identifier>
+																																	</ScalarOperator>
+																																</Arithmetic>
+																															</ScalarOperator>
+																															<ScalarOperator>
+																																<Const ConstValue="(2.000000000000000e+000)" />
+																															</ScalarOperator>
+																														</Intrinsic>
+																													</ScalarOperator>
+																													<ScalarOperator>
+																														<Intrinsic FunctionName="power">
+																															<ScalarOperator>
+																																<Arithmetic Operation="SUB">
+																																	<ScalarOperator>
+																																		<Identifier>
+																																			<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cy" />
+																																		</Identifier>
+																																	</ScalarOperator>
+																																	<ScalarOperator>
+																																		<Identifier>
+																																			<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cy" />
+																																		</Identifier>
+																																	</ScalarOperator>
+																																</Arithmetic>
+																															</ScalarOperator>
+																															<ScalarOperator>
+																																<Const ConstValue="(2.000000000000000e+000)" />
+																															</ScalarOperator>
+																														</Intrinsic>
+																													</ScalarOperator>
+																												</Arithmetic>
+																											</ScalarOperator>
+																											<ScalarOperator>
+																												<Intrinsic FunctionName="power">
+																													<ScalarOperator>
+																														<Arithmetic Operation="SUB">
+																															<ScalarOperator>
+																																<Identifier>
+																																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone1]" Alias="[U]" Column="cz" />
+																																</Identifier>
+																															</ScalarOperator>
+																															<ScalarOperator>
+																																<Identifier>
+																																	<ColumnReference Database="[Stripe82]" Schema="[test]" Table="[zone2]" Alias="[S]" Column="cz" />
+																																</Identifier>
+																															</ScalarOperator>
+																														</Arithmetic>
+																													</ScalarOperator>
+																													<ScalarOperator>
+																														<Const ConstValue="(2.000000000000000e+000)" />
+																													</ScalarOperator>
+																												</Intrinsic>
+																											</ScalarOperator>
+																										</Arithmetic>
+																									</ScalarOperator>
+																									<ScalarOperator>
+																										<Identifier>
+																											<ColumnReference Column="@sintheta2" />
+																										</Identifier>
+																									</ScalarOperator>
+																								</Compare>
+																							</ScalarOperator>
+																						</Logical>
+																					</ScalarOperator>
+																				</Predicate>
+																			</Filter>
+																		</RelOp>
+																	</Spool>
+																</RelOp>
+															</NestedLoops>
+														</RelOp>
+													</Parallelism>
+												</RelOp>
+											</Top>
+										</RelOp>
+									</ComputeScalar>
+								</RelOp>
+							</Update>
+						</RelOp>
+					</QueryPlan>
+				</StmtSimple>
+			</Statements>
+		</Batch>
+	</BatchSequence>
+</ShowPlanXML>
