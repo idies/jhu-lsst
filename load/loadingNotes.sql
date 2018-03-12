@@ -180,3 +180,14 @@ order by chunkID
 
 exec spFileFGInfo
 
+insert ForcedSource_01 with (tablockx)
+select * from lsst_stage.dbo.forcedsource_stage with (nolock)
+---3h 42m 1792859120 rows
+
+
+
+insert LSST_01.dbo.ObjectFullOverlap_01 with(tablockx)
+select * from objectfulloverlap_stage with (nolock)
+
+
+sp_help

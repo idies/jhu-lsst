@@ -1,7 +1,7 @@
 
 --drop table ObjectFullOverlap_01
 
-CREATE TABLE [dbo].[ObjectFullOverlap_01](
+CREATE TABLE [dbo].[ObjectFullOverlap_02](
 	[deepSourceId] [bigint] NOT NULL,
 	[ra] [real] NOT NULL,
 	[decl] [real] NOT NULL,
@@ -244,10 +244,17 @@ GO
 
 
 
-CREATE CLUSTERED INDEX [idx_objflolap_dpsrcid] ON [dbo].[ObjectFullOverlap_01]
+CREATE CLUSTERED INDEX [idx_objflolap_dpsrcid] ON [dbo].[ObjectFullOverlap_02]
 (
 	[deepSourceId] ASC
-)WITH (data_compression=page)
-on obj_01
+)WITH (sort_in_tempdb = on, data_compression=page)
+on obj_02
 
-create nonclustered index idx_objfloap_subchunkid on dbo.objectFullOverlap_01(subchunkid)
+--
+
+
+insert ObjectFullOverlap_02 with (tablock)
+select * from lsst_stage.dbo.objectfulloverlap_stage
+with (nolock)
+
+create nonclustered index idx_objfloap_subchunkid on dbo.objectFullOverlap_02(subchunkid)

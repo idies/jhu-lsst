@@ -1,13 +1,13 @@
 
---drop table ObjectFullOverlap_01
 
-CREATE TABLE [dbo].[ObjectFullOverlap_01](
+CREATE TABLE [dbo].[Object_02](
 	[deepSourceId] [bigint] NOT NULL,
-	[ra] [real] NOT NULL,
-	[decl] [real] NOT NULL,
-	[raVar] [real] NULL,
-	[declVar] [real] NULL,
-	[radeclCov] [real] NULL,
+	[ra] [float] NOT NULL,
+	[decl] [float] NOT NULL,
+	[raVar] [float] NULL,
+	[declVar] [float] NULL,
+	[radeclCov] [float] NULL,
+	[htmID] bigint not null,
 	[chunkId] [int] NOT NULL,
 	[subChunkId] [int] NOT NULL,
 	[u_psfFlux] [real] NULL,
@@ -243,11 +243,12 @@ CREATE TABLE [dbo].[ObjectFullOverlap_01](
 GO
 
 
+alter table Object_02
+add constraint pk_object_02
+primary key clustered(deepsourceid)
+with(sort_in_tempdb=on, data_compression=page)
+on OBJ_02
 
-CREATE CLUSTERED INDEX [idx_objflolap_dpsrcid] ON [dbo].[ObjectFullOverlap_01]
-(
-	[deepSourceId] ASC
-)WITH (data_compression=page)
-on obj_01
 
-create nonclustered index idx_objfloap_subchunkid on dbo.objectFullOverlap_01(subchunkid)
+
+

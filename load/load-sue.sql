@@ -91,11 +91,13 @@ from rt
 select * from PartForcedSource
 select * from PartSource
 
+drop table LoadLog
 
 create table LoadLog(
         loadid int identity(1,1),
         fileId bigint,
-        fname varchar(128),
+		tname sysname,
+        fname varchar(200),
         rows int,
         ltime datetime
 )
@@ -103,27 +105,70 @@ create table LoadLog(
 
 
 ----1. create empty table on staging filegroup
+
+--
+-- method 1 - everything is a varchar
+/*
+drop table object_stage
+
 select * 
 into object_stage on [ST_01]
-from Object_1025
+from object_template
 where (0=1)
+*/
 
-select * from PartObject
-where partitionID = 1
+drop table source_stage2
 
+-- method 2 - replaced nulls in csv files with empty string
+-- template file has correct data types
+select * into source_stage2 
+on src_st01
+from source_template2 --has correct data types but not chunkID and subChunkID
+where (0=1)  
+
+
+
+drop table objectfulloverlap_stage
+
+-- method 2 - replaced nulls in csv files with empty string
+-- template file has correct data types
+select * into objectfulloverlap_stage 
+on src_st01
+from objectfulloverlap_template2 --has correct data types 
+where (0=1)  
+
+
+--maybe create clustered index?  --NO DO NOT DO THIS
+/*
+ALTER TABLE object_stage
+add constraint pk_obj_stage_deepsourceID 
+primary key clustered (deepsourceId)
+with (data_compression=page)
+on [ST_01]
+*/
+checkpoint
+-----------------------------------------------------
+-----------------------------------------------------
+--  Generate (run) bulk insert statements
+-----------------------------------------------------
 
 declare @counter integer = 1, @nPart integer = 4
 
 declare @sql nvarchar(4000), @s1 nvarchar(100), @s2 nvarchar(512);
 declare @id int, @name varchar(64), @rows int, @last int;
 declare @loc nvarchar(200)
+declare @tname sysname = 'ObjectFullOverlap'
 
-select  @s1 = N'BULK INSERT object_stage FROM ''',
+set nocount on
+
+--select  @s1 = N'BULK INSERT source_v FROM ''',
+select  @s1 = N'BULK INSERT ObjectFullOverlap_stage FROM ''',
                 @s2 = N''' WITH ('
-                        + '     DATAFILETYPE = ''char'','
-                        + '     CODEPAGE=''1251'','
+                 --       + '     DATAFILETYPE = ''char'','
+                 --       + '     CODEPAGE=''1251'','
+						+ ' FIRSTROW=2,  '  
                         + '     FIELDTERMINATOR = '';'','
-                        + ' ROWTERMINATOR = ''0x0a'','
+              --          + ' ROWTERMINATOR = ''0x0a'','
                         + ' TABLOCK );',        
                 @last = 0;
 
@@ -132,19 +177,41 @@ select  @s1 = N'BULK INSERT object_stage FROM ''',
 		declare @bulk_cur as cursor
 
 		set @bulk_cur = cursor fast_forward for 
-			select loc 
-			from PartObject 
+			select loc, chunkid 
+			from part_all
 			where partitionID = @counter
+			and tname = @tname
+			--and chunkid > 4169
 
+			/*
+			select * from part_all
+			where partitionID = 1
+			and tname='ForcedSource'
+			*/
 
 			open @bulk_cur
 
-			fetch next from @bulk_cur into @loc
+			fetch next from @bulk_cur into @loc, @id
 			while @@FETCH_STATUS = 0
 			begin
+				
+
+
 				set @sql = @s1 + @loc + @s2
 				print @sql
-				fetch next from @bulk_cur into @loc
+				exec sp_executesql @sql
+
+				set @rows = @@rowcount;
+				insert loadlog(fileId, tname, fname,[rows],ltime) values(@id,@tname, @loc, @rows, GETDATE());
+
+				/*
+				update source_stage3
+				set chunkid = @id
+				where chunkid = -999
+				*/
+
+
+				fetch next from @bulk_cur into @loc, @id
 			end
 			close @bulk_cur
 			deallocate @bulk_cur
@@ -187,3 +254,5 @@ begin
 end
 */
 select * from LoadLog
+order by loadid desc
+

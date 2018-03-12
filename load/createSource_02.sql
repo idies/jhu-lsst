@@ -1,10 +1,19 @@
-drop table source_01
+USE [LSST_02]
+GO
 
-CREATE TABLE [dbo].[Source_01](
+/****** Object:  Table [dbo].[Source_01]    Script Date: 3/1/2018 1:47:38 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Source_02](
 	[id] [bigint] NOT NULL,
 	[coord_ra] [real] NULL,
 	[coord_decl] [real] NULL,
 	[coord_htmId20] [bigint] NOT NULL,
+	htmID bigint not null,
 	[parent] [bigint] NULL,
 	[flags_badcentroid] [bit] NOT NULL,
 	[centroid_sdss_x] [real] NULL,
@@ -87,25 +96,19 @@ CREATE TABLE [dbo].[Source_01](
 	[exposure_time_mid] [real] NULL,
 	[cluster_id] [bigint] NULL,
 	[cluster_coord_ra] [real] NULL,
-	[cluster_coord_decl] [real] NULL, 
-	chunkID int null, 
-	subChunkID int null
-) ON [PRIMARY]
+	[cluster_coord_decl] [real] NULL,
+	[chunkID] [int] NULL,
+	[subChunkID] [int] NULL
+	)
+	go
+
+alter table source_02 
+add CONSTRAINT [pk_source_02_id] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (sort_in_tempdb = on, data_compression = page, PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) 
+ ON [SRC_02]
 
 GO
-alter table Source_01
-add constraint pk_source_01_id
-primary key clustered(id)
-with(sort_in_tempdb=on, data_compression=page)
-on SRC_01
-
-
-insert Source_01 with (tablockx)
-select * from lsst_stage.dbo.source_stage3 with (nolock)
---3h 14 m
---364192720 rows
-
-exec sp_spaceused Source_01
-
 
 
