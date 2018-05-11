@@ -28,8 +28,8 @@ SELECT o.deepSourceId , s. objectId , s.id , o.ra , o. decl
 */
 SELECT o.deepSourceId , s. objectId , s.id , o.ra , o. decl 
   FROM Object_1025 o, Source_1025 s
- WHERE o.deepSourceId=s. objectId  
-   AND s. flux_sinc BETWEEN 0.3 AND 0.31
+ WHERE o.deepSourceId=s.objectId  
+   AND s.flux_sinc BETWEEN 0.3 AND 0.31
 
 
 /*
