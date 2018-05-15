@@ -24,7 +24,7 @@ add constraint def_ss_999 default -999 for chunkID
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---counter = partition number to insert
-declare @counter integer = 3, @nPart integer = 4
+declare @counter integer = 4, @nPart integer = 4
 
 declare @sql nvarchar(4000), @s1 nvarchar(100), @s2 nvarchar(512);
 declare @id int, @name varchar(64), @rows int, @last int;
@@ -100,10 +100,10 @@ select * from LoadLog order by ltime desc
 create index ix_source on source_stage(id)
 on st_01
 
-USE [LSST_03]
+USE [LSST_04]
 GO
 
-INSERT INTO [dbo].[Source_03] with (tablockx)
+INSERT INTO [dbo].[Source_04] with (tablockx)
            ([id]
            ,[coord_ra]
            ,[coord_decl]

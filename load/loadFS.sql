@@ -1,49 +1,26 @@
-use lsst_stage
+drop table if exists ForcedSource_stage
 go
 
 
 
----counter = partition number to insert
-declare @counter integer, @nPart integer = 4
+select * into ForcedSource_stage on st_01
+from ForcedSource_template
+where (0=1)
 
-declare @sql nvarchar(max), @s1 nvarchar(100), @s2 nvarchar(512);
+
+declare @counter integer = 3, @nPart integer = 4
+
+declare @sql nvarchar(4000), @s1 nvarchar(100), @s2 nvarchar(512);
 declare @id int, @name varchar(64), @rows int, @last int;
 declare @loc nvarchar(200)
-declare @tname sysname
-declare @stagetab sysname 
-declare @fgname sysname
-declare @temptab sysname
+declare @tname sysname = 'ForcedSource'
+declare @stagetab sysname = 'ForcedSource_stage'
 
 declare @doExecute bit = 0
 
----------------------------------------------------
---  SET THIS STUFF
---
-set @tname = 'Object'   --tablename to load
-set @counter = 3		--slice to load
-set @fgname = '[ST_01]' --staging filegroup
------------------------------------------------------
-
 set nocount on
 
-set @doExecute = 1
-
-
---1. create object_stage on staging fg with template
-select @stagetab = concat(@tname, '_stage')
-select @temptab = concat(@tname, '_template')
-
---select @stagetab
---select @temptab
-
-select @sql = concat('drop table if exists ', @stagetab, ';select * into ', @stagetab , ' on ', @fgname, ' from ', @temptab, ' where (0=1)')
-print @sql
-if (@doExecute = 1)
-	 exec sp_executesql @sql
-
---2. generate bulk insert statements
-
-
+-------------------------
 --
 -- to actually insert the data set @doExecute=1
 --
@@ -97,8 +74,18 @@ select  @s1 = N'BULK INSERT ' + @stagetab +' FROM ''',
 	 --set @counter = @counter+1
 	end
 
+select * from LoadLog 
+order by ltime desc
 
-	select * from LoadLog
+
+create index ix_fs_stage
+on ForcedSource_stage(deepsourceid)
+on ST_01
 
 
+-------------------------------
+-- insert intoForcedSource
+
+insert LSST_03.dbo.ForcedSource_03 with (tablockx)
+select * from lsst_stage.dbo.ForcedSource_stage with (nolock)
 
