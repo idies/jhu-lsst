@@ -7,7 +7,7 @@ GO
 create schema lsst
 go
 
-create view lsst.[Object] as select * from LSST.DBO.[Object]
+create view lsst.[Source] as select * from LSST.DBO.[Source]
 GO
 
 
