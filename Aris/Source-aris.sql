@@ -95,7 +95,7 @@ CREATE EXTERNAL TABLE [lsst].[Source](
 	[subChunkID] [int] NULL)
 	WITH  
 (  
- DATA_SOURCE = [mssql-compute-pool], 
+ DATA_SOURCE = [mssql-data-pool], 
  SCHEMA_NAME = 'lsst',      -- Question for Travis: can DB_NAME oslt be specified?
  OBJECT_NAME = 'Source',  
  DISTRIBUTION=ROUND_ROBIN  -- Q: what does this mean?

@@ -1,4 +1,4 @@
-
+select * from sys.servers
 
 
 
