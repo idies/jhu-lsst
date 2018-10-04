@@ -1,0 +1,104 @@
+mysqldump_to_csv.py
+
+Takes a mysql dump file as input and converts it to csv.
+It can handle dumps of entire databases and creates 1 folder 
+per database with 1 csv file per table
+
+get the dump with:
+mysqldump -p --all-databases >> something.sql
+
+run the script with:
+sudo python mysqldump_to_csv.py something.sql 
+
+
+tabledump_to_csv.py
+
+Uses python multiprocessing to convert one table dump to csv 
+relatively quickly. Can specify the number of processors to be used
+to convert .sql to .csv by going to the begining of the script
+and changing the numprocessors int
+
+find the number of processors on the machine with:
+nproc
+
+dump on table with:
+mysqldump -p database_name table_name > something.sql
+
+run the script with:
+sudo python tabledump_to_csv.py something.sql 
+
+
+sqlines
+
+Script from online that can convert mysql to sql files (kinda)
+Runs in c++ and wont run on the filedb machines that don't have c++ installed.
+I used it to convert the dumped schema files for tables on my own laptop
+then ran the converted query on sql server.
+
+run with:
+./sqlines -s=mysql -t=sql -in=something.sql
+
+It does useful things like converting '' to [] however bits in mysql are
+converted into binary(1) in tsql which can be solved with a find and replace
+
+
+mydumper_to_csv.py
+
+mydumper is a mysqldump program that can be installed from online that
+uses multiple processors to dump mysql which is supposedly faster.
+This script converts the output from mydumper to csv. Which appears as
+Database.Table.sql and Database.Table-schema.sql 
+mydumper was installed on filedb01 but I think mysql got stopped on it 
+
+
+Using mydumper (number of threads should be number of processors):
+mydumper -p password -B databasename -T tablename -o directoryname -t numberofthreads
+
+mydumper outputs a folder with export-"something"
+
+run script with:
+sudo python mydumper_to_csv.py databasename.tablename(from mydumper output)
+the script should grab both schema and datafiles to build one csv
+
+
+
+
+The bottom two scripts have working versions on filedb13 under
+C:/data/sql_db/output/Fan
+
+
+bulkinsert.sql
+
+script for bulk inserting csv into sql server. Table needs to already
+exist in database. First row needs to be changed to 2 when csv has a header row. 
+To get the file path need to use docker
+
+To list out all docker containers:
+sudo docker ps 
+
+To get terminal for one particular container:
+sudo docker exec -it containerID /bin/bash
+
+Then need to look around the container to find the corresponding folder in docker
+
+
+createquery.sql
+
+modified sql code to fix some line break stuff and linux issues.
+Run on mysql server to get a table with a single value containing a query.
+The new query can be used to generate csv from mysql server.
+
+WILL NOT work with mysql -p < createquery.sql because of how it handles line breaks.
+
+To run in command line need to use:
+mysql -p -A 
+use databasename
+source createquery.sql
+
+
+
+
+
+
+
+
