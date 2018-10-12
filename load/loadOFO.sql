@@ -1,6 +1,6 @@
-select * into objectfulloverlap_stage on st_01
-from objectfulloverlap_template
-where (0=1)
+--select * into objectfulloverlap_stage on st_01
+--from objectfulloverlap_template
+--where (0=1)
 
 
 declare @counter integer = 2, @nPart integer = 4

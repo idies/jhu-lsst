@@ -1,9 +1,7 @@
 use vdc1;
 
 set @dbname = 'vdc1';
-set @tablename = 'ObjectFullOverlap_10030';
--- set @tablename = 'Object_6948';
-set @dbcount = 1;
+
 
 -- select substring_index(substring_index(@dbname, '_', -2), '_', 1);
 
@@ -25,18 +23,17 @@ where table_schema LIKE '%_mysql';
 set group_concat_max_len = 15000;
 
 
--- H:\GitHub\qserv_testdata\datasets\case01\mssql-fixed-data
--- set @casenum = substring_index(substring_index(@dbname, '_', -2), '_', 1);
--- set @filename = concat('~/GitHub/qserv_testdata/datasets/', @casenum, '/mssql-fixed-data/', @tablename, '.dat');
-
 -- set @filename = '/srv/data01/test/bigfanblah999.csv';
-set @tablename = 'Source_10030';
-set @filename = '/home/swerner/_out/testSource1.csv';
+set @tablename = 'Source_10126';
+set @filename = concat('/srv/data02/sql_db/sue/', @tablename, '.csv');
+set @chunkID = substring_index(@tablename, '_', -1);
 
 
 
-select concat(
-'select ', (
+set @sql =
+select 
+concat(
+'select ', substring_index(table_name, '_', -1), ',', (
 		select group_concat(case 
 		when data_type like '%binary%' then concat('coalesce(hex(', column_name, '),\'\')')
 		when data_type like 'bit' then concat('cast(', column_name ,' as int)')
@@ -44,8 +41,12 @@ select concat(
 		end
 	order by ordinal_position)
 	from information_schema.columns
-where table_schema = @dbname and table_name = @tablename
+where table_schema = @dbname and table_name like 'Source_%'
 order by group_concat(ordinal_position)
 ) ,
-' into outfile ' , quote(@filename), ' fields terminated by \',\' ESCAPED BY \'\"\' LINES TERMINATED BY \'\\r\\n\' from ', @dbname, '.', @tablename,' limit 10') as "output"; 
+' into outfile ' , quote(@filename), ' fields terminated by \',\' ESCAPED BY \'\"\' LINES TERMINATED BY \'\\r\\n\' from ', @dbname, '.', @tablename,';') 
+as "output"
+; 
+
+select @sql into outfile '/srv/data02/sql_db/sue/cmd.sql'
 
