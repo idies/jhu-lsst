@@ -1,3 +1,10 @@
+--======================
+-- mssql create table scripts for lsst tables
+-- converted from mysql to mssql
+-- added chunkid to Source table (doesn't exist in lsst's schema)
+-- suz werner 10/2018
+
+
 
 drop table if exists ForcedSource;
 
@@ -519,6 +526,7 @@ drop table if exists [Source];
 
 CREATE TABLE [Source] (
 	[id] BIGINT NOT NULL,
+	[chunkid] int not null, --added this as per gerard's suggestion
 	[coord_ra] FLOAT NULL DEFAULT NULL,
 	[coord_decl] FLOAT NULL DEFAULT NULL,
 	[coord_htmId20] BIGINT NULL DEFAULT NULL,

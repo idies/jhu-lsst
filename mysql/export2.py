@@ -36,12 +36,14 @@ def getTablenamesFromDB(baseTable, cnx):
     and table_rows > 0
     order by table_name""".format(basetab=baseTable + '_%')
 
+    print(sql)
+
+    cursor.execute(sql)
+
     result_tables = cursor.fetchall()
     return result_tables
 
-def getChunkIDsFromDB(cnx):
-    cursor = cnx.cursor()
-    
+
 
 
 
@@ -74,6 +76,26 @@ def generateFileInfo(chunkid, baseTable, csvpath):
     filename = os.path.join(csvpath,tablename + '.csv')
     return (tablename, filename)
 
+def getChunkIDFromTablename(tablename):
+    parts = tablename.split('_')
+    chunkid = parts[-1]
+    return chunkid
+
+def getTableNameFromChunkID(basetable, chunkid):
+    tablename = baseTable + '_' + str(chunkid)
+    return tablename
+
+def getFileNamefromTablename(tablename, csvpath):
+    filename = os.path.join(csvpath,tablename + '.csv')
+    return filename
+
+
+
+
+
+
+
+
 
 def main():
 
@@ -92,32 +114,39 @@ def main():
 
     cnx = dbconnect()
     #filename = os.path.join(csvpath,tablename + '.csv')
-
+    
+    # get list of tablenames from DB
+    result_tables = getTablenamesFromDB(basetable, cnx)
+    
     from datetime import datetime
     print(basetable + ' export starting at ' + str(datetime.now()))
     tic = time()
     exported = 0
     skipped = 0
-    with open(chunksfile) as f:
-        for cnt, line in enumerate(f):
-            #print("chunk {}: {}".format(cnt, line))
-            chunkid = line.strip()
-
-            (tablename, filename) = generateFileInfo(chunkid, basetable, csvpath)
-            #print(tablename)
-            #print(filename)
-            exists = os.path.isfile(filename)
-            
-            # for now, skip file if it already exists.
-            # TODO: add as option
-            if exists:
-                print(filename + ' already exists')
-                skipped = skipped + 1
-            else:
-                sql = generateObjectSql(chunkid, tablename, filename)
-                #print(sql)
-                executesql(cnx, sql, tablename)
-                exported = exported + 1
+    
+    for cnt, row in enumerate(result_tables):
+        #print("chunk {}: {}".format(cnt, line))
+        tablename = str(row[0]).strip()
+        chunkid = getChunkIDFromTablename(tablename)
+        filename = getFileNamefromTablename(tablename, csvpath)
+        
+        #print(tablename)
+        print(filename)
+        #print(chunkid)
+        """
+        exists = os.path.isfile(filename)
+        
+        # for now, skip file if it already exists.
+        # TODO: add as option
+        if exists:
+            print(filename + ' already exists')
+            skipped = skipped + 1
+        else:
+            sql = generateObjectSql(chunkid, tablename, filename)
+            #print(sql)
+            executesql(cnx, sql, tablename)
+            exported = exported + 1
+            """
     toc = time()
     xtime = toc - tic
     print(basetable +' export finished at ' + str(datetime.now()))
@@ -126,14 +155,7 @@ def main():
     print('total time = ' + str(xtime) )
 
 
-    
-
-
-
-    
-
-    
-    
+ 
 
 if __name__ == "__main__":
     main()
