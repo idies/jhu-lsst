@@ -264,7 +264,7 @@ CREATE TABLE Object (
 	[y_flagBadInstFlux] BIT NULL DEFAULT NULL,
 	[y_flagBadCentroid] BIT NULL DEFAULT NULL,
 	[y_flagBadShape] BIT NULL DEFAULT NULL,
-	PRIMARY KEY ([deepSourceId])
+	--PRIMARY KEY ([deepSourceId])
 )
 ;
 
