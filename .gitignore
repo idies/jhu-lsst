@@ -15,3 +15,9 @@ var/
 .installed.cfg
 *.egg
 /sueAris.code-workspace
+mysql/.vscode/settings.json
+py/mysql2mssql/__pycache__/export.cpython-37.pyc
+py/mysql2mssql/.vscode/launch.json
+py/mysql2mssql/env
+py/mysql2mssql/env3
+
