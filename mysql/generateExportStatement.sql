@@ -24,7 +24,7 @@ set group_concat_max_len = 15000;
 
 
 -- set @filename = '/srv/data01/test/bigfanblah999.csv';
-set @tablename = 'Source_10126';
+set @tablename = 'Object_10126';
 set @filename = concat('/srv/data02/sql_db/sue/', @tablename, '.csv');
 set @chunkID = substring_index(@tablename, '_', -1);
 
@@ -44,9 +44,34 @@ concat(
 where table_schema = @dbname and table_name like 'Source_%'
 order by group_concat(ordinal_position)
 ) ,
-' into outfile ' , quote(@filename), ' fields terminated by \',\' ESCAPED BY \'\"\' LINES TERMINATED BY \'\\r\\n\' from ', @dbname, '.', @tablename,';') 
+' into outfile ' , quote(@filename), ' fields terminated by \',\' ESCAPED BY \'\"\' LINES TERMINATED BY \'\\r\\n\' from ', @dbname, '.', @tablename,';')
 as "output"
 ; 
 
+
+
 select @sql into outfile '/srv/data02/sql_db/sue/cmd.sql'
+
+
+set @dbname = 'vdc1';
+set @tablename = 'ForcedSource_10126';
+set @filename = concat('/srv/data02/sql_db/sue/', @tablename, '.csv');
+set @chunkID = substring_index(@tablename, '_', -1);
+-- set @sql =
+select 
+concat(
+'select ', (
+		select group_concat(case 
+		when data_type like '%binary%' then concat('coalesce(hex(', column_name, '),\'\')')
+		when data_type like 'bit' then concat('cast(', column_name ,' as int)')
+		else concat('coalesce(',column_name,',\'\')')
+		end
+	order by ordinal_position)
+	from information_schema.columns
+where table_schema = @dbname and table_name like @tablename
+order by group_concat(ordinal_position)
+) ,
+' into outfile ' , quote(@filename), ' fields terminated by \',\' ESCAPED BY \'\"\' LINES TERMINATED BY \'\\r\\n\' from ', @dbname, '.', @tablename,';') 
+as "output"
+; 
 
