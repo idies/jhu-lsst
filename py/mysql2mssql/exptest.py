@@ -1,7 +1,8 @@
 from __future__ import print_function
-import export
+from export import *
 from time import time
 import argparse
+import os
 
 
 
@@ -41,7 +42,7 @@ def main():
         #print(tablename)
         print(filename)
         #print(chunkid)
-        """
+        
         exists = os.path.isfile(filename)
         
         # for now, skip file if it already exists.
@@ -54,7 +55,7 @@ def main():
             #print(sql)
             executesql(cnx, sql, tablename)
             exported = exported + 1
-            """
+            
     toc = time()
     xtime = toc - tic
     print(basetable +' export finished at ' + str(datetime.now()))
