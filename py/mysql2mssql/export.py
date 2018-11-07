@@ -1,4 +1,3 @@
-from __future__ import print_function
 import os
 import mysql.connector
 from time import time
@@ -129,7 +128,7 @@ def generateRawObjectSql(tablename, limit=0):
 
     return object_sql
 
-def generateRawSql(tablename, exposure_id=0, limit):
+def generateRawSql(tablename, exposure_id, limit):
     if tablename.startswith('Object', 6):
         return generateRawObjectSql(tablename=tablename, limit=limit)
     
@@ -183,9 +182,4 @@ def getFileNamefromTablename(tablename, csvpath):
 
 
 
-
-"""
-if __name__ == "__main__":
-    main()
-"""
     

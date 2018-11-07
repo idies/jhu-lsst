@@ -1,4 +1,3 @@
-import export as exp
 import pandas as pd
 from azure.storage.blob import (
     BlockBlobService
@@ -16,5 +15,13 @@ def az_connect():
     return blobService
 
 
+def listBlobs(container_name, blobService):
+
+    generator = blobService.list_blobs(container_name)
+    for blob in generator:
+        print("\t Blob Name: " + blob.name)
+
+
+       
 
 
