@@ -6,6 +6,14 @@ import os
 
 
 
+
+
+        
+
+
+
+
+
 def main():
 
     parser = argparse.ArgumentParser(description='Export LSST mysql tables to CSV for sql server ingest')
@@ -15,7 +23,7 @@ def main():
     basetable = results.basetable
 
     # basetable = 'Object'
-    csvpath = '/srv/data02/sql_db/sue/csv/'
+    csvpath = '/srv/data02/sql_db/sue/tests/'
 
 
     chunksfile = os.path.join(csvpath, 'chunks.txt')

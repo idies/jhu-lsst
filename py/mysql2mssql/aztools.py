@@ -22,6 +22,10 @@ def listBlobs(container_name, blobService):
         print("\t Blob Name: " + blob.name)
 
 
-       
+       """
+       azcopy --source /srv/data02/sql_db/sue/chunks --destination https://lsstcsv.blob.core.windows.net/chunks --dest-key kJk741bN3dzPggR8Ac7zgDhVhiLXD//Vu79bCAupUwmp8kSTFS8FUPL7+qqkXznxetGXxOvZkC2Vlrk5J2+VQg== --recursive
+"""
+
+
 
 
