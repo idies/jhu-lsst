@@ -6,9 +6,13 @@ from multiprocessing.dummy import Pool as ThreadPool
 import datetime
 
 class Export:
-    def __init__(self):
-        self.csvpath = '/srv/data02/sql_db/sue/chunks/'
-        self.object_tables = exp.getTablenamesFromDB('Object', exp.dbconnect())
+    def __init__(self, database, debug=False):
+        self.user = 'lsst'
+        self.password = 'lsst2018'
+        self.host = '127.0.0.1'
+        self.database = database
+        self.csvpath = '/srv/data02/sql_db/sue/tests/vde1'
+        self.object_tables = exp.getTablenamesFromDB('Object', exp.dbconnect(user=self.user, password=self.password, host=self.host, database=self.database))
         self.chunk_ids = []
         self.skipped = []
         self.export_log = []
@@ -17,11 +21,14 @@ class Export:
             table = row[0]
             chunkid = exp.getChunkIDFromTablename(table)
             self.chunk_ids.append(chunkid)
+        
+        if debug == True:
+            self.chunk_ids = self.chunk_ids[:10]
 
     
     def export_chunk(self, chunkid):
         print ('starting {chunkid}'.format(chunkid = chunkid))
-        cnx = exp.dbconnect()
+        cnx =  exp.dbconnect(user=self.user, password=self.password, host=self.host, database=self.database)
         stime = datetime.datetime.now()
         chunkdir = os.path.join(self.csvpath, chunkid)
         # check if dir exists
@@ -42,7 +49,7 @@ class Export:
 
         # check if object file exists
         if (os.path.isfile(objfile)) == False:
-            sql = exp.generateObjectSql(chunkid, objtable, objfile)
+            sql = exp.generateObjectSql(chunkid=chunkid, tablename=objtable, dbname=self.database, filename=objfile)
 
             #write object csv file to directory
             otime = exp.executesql(cnx, sql)
@@ -64,7 +71,7 @@ class Export:
 
 def main():
     #log = do_export()
-    my_export = Export()
+    my_export = Export(database='vde1', debug=True)
     print('Starting multithreaded' + str(my_export.startime))
     pool = ThreadPool(4)
     results = pool.map(my_export.export_chunk,my_export.chunk_ids)
