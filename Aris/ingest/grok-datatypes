@@ -1,0 +1,41 @@
+#! /usr/bin/perl
+
+$sqlschemafile = $ARGV[0];
+$pysparkschemafile = $ARGV[1];
+
+open(pysparkschemafile,$pysparkschemafile) || die "can't open $pysparkschemafile: $!\n";
+
+while(<pysparkschemafile>) {
+    if(/StructField/i) {
+        s/^\s*StructField\(//;
+        @fields = split(/,/);
+        $fieldname = $fields[0];
+        $fieldname =~ s/"//g;
+        $pysparktypes{$fieldname} = $fields[1];
+#        print "$fieldname $pysparktypes{$fieldname}\n";
+    }
+}
+close(pysparkschemafile);
+
+open(sqlschemafile,$sqlschemafile) || die "can't open $sqlschemafile: $!\n";
+
+while(<sqlschemafile>) {
+    if(!(/^\s*--/) && !(/^\s*\#/)) {
+        s/^\s*//;
+        chomp;
+        @fields = split(/\s+/);
+        $fieldname = $fields[0];
+        $fieldname =~ s/\[|\]//g;
+        $sqltypes{$fieldname} = $fields[1];
+#        print "$fieldname $sqltypes{$fieldname}\n";
+    } 
+}
+close(sqlschemafile);
+
+foreach $field (keys(%sqltypes)) {
+    $mappings{"$sqltypes{$field} $pysparktypes{$field}"}++;
+}
+
+foreach $mapping (keys(%mappings)) {
+    print "$mapping $mappings{$mapping}\n";
+}

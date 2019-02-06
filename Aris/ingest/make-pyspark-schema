@@ -1,0 +1,43 @@
+#! /usr/bin/perl
+
+$sqlschemafile = $ARGV[0];
+
+$mappings{"FLOAT"} = "DoubleType()";
+$mappings{"BIT"} = "IntegerType()";
+$mappings{"INT"} = "IntegerType()";
+$mappings{"BIGINT"} = "LongType()";
+
+open(sqlschemafile,$sqlschemafile) || die "can't open $sqlschemafile: $!\n";
+
+while(<sqlschemafile>) {
+    if(!(/^\s*--/) && !(/^\s*\#/)) {
+        s/^\s*//;
+        chomp;
+        @fields = split(/\s+/);
+        $fieldname = $fields[0];
+        $fieldname =~ s/\[|\]//g;
+        $sqltypes{$fieldname} = uc($fields[1]);
+        push(@sqlfields, $fieldname); # need to preserve ordering
+#        print "$fieldname $sqltypes{$fieldname}\n";
+    } 
+}
+close(sqlschemafile);
+
+#foreach $field (keys(%sqltypes)) {
+foreach $field (@sqlfields) {
+    # static "True" arg based on Meet's apparent unconditional use of True; doesn't seem based on NULL/NOT NULL on sql side
+    print qq(      StructField\("$field", $mappings{$sqltypes{$field}}, True\),\n);
+}
+
+# FLOAT DoubleType() 55
+# BIT IntegerType() 25
+# INT LongType() 1
+# BIGINT LongType() 6
+
+# oops! with our tweaks to INTs
+
+# FLOAT DoubleType() 55
+# INT IntegerType() 1
+# int IntegerType() 1
+# BIT IntegerType() 25
+# BIGINT LongType() 6
