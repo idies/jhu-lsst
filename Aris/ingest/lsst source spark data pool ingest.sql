@@ -219,3 +219,5 @@ GO
 --select avg(coord_ra) from sourceint
 --select count(distinct id) from sourceint
 --select distinct flags_badcentroid from source
+
+--create STATISTICS foo on sourceint (id, chunkid) with fullscan

@@ -250,10 +250,12 @@ GO
 --CREATE INDEX [subChunkId] ON Object ([subChunkId]);
 
 select count(*) from [Object]
-select top 1000 * from Object
+select top 800 * from Object
 --select top 10 * from [Object] order by ra desc
 --select count(chunkID) from [Object]
 --select avg(ra) from [Object]
 --select count(distinct deepSourceId) from [Object]
 --select distinct chunkID from [Object]
 --truncate table Object
+
+--create STATISTICS foo on OBJECT (deepSourceId, chunkId) with fullscan
