@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql-node0
+  namespace: default
+spec:
+  ports:
+  - nodePort: 32001
+    port: 1433
+    protocol: TCP
+  selector:
+    app: mssql-compute-pool-node
+    component: mssql-compute-pool-node
+    statefulset.kubernetes.io/pod-name: mssql-compute-pool-node-0
+  type: NodePort
+kind: Service
+metadata:
+  name: mssql-node1
+  namespace: default
+spec:
+  ports:
+  - nodePort: 32002
+    port: 1433
+    protocol: TCP
+  selector:
+    app: mssql-compute-pool-node
+    component: mssql-compute-pool-node
+    statefulset.kubernetes.io/pod-name: mssql-compute-pool-node-1
+  type: NodePort
+kind: Service
+metadata:
+  name: mssql-node2
+  namespace: default
+spec:
+  ports:
+  - nodePort: 32003
+    port: 1433
+    protocol: TCP
+  selector:
+    app: mssql-compute-pool-node
+    component: mssql-compute-pool-node
+    statefulset.kubernetes.io/pod-name: mssql-compute-pool-node-2
+  type: NodePort
+kind: Service
+metadata:
+  name: mssql-node3
+  namespace: default
+spec:
+  ports:
+  - nodePort: 32004
+    port: 1433
+    protocol: TCP
+  selector:
+    app: mssql-compute-pool-node
+    component: mssql-compute-pool-node
+    statefulset.kubernetes.io/pod-name: mssql-compute-pool-node-3
+  type: NodePort

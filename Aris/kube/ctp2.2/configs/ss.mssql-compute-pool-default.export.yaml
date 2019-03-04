@@ -1,0 +1,167 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedbtest
+  name: mssql-compute-pool-default
+  selfLink: /apis/apps/v1/namespaces/filedbtest/statefulsets/mssql-compute-pool-default
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: mssql-compute-pool-default
+  serviceName: service-compute-pool-default
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedbtest
+        app: mssql-compute-pool-default
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - mssql-compute-pool-default
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: mssql-compute-pool
+        - name: MSSQL_CONTAINER_TYPE
+          value: mssql-server
+        - name: ACCEPT_EULA
+          value: "Y"
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:latest
+        imagePullPolicy: Always
+        name: mssql-server
+        ports:
+        - containerPort: 1433
+          name: port-1433
+          protocol: TCP
+        - containerPort: 8301
+          name: agent-port-8301
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /var/run/container.ready
+          failureThreshold: 210
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: secrets
+          readOnly: true
+        - mountPath: /var/opt
+          name: compute-pool-storage
+      - env:
+        - name: MONITORING_HOSTNAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: INFLUX_DB_SERVER
+          value: service-monitor-influxdb
+        - name: INFLUX_DB_PORT
+          value: "25826"
+        - name: SQL_HOSTNAME
+          value: 127.0.0.1
+        - name: SQL_POLL_INTERVAL
+          value: "5"
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-collectd:latest
+        imagePullPolicy: Always
+        name: mssql-monitor-collectd
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: secrets
+          readOnly: true
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: service-monitor-elasticsearch
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-compute-pool-default.conf
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:latest
+        imagePullPolicy: Always
+        name: mssql-monitor-fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt
+          name: compute-pool-storage
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: secrets
+        secret:
+          defaultMode: 420
+          secretName: mssql-compute-pool-default-secret
+      - emptyDir: {}
+        name: compute-pool-storage
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+status:
+  replicas: 0

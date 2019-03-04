@@ -1,0 +1,488 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      control-plane.alpha.kubernetes.io/leader: '{"holderIdentity":"e770d8ba-38ea-11e8-a4eb-0242ac182702","leaseDurationSeconds":15,"acquireTime":"2018-04-05T16:19:27Z","renewTime":"2018-04-05T16:19:29Z","leaderTransitions":0}'
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{"volume.beta.kubernetes.io/storage-class":"managed-premium"},"name":"sqlpvclaim","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Mi"}}}}
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-class: managed-premium
+      volume.beta.kubernetes.io/storage-provisioner: fuseim.pri/ifs
+    creationTimestamp: "2018-04-05T16:19:27Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    name: sqlpvclaim
+    namespace: default
+    resourceVersion: "37926726"
+    selfLink: /api/v1/namespaces/default/persistentvolumeclaims/sqlpvclaim
+    uid: 1ccf243e-38ed-11e8-838e-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 1Mi
+    volumeMode: Filesystem
+    volumeName: pvc-1ccf243e-38ed-11e8-838e-0cc47ad46d50
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Mi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:46:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data1-mssql-data-pool-node-0
+    namespace: filedb
+    resourceVersion: "37926697"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data1-mssql-data-pool-node-0
+    uid: c3c81771-90fb-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-4903b508
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:48:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data1-mssql-data-pool-node-1
+    namespace: filedb
+    resourceVersion: "37926721"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data1-mssql-data-pool-node-1
+    uid: 0e4ee015-90fc-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-a41e3121
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data1-mssql-data-pool-node-2
+    namespace: filedb
+    resourceVersion: "37926727"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data1-mssql-data-pool-node-2
+    uid: 170111c3-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-e7eba29e
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:52Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data1-mssql-data-pool-node-3
+    namespace: filedb
+    resourceVersion: "37926704"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data1-mssql-data-pool-node-3
+    uid: 17bf4cb4-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-174f1e2a
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:46:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data2-mssql-data-pool-node-0
+    namespace: filedb
+    resourceVersion: "37926723"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data2-mssql-data-pool-node-0
+    uid: c3c86a44-90fb-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-f5ff3b8e
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:48:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data2-mssql-data-pool-node-1
+    namespace: filedb
+    resourceVersion: "37926700"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data2-mssql-data-pool-node-1
+    uid: 0e4f3f0e-90fc-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-893c07e8
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data2-mssql-data-pool-node-2
+    namespace: filedb
+    resourceVersion: "37926707"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data2-mssql-data-pool-node-2
+    uid: 17001918-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-8961a58c
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:52Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data2-mssql-data-pool-node-3
+    namespace: filedb
+    resourceVersion: "37926724"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data2-mssql-data-pool-node-3
+    uid: 17bf9b6b-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-51b56da9
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:46:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data3-mssql-data-pool-node-0
+    namespace: filedb
+    resourceVersion: "37926713"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data3-mssql-data-pool-node-0
+    uid: c3c8af22-90fb-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-24566b13
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T17:48:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data3-mssql-data-pool-node-1
+    namespace: filedb
+    resourceVersion: "37926695"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data3-mssql-data-pool-node-1
+    uid: 0e4e3ae9-90fc-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-9fe86233
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data3-mssql-data-pool-node-2
+    namespace: filedb
+    resourceVersion: "37926701"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data3-mssql-data-pool-node-2
+    uid: 1700ae9b-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-c12b03ef
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T18:09:52Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-node
+    name: pvc-data3-mssql-data-pool-node-3
+    namespace: filedb
+    resourceVersion: "37926725"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-data3-mssql-data-pool-node-3
+    uid: 17c000e2-90ff-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 5000Gi
+    storageClassName: local-storage
+    volumeMode: Filesystem
+    volumeName: local-pv-740f1d60
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T20:58:50Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-master
+    name: pvc-nvme1-mssql-data-pool-master-0
+    namespace: filedb
+    resourceVersion: "37926719"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-nvme1-mssql-data-pool-master-0
+    uid: b297a841-9116-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 800Gi
+    storageClassName: local-storage-nvme
+    volumeMode: Filesystem
+    volumeName: local-pv-cf98ab10
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1117Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2018-07-26T20:44:59Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: mssql-data-pool-master
+    name: pvc-nvme2-mssql-data-pool-master-0
+    namespace: filedb
+    resourceVersion: "37926696"
+    selfLink: /api/v1/namespaces/filedb/persistentvolumeclaims/pvc-nvme2-mssql-data-pool-master-0
+    uid: c324b174-9114-11e8-b784-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    dataSource: null
+    resources:
+      requests:
+        storage: 800Gi
+    storageClassName: local-storage-nvme
+    volumeMode: Filesystem
+    volumeName: local-pv-100483bd
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1117Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
