@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedbtest
+  name: mssql-monitor-influxdb
+  selfLink: /apis/apps/v1/namespaces/filedbtest/statefulsets/mssql-monitor-influxdb
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: mssql-monitor-influxdb
+      task: mssql-monitor
+  serviceName: service-monitor-influxdb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedbtest
+        app: mssql-monitor-influxdb
+        task: mssql-monitor
+    spec:
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: mssql-monitor-influxdb
+        - name: MSSQL_CONTAINER_TYPE
+          value: influxdb
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-influxdb:latest
+        imagePullPolicy: Always
+        name: mssql-monitor-influxdb
+        ports:
+        - containerPort: 25826
+          name: influxdb-25826
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt/influxdb
+          name: influxdb-storage
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: influxdb-storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 6Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0

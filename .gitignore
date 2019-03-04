@@ -37,3 +37,10 @@ _suetest/__suetest.txt
 [._]s[a-rt-v][a-z]
 [._]ss[a-gi-z]
 [._]sw[a-p]
+
+# jvv, excluding sensitive files
+envvars.filedb
+spark-ingest-lsst-object-parquet
+spark-ingest-lsst-source-parquet
+# hope "*.key" isn't too broad; meant for certificate keys like Aris/kube/pki.filedbcluster/ca.key
+*.key

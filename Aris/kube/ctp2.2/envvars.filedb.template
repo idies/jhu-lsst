@@ -1,0 +1,43 @@
+setenv CLUSTER_NAME filedb
+setenv CLUSTER_PLATFORM kubernetes
+#setenv CLUSTER_NODE_REPLICAS 4 # no longer in ctp2.2 - now CLUSTER_DATA_POOL_REPLICAS or CLUSTER_STORAGE_POOL_REPLICAS?
+setenv CONTROLLER_USERNAME filedb_controller_admin
+setenv CONTROLLER_PASSWORD 'REDACTED'
+setenv DOCKER_REGISTRY private-repo.microsoft.com
+setenv DOCKER_REPOSITORY mssql-private-preview
+setenv DOCKER_USERNAME jvv@jhu.edu
+setenv DOCKER_PASSWORD REDACTED
+setenv DOCKER_EMAIL jvv@jhu.edu
+setenv DOCKER_PRIVATE_REGISTRY "1"
+#setenv DOCKER_IMAGE_TAG ctp-1.3 # ctp2.2 defaults to 'latest'
+#setenv HADOOP_IMAGE mssql-hadoop # (Default) or mssql-hadoop-dbr (Databricks), no longer in ctp2.2
+setenv MSSQL_SA_PASSWORD 'REDACTED'
+#setenv MSSQL_SECURITY_SA_PASSWORD 'REDACTED' # no longer in ctp2.2
+#setenv MSSQL_IMPORT_PASSWORD 'REDACTED' # no longer in ctp2.2
+#setenv MSSQL_EXTERNAL_PASSWORD 'REDACTED' # no longer in ctp2.2
+
+#setenv KUBECONFIG /var/lib/kubelet/kubeconf # no longer in ctp2.2
+
+setenv ACCEPT_EULA "yes"
+
+setenv MASTER_SQL_PORT 31433
+setenv KNOX_PORT 30443
+#setenv RANGER_PORT 30680 # not used in ctp2.2?
+
+# new for ctp2.2: (leaving non-required commented out with default settings)
+#setenv CLUSTER_COMPUTE_POOL_REPLICAS "1"
+setenv CLUSTER_DATA_POOL_REPLICAS "4"
+setenv CLUSTER_STORAGE_POOL_REPLICAS "4"
+#setenv DOCKER_IMAGE_POLICY "Always"
+setenv KNOX_PASSWORD "REDACTED"
+setenv USE_PERSISTENT_VOLUME "true"
+setenv STORAGE_CLASS_NAME "managed-premium"
+#setenv GRAFANA_PORT "30888"
+
+#setenv DATA_POOL_USE_PERSISTENT_VOLUME "true"
+#setenv DATA_POOL_STORAGE_CLASS_NAME "local-storage"
+#setenv DATA_POOL_STORAGE_SIZE "5000Gi"
+
+#setenv STORAGE_POOL_USE_PERSISTENT_VOLUME "true"
+#setenv STORAGE_POOL_STORAGE_CLASS_NAME "local-storage"
+#setenv STORAGE_POOL_STORAGE_SIZE "5000Gi"
