@@ -6,6 +6,7 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: mssql-data-pool-default
+  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-data-pool-default
 spec:
   podManagementPolicy: Parallel
@@ -13,7 +14,6 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      MSSQL_CLUSTER: filedb
       app: mssql-data-pool-default
   serviceName: service-data-pool-default
   template:
@@ -80,8 +80,17 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
+#        - mountPath: /var/opt
+#          name: data-pool-storage
         - mountPath: /var/opt
-          name: storage
+          name: pvc-data2
+          subPath: Aris/mssql-data-pool-default/var/opt
+#        - mountPath: /srv/data2
+#          name: pvc-data2
+        - mountPath: /sciserver
+          name: autofs-sciserver
+        - mountPath: /srv
+          name: srv
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -106,8 +115,6 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
-        - mountPath: /var/opt
-          name: storage
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -146,8 +153,11 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
+#        - mountPath: /var/opt
+#          name: data-pool-storage
         - mountPath: /var/opt
-          name: storage
+          name: pvc-data2
+          subPath: Aris/mssql-data-pool-default/var/opt
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -160,24 +170,40 @@ spec:
         secret:
           defaultMode: 420
           secretName: mssql-data-pool-default-secret
+      - name: autofs-sciserver
+        hostPath:
+          path: /sciserver
+      - name: srv
+        hostPath:
+          path: /srv
   updateStrategy:
     rollingUpdate:
       partition: 0
     type: RollingUpdate
   volumeClaimTemplates:
+#  - metadata:
+#      creationTimestamp: null
+#      name: data-pool-storage
+#    spec:
+#      accessModes:
+#      - ReadWriteOnce
+#      dataSource: null
+#      resources:
+#        requests:
+#          storage: 6Gi
+#      storageClassName: managed-premium
+#      volumeMode: Filesystem
+#    status:
+#      phase: Pending
   - metadata:
       creationTimestamp: null
-      name: storage
+      name: pvc-data2
     spec:
       accessModes:
       - ReadWriteOnce
-      dataSource: null
       resources:
         requests:
-          storage: 6Gi
-      storageClassName: managed-premium
-      volumeMode: Filesystem
-    status:
-      phase: Pending
+          storage: 5000Gi
+      storageClassName: local-storage
 status:
   replicas: 0

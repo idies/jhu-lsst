@@ -6,6 +6,7 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: mssql-data-pool-default
+  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-data-pool-default
 spec:
   podManagementPolicy: Parallel
@@ -13,7 +14,6 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      MSSQL_CLUSTER: filedb
       app: mssql-data-pool-default
   serviceName: service-data-pool-default
   template:
@@ -81,7 +81,7 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /var/opt
-          name: storage
+          name: data-pool-storage
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -106,8 +106,6 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
-        - mountPath: /var/opt
-          name: storage
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -147,7 +145,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: storage
+          name: data-pool-storage
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -167,7 +165,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: storage
+      name: data-pool-storage
     spec:
       accessModes:
       - ReadWriteOnce

@@ -13,6 +13,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
+      MSSQL_CLUSTER: filedb
       app: mssql-master-pool
   serviceName: service-master-pool
   template:
@@ -72,6 +73,9 @@ spec:
         - containerPort: 50075
           name: port-50075
           protocol: TCP
+        - containerPort: 50200
+          name: tiering-port
+          protocol: TCP
         - containerPort: 50020
           name: port-50020
           protocol: TCP
@@ -116,13 +120,13 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /var/opt
-          name: master-pool-storage
+          name: storage
         - mountPath: /root/hdfs/namenode
           name: hdfs
         - mountPath: /opt/mssql/mlservices
-          name: master-pool-mlservices-storage
+          name: mlservices-storage
         - mountPath: /opt/mssql/mssql-java
-          name: master-pool-java-storage
+          name: java-storage
         - mountPath: /usr/local/hadoop/logs
           name: hadoop-logs
       - env:
@@ -175,11 +179,11 @@ spec:
           name: node-admin-login-secrets
           readOnly: true
         - mountPath: /var/opt
-          name: master-pool-storage
+          name: storage
         - mountPath: /opt/mssql/mlservices
-          name: master-pool-mlservices-storage
+          name: mlservices-storage
         - mountPath: /opt/mssql/java
-          name: master-pool-java-storage
+          name: java-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -195,7 +199,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: master-pool-mlservices-storage
+          name: mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -211,7 +215,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: master-pool-mlservices-storage
+          name: mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -225,7 +229,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/java
-          name: master-pool-java-storage
+          name: java-storage
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -250,6 +254,8 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
+        - mountPath: /var/opt
+          name: storage
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -289,7 +295,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: master-pool-storage
+          name: storage
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -313,7 +319,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: master-pool-storage
+      name: storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -341,7 +347,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: master-pool-mlservices-storage
+      name: mlservices-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -369,7 +375,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: master-pool-java-storage
+      name: java-storage
     spec:
       accessModes:
       - ReadWriteOnce

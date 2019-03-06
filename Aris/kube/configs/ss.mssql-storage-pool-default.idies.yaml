@@ -14,6 +14,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
+      MSSQL_CLUSTER: filedb
       app: mssql-storage-pool-default
   serviceName: service-storage-pool-default
   template:
@@ -53,13 +54,13 @@ spec:
         - name: YARN_HEAPSIZE
           value: "2048"
         - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "65536"
+          value: "18432"
         - name: YARN_SCHEDULER_MAX_VCORES
-          value: "30"
+          value: "6"
         - name: YARN_NODEMANAGER_RESOURCE_MEMORY
-          value: "65536"
+          value: "18432"
         - name: YARN_NODEMANAGER_RESOURCE_VCORES
-          value: "30"
+          value: "6"
         image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:latest
         imagePullPolicy: Always
         name: hadoop
@@ -75,6 +76,9 @@ spec:
           protocol: TCP
         - containerPort: 50020
           name: port-50020
+          protocol: TCP
+        - containerPort: 50200
+          name: tiering-port
           protocol: TCP
         - containerPort: 9000
           name: port-9000
@@ -114,25 +118,20 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /opt/mssql/mlservices
-          name: storage-pool-mlservices-storage
+          name: mlservices-storage
         - mountPath: /opt/mssql/mssql-java
-          name: storage-pool-java-storage
+          name: java-storage
         - mountPath: /usr/local/hadoop/logs
           name: hadoop-logs
+        - mountPath: /pvcadmin
+          name: pvc-data1
+          subPath: Aris
         - mountPath: /var/opt
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/var/opt
-#          subPath: Aris/varopt
         - mountPath: /root/hdfs
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/hdfs
-#          subPath: Aris/hdfs
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
       - env:
         - name: MSSQL_NAMESPACE
           valueFrom:
@@ -178,19 +177,15 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /opt/mssql/mlservices
-          name: storage-pool-mlservices-storage
+          name: mlservices-storage
         - mountPath: /opt/mssql/java
-          name: storage-pool-java-storage
+          name: java-storage
+        - mountPath: /pvcadmin
+          name: pvc-data1
+          subPath: Aris
         - mountPath: /var/opt
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/var/opt
-#          subPath: Aris/varopt
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-storage-pool
@@ -206,7 +201,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: storage-pool-mlservices-storage
+          name: mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-storage-pool
@@ -222,7 +217,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: storage-pool-mlservices-storage
+          name: mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-storage-pool
@@ -236,7 +231,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/java
-          name: storage-pool-java-storage
+          name: java-storage
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -261,6 +256,8 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
+        - mountPath: /var/opt
+          name: storage
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -300,9 +297,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: pvc-data1
-          subPath: Aris/mssql-storage-pool-default/var/opt
-#          subPath: Aris/varopt
+          name: storage
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -315,32 +310,13 @@ spec:
         secret:
           defaultMode: 420
           secretName: mssql-storage-pool-default-secret
-      - name: autofs-sciserver
-        hostPath:
-          path: /sciserver
-      - name: srv
-        hostPath:
-          path: /srv
-      - name: nvme
-        hostPath:
-          path: /nvme
 # jvv: switched to OnDelete 'cause I don't want too many hdfs datanodes down at once
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: pvc-data1
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 5000Gi
-      storageClassName: local-storage
-  - metadata:
-      creationTimestamp: null
-      name: storage-pool-storage
+      name: storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -354,7 +330,21 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: storage-pool-mlservices-storage
+      name: hdfs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 6Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: mlservices-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -382,7 +372,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: storage-pool-java-storage
+      name: java-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -394,5 +384,15 @@ spec:
       volumeMode: Filesystem
     status:
       phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: pvc-data1
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5000Gi
+      storageClassName: local-storage
 status:
   replicas: 0

@@ -5,25 +5,36 @@ metadata:
   generation: 1
   labels:
     MSSQL_CLUSTER: filedb
-  name: mssql-master-pool
+  name: mssql-storage-pool-default
   namespace: filedb
-  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-master-pool
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-storage-pool-default
 spec:
   podManagementPolicy: Parallel
-  replicas: 1
+  replicas: 4
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      MSSQL_CLUSTER: filedb
-      app: mssql-master-pool
-  serviceName: service-master-pool
+      app: mssql-storage-pool-default
+  serviceName: service-storage-pool-default
   template:
     metadata:
       creationTimestamp: null
       labels:
         MSSQL_CLUSTER: filedb
-        app: mssql-master-pool
+        app: mssql-storage-pool-default
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - mssql-storage-pool-default
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
       - env:
         - name: MSSQL_NAMESPACE
@@ -32,35 +43,23 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         - name: MSSQL_POD_TYPE
-          value: mssql-master-pool
+          value: mssql-storage-pool
         - name: MSSQL_CONTAINER_TYPE
           value: hadoop
         - name: AGENT_CONFIG_FILE
-          value: /opt/agent/config/master.json
+          value: /opt/agent/config/node.json
         - name: HADOOP_HEAPSIZE
           value: "2048"
         - name: YARN_HEAPSIZE
           value: "2048"
         - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_SCHEDULER_MAX_VCORES
-          value: "6"
+          value: "30"
         - name: YARN_NODEMANAGER_RESOURCE_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_NODEMANAGER_RESOURCE_VCORES
-          value: "6"
-        - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
-          value: "0.3"
-        - name: SPARK_DRIVER_MEMORY
-          value: 2g
-        - name: SPARK_DRIVER_CORES
-          value: "1"
-        - name: SPARK_EXECUTOR_INSTANCES
-          value: "3"
-        - name: SPARK_EXECUTOR_MEMORY
-          value: 1536m
-        - name: SPARK_EXECUTOR_CORES
-          value: "1"
+          value: "30"
         image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:latest
         imagePullPolicy: Always
         name: hadoop
@@ -73,9 +72,6 @@ spec:
           protocol: TCP
         - containerPort: 50075
           name: port-50075
-          protocol: TCP
-        - containerPort: 50200
-          name: tiering-port
           protocol: TCP
         - containerPort: 50020
           name: port-50020
@@ -104,14 +100,11 @@ spec:
         - containerPort: 8042
           name: port-8042
           protocol: TCP
-        - containerPort: 14000
-          name: port-14000
+        - containerPort: 8443
+          name: knox-port-8443
           protocol: TCP
-        - containerPort: 8998
-          name: port-8998
-          protocol: TCP
-        - containerPort: 8302
-          name: agent-port-8302
+        - containerPort: 8301
+          name: agent-port-8301
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -121,17 +114,19 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /opt/mssql/mlservices
-          name: mlservices-storage
+          name: storage-pool-mlservices-storage
         - mountPath: /opt/mssql/mssql-java
-          name: java-storage
+          name: storage-pool-java-storage
         - mountPath: /usr/local/hadoop/logs
           name: hadoop-logs
         - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/var/opt
+#          subPath: Aris/varopt
         - mountPath: /root/hdfs
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/hdfs
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/hdfs
+#          subPath: Aris/hdfs
         - mountPath: /sciserver
           name: autofs-sciserver
         - mountPath: /srv
@@ -145,12 +140,10 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         - name: MSSQL_POD_TYPE
-          value: mssql-master-pool
+          value: mssql-storage-pool
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-server
         - name: ACCEPT_EULA
-          value: "Y"
-        - name: ACCEPT_EULA_ML
           value: "Y"
         image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:latest
         imagePullPolicy: Always
@@ -159,8 +152,8 @@ spec:
         - containerPort: 1433
           name: port-1433
           protocol: TCP
-        - containerPort: 8301
-          name: agent-port-8301
+        - containerPort: 8302
+          name: agent-port-8302
           protocol: TCP
         readinessProbe:
           exec:
@@ -184,16 +177,14 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
-        - mountPath: /root/secrets/node-admin-login
-          name: node-admin-login-secrets
-          readOnly: true
-        - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
         - mountPath: /opt/mssql/mlservices
-          name: mlservices-storage
+          name: storage-pool-mlservices-storage
         - mountPath: /opt/mssql/java
-          name: java-storage
+          name: storage-pool-java-storage
+        - mountPath: /var/opt
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/var/opt
+#          subPath: Aris/varopt
         - mountPath: /sciserver
           name: autofs-sciserver
         - mountPath: /srv
@@ -202,7 +193,7 @@ spec:
           name: nvme
       - env:
         - name: MSSQL_POD_TYPE
-          value: mssql-master-pool
+          value: mssql-storage-pool
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-mlservices-rserver
         - name: ACCEPT_EULA
@@ -215,10 +206,10 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: mlservices-storage
+          name: storage-pool-mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
-          value: mssql-master-pool
+          value: mssql-storage-pool
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-mlservices-pythonserver
         - name: ACCEPT_EULA
@@ -231,10 +222,10 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: mlservices-storage
+          name: storage-pool-mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
-          value: mssql-master-pool
+          value: mssql-storage-pool
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-java
         image: private-repo.microsoft.com/mssql-private-preview/mssql-java:latest
@@ -245,7 +236,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/java
-          name: java-storage
+          name: storage-pool-java-storage
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -270,16 +261,13 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
-        - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
         - name: FLUENT_ELASTICSEARCH_PORT
           value: "9200"
         - name: FLUENTBIT_CONFIG
-          value: fluentbit-master-pool.conf
+          value: fluentbit-storage-pool-default.conf
         - name: KUBERNETES_NAMESPACE
           valueFrom:
             fieldRef:
@@ -312,8 +300,9 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/var/opt
+#          subPath: Aris/varopt
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -325,11 +314,7 @@ spec:
       - name: secrets
         secret:
           defaultMode: 420
-          secretName: mssql-master-pool-secret
-      - name: node-admin-login-secrets
-        secret:
-          defaultMode: 420
-          secretName: node-admin-login-secret
+          secretName: mssql-storage-pool-default-secret
       - name: autofs-sciserver
         hostPath:
           path: /sciserver
@@ -339,14 +324,37 @@ spec:
       - name: nvme
         hostPath:
           path: /nvme
+# jvv: switched to OnDelete 'cause I don't want too many hdfs datanodes down at once
   updateStrategy:
-    rollingUpdate:
-      partition: 0
-    type: RollingUpdate
+    type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: storage
+      name: pvc-data1
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5000Gi
+      storageClassName: local-storage
+  - metadata:
+      creationTimestamp: null
+      name: storage-pool-storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 6Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: storage-pool-mlservices-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -374,7 +382,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: mlservices-storage
+      name: storage-pool-java-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -386,39 +394,5 @@ spec:
       volumeMode: Filesystem
     status:
       phase: Pending
-  - metadata:
-      creationTimestamp: null
-      name: java-storage
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      dataSource: null
-      resources:
-        requests:
-          storage: 6Gi
-      storageClassName: managed-premium
-      volumeMode: Filesystem
-    status:
-      phase: Pending
-  - metadata:
-      creationTimestamp: null
-      name: pvc-nvme1
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
-  - metadata:
-      creationTimestamp: null
-      name: pvc-nvme2
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
 status:
   replicas: 0

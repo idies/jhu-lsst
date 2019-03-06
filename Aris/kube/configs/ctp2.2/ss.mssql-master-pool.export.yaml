@@ -6,7 +6,6 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: mssql-master-pool
-  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-master-pool
 spec:
   podManagementPolicy: Parallel
@@ -14,7 +13,6 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      MSSQL_CLUSTER: filedb
       app: mssql-master-pool
   serviceName: service-master-pool
   template:
@@ -74,9 +72,6 @@ spec:
         - containerPort: 50075
           name: port-50075
           protocol: TCP
-        - containerPort: 50200
-          name: tiering-port
-          protocol: TCP
         - containerPort: 50020
           name: port-50020
           protocol: TCP
@@ -120,24 +115,16 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
+        - mountPath: /var/opt
+          name: master-pool-storage
+        - mountPath: /root/hdfs/namenode
+          name: hdfs
         - mountPath: /opt/mssql/mlservices
-          name: mlservices-storage
+          name: master-pool-mlservices-storage
         - mountPath: /opt/mssql/mssql-java
-          name: java-storage
+          name: master-pool-java-storage
         - mountPath: /usr/local/hadoop/logs
           name: hadoop-logs
-        - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
-        - mountPath: /root/hdfs
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/hdfs
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
       - env:
         - name: MSSQL_NAMESPACE
           valueFrom:
@@ -188,18 +175,11 @@ spec:
           name: node-admin-login-secrets
           readOnly: true
         - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          name: master-pool-storage
         - mountPath: /opt/mssql/mlservices
-          name: mlservices-storage
+          name: master-pool-mlservices-storage
         - mountPath: /opt/mssql/java
-          name: java-storage
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
+          name: master-pool-java-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -215,7 +195,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: mlservices-storage
+          name: master-pool-mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -231,7 +211,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: mlservices-storage
+          name: master-pool-mlservices-storage
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-master-pool
@@ -245,7 +225,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/java
-          name: java-storage
+          name: master-pool-java-storage
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -270,9 +250,6 @@ spec:
         - mountPath: /root/secrets
           name: secrets
           readOnly: true
-        - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -312,8 +289,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          name: master-pool-storage
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -330,15 +306,6 @@ spec:
         secret:
           defaultMode: 420
           secretName: node-admin-login-secret
-      - name: autofs-sciserver
-        hostPath:
-          path: /sciserver
-      - name: srv
-        hostPath:
-          path: /srv
-      - name: nvme
-        hostPath:
-          path: /nvme
   updateStrategy:
     rollingUpdate:
       partition: 0
@@ -346,7 +313,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: storage
+      name: master-pool-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -374,7 +341,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: mlservices-storage
+      name: master-pool-mlservices-storage
     spec:
       accessModes:
       - ReadWriteOnce
@@ -388,7 +355,7 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: java-storage
+      name: hdfs
     spec:
       accessModes:
       - ReadWriteOnce
@@ -402,23 +369,17 @@ spec:
       phase: Pending
   - metadata:
       creationTimestamp: null
-      name: pvc-nvme1
+      name: master-pool-java-storage
     spec:
       accessModes:
       - ReadWriteOnce
+      dataSource: null
       resources:
         requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
-  - metadata:
-      creationTimestamp: null
-      name: pvc-nvme2
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
+          storage: 6Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
 status:
   replicas: 0

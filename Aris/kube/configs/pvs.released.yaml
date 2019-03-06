@@ -1,0 +1,326 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:19:58Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-174f1e2a
+    resourceVersion: "49961125"
+    selfLink: /api/v1/persistentvolumes/local-pv-174f1e2a
+    uid: 61941bb8-1831-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data1-mssql-storage-pool-default-3
+      namespace: filedb
+      resourceVersion: "40039035"
+      uid: a613291b-1831-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data01
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb10
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:29:11Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-24566b13
+    resourceVersion: "49960987"
+    selfLink: /api/v1/persistentvolumes/local-pv-24566b13
+    uid: ab89c26f-1832-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data2-mssql-data-pool-default-2
+      namespace: filedb
+      resourceVersion: "40398312"
+      uid: 0c474a85-19ac-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data02
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb01
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:20:01Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-4903b508
+    resourceVersion: "49961116"
+    selfLink: /api/v1/persistentvolumes/local-pv-4903b508
+    uid: 63aadc4e-1831-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data1-mssql-storage-pool-default-2
+      namespace: filedb
+      resourceVersion: "40039026"
+      uid: a6123e82-1831-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data01
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb01
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:29:08Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-740f1d60
+    resourceVersion: "49960972"
+    selfLink: /api/v1/persistentvolumes/local-pv-740f1d60
+    uid: a970abd3-1832-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data2-mssql-data-pool-default-0
+      namespace: filedb
+      resourceVersion: "40398297"
+      uid: 0c451d44-19ac-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data03
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb10
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:29:07Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-8961a58c
+    resourceVersion: "49961052"
+    selfLink: /api/v1/persistentvolumes/local-pv-8961a58c
+    uid: a934145b-1832-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data2-mssql-data-pool-default-3
+      namespace: filedb
+      resourceVersion: "40398321"
+      uid: 0c4815a6-19ac-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data01
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb12
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:29:09Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-9fe86233
+    resourceVersion: "49960976"
+    selfLink: /api/v1/persistentvolumes/local-pv-9fe86233
+    uid: a9fd68ab-1832-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data2-mssql-data-pool-default-1
+      namespace: filedb
+      resourceVersion: "40398306"
+      uid: 0c4658dc-19ac-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data01
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb11
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:19:59Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-a41e3121
+    resourceVersion: "49961115"
+    selfLink: /api/v1/persistentvolumes/local-pv-a41e3121
+    uid: 62208630-1831-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data1-mssql-storage-pool-default-1
+      namespace: filedb
+      resourceVersion: "40039016"
+      uid: a611274a-1831-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data03
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb11
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/bound-by-controller: "yes"
+      pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50
+    creationTimestamp: "2019-01-14T19:19:57Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: local-pv-e7eba29e
+    resourceVersion: "49961104"
+    selfLink: /api/v1/persistentvolumes/local-pv-e7eba29e
+    uid: 6157c60a-1831-11e9-a147-0cc47ad46d50
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 55887Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: pvc-data1-mssql-storage-pool-default-0
+      namespace: filedb
+      resourceVersion: "40039009"
+      uid: a610567b-1831-11e9-a147-0cc47ad46d50
+    local:
+      path: /srv/data03
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - filedb12
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: local-storage
+    volumeMode: Filesystem
+  status:
+    phase: Released
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
