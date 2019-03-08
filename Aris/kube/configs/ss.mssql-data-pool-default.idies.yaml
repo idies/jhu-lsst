@@ -49,7 +49,7 @@ spec:
           value: mssql-server
         - name: ACCEPT_EULA
           value: "Y"
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:latest
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:ctp2.3
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -107,7 +107,7 @@ spec:
           value: 127.0.0.1
         - name: SQL_POLL_INTERVAL
           value: "5"
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-collectd:latest
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-collectd:ctp2.3
         imagePullPolicy: Always
         name: mssql-monitor-collectd
         resources: {}
@@ -148,7 +148,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.name
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:latest
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:ctp2.3
         imagePullPolicy: Always
         name: mssql-monitor-fluentbit
         ports:

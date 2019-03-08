@@ -42,13 +42,13 @@ spec:
         - name: YARN_HEAPSIZE
           value: "2048"
         - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_SCHEDULER_MAX_VCORES
-          value: "6"
+          value: "30"
         - name: YARN_NODEMANAGER_RESOURCE_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_NODEMANAGER_RESOURCE_VCORES
-          value: "6"
+          value: "30"
         - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
           value: "0.3"
         - name: SPARK_DRIVER_MEMORY
@@ -56,11 +56,11 @@ spec:
         - name: SPARK_DRIVER_CORES
           value: "1"
         - name: SPARK_EXECUTOR_INSTANCES
-          value: "3"
+          value: "11"
         - name: SPARK_EXECUTOR_MEMORY
-          value: 1536m
+          value: 12g
         - name: SPARK_EXECUTOR_CORES
-          value: "1"
+          value: "10"
         image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:latest
         imagePullPolicy: Always
         name: hadoop
@@ -344,20 +344,6 @@ spec:
       partition: 0
     type: RollingUpdate
   volumeClaimTemplates:
-  - metadata:
-      creationTimestamp: null
-      name: storage
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      dataSource: null
-      resources:
-        requests:
-          storage: 6Gi
-      storageClassName: managed-premium
-      volumeMode: Filesystem
-    status:
-      phase: Pending
   - metadata:
       creationTimestamp: null
       name: hadoop-logs

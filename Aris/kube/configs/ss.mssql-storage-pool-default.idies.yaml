@@ -54,13 +54,13 @@ spec:
         - name: YARN_HEAPSIZE
           value: "2048"
         - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_SCHEDULER_MAX_VCORES
-          value: "6"
+          value: "30"
         - name: YARN_NODEMANAGER_RESOURCE_MEMORY
-          value: "18432"
+          value: "65536"
         - name: YARN_NODEMANAGER_RESOURCE_VCORES
-          value: "6"
+          value: "30"
         image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:latest
         imagePullPolicy: Always
         name: hadoop
@@ -132,6 +132,12 @@ spec:
         - mountPath: /root/hdfs
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/hdfs
+        - mountPath: /sciserver
+          name: autofs-sciserver
+        - mountPath: /srv
+          name: srv
+        - mountPath: /nvme
+          name: nvme
       - env:
         - name: MSSQL_NAMESPACE
           valueFrom:
@@ -186,6 +192,12 @@ spec:
         - mountPath: /var/opt
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/var/opt
+        - mountPath: /sciserver
+          name: autofs-sciserver
+        - mountPath: /srv
+          name: srv
+        - mountPath: /nvme
+          name: nvme
       - env:
         - name: MSSQL_POD_TYPE
           value: mssql-storage-pool
@@ -257,7 +269,8 @@ spec:
           name: secrets
           readOnly: true
         - mountPath: /var/opt
-          name: storage
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/var/opt
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -297,7 +310,8 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt
-          name: storage
+          name: pvc-data1
+          subPath: Aris/mssql-storage-pool-default/var/opt
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -310,38 +324,19 @@ spec:
         secret:
           defaultMode: 420
           secretName: mssql-storage-pool-default-secret
+      - name: autofs-sciserver
+        hostPath:
+          path: /sciserver
+      - name: srv
+        hostPath:
+          path: /srv
+      - name: nvme
+        hostPath:
+          path: /nvme
 # jvv: switched to OnDelete 'cause I don't want too many hdfs datanodes down at once
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
-  - metadata:
-      creationTimestamp: null
-      name: storage
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      dataSource: null
-      resources:
-        requests:
-          storage: 6Gi
-      storageClassName: managed-premium
-      volumeMode: Filesystem
-    status:
-      phase: Pending
-  - metadata:
-      creationTimestamp: null
-      name: hdfs
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      dataSource: null
-      resources:
-        requests:
-          storage: 6Gi
-      storageClassName: managed-premium
-      volumeMode: Filesystem
-    status:
-      phase: Pending
   - metadata:
       creationTimestamp: null
       name: mlservices-storage
