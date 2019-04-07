@@ -10,8 +10,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import u01.mssql.DDLs;
-import u01.mssql.ExternalTableWriter;
+import db.mssql.DDLs;
+import db.mssql.ExternalTableWriter;
 import mysql.mysql_ddlLexer;
 import mysql.mysql_ddlParser;
 

@@ -5,10 +5,10 @@ import java.util.List;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import u01.mssql.Column;
-import u01.mssql.DDLs;
-import u01.mssql.Table;
-import u01.mssql.Util;
+import db.mssql.Column;
+import db.mssql.DDLs;
+import db.mssql.Table;
+import db.mssql.Util;
 import mysql.mysql_ddlBaseVisitor;
 import mysql.mysql_ddlParser.Column_def_table_constraintContext;
 import mysql.mysql_ddlParser.Column_definitionContext;
@@ -70,7 +70,7 @@ public class MySQLDDLVisitor extends mysql_ddlBaseVisitor<DDLs> {
 			currentColumn.name = Util.normalize(ctx.id().getText());
 			Data_typeContext dtx = ctx.data_type();
 			String dt_name = dtx.getChild(0).getText();
-			currentColumn.datatype = Util.datatype(dt_name);
+			currentColumn.datatype = Util.my2mssql(dt_name);
 			if (Util.typeHasLength(currentColumn.datatype)) {
 				List<TerminalNode> dec = dtx.DECIMAL_LITERAL();
 				if (dec != null) {

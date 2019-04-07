@@ -1,4 +1,4 @@
-package u01.mssql;
+package db.mssql;
 
 public class Util {
 
@@ -18,7 +18,7 @@ public class Util {
 	 * @param dt
 	 * @return
 	 */
-	public static String datatype(String dt){
+	public static String my2mssql(String dt){
 		// TODO do soemthing about non-matching datatypes
 		dt = dt.toUpperCase();
 		if("INT".equals(dt))

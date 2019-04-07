@@ -1,4 +1,4 @@
-package u01.mssql;
+package db.mssql;
 
 import java.io.PrintStream;
 
