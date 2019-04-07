@@ -88,6 +88,42 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTable_options(mysql_ddlParser.Table_optionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_options(mysql_ddlParser.Table_optionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTable_option(mysql_ddlParser.Table_optionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_option(mysql_ddlParser.Table_optionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChar_set(mysql_ddlParser.Char_setContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChar_set(mysql_ddlParser.Char_setContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTable_comment(mysql_ddlParser.Table_commentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -184,6 +220,18 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterColumn_default(mysql_ddlParser.Column_defaultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitColumn_default(mysql_ddlParser.Column_defaultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterConstant_expression(mysql_ddlParser.Constant_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -215,6 +263,30 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTable_constraint(mysql_ddlParser.Table_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

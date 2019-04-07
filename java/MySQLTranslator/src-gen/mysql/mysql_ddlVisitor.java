@@ -47,6 +47,24 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCreate_table(mysql_ddlParser.Create_tableContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#table_options}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTable_options(mysql_ddlParser.Table_optionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#table_option}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTable_option(mysql_ddlParser.Table_optionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#char_set}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChar_set(mysql_ddlParser.Char_setContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#table_comment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -95,6 +113,12 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitColumn_definition1(mysql_ddlParser.Column_definition1Context ctx);
 	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#column_default}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColumn_default(mysql_ddlParser.Column_defaultContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#constant_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -112,6 +136,18 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTable_constraint(mysql_ddlParser.Table_constraintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#fk_on_delete}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#full_table_name}.
 	 * @param ctx the parse tree

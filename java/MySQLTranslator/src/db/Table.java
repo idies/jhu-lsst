@@ -18,18 +18,23 @@ public class Table {
 		columns.add(c);
 	}
 	
-	public String toString(){
-		String NL="\n";
+	public String toString() {
+		String NL = "\n";
 		StringBuffer sb = new StringBuffer();
-		sb.append("TABLE [\n- name =").append(name).append(NL).append("- status = ").append((ok?"OK":"ERROR")).append(NL);
-		
-		if(!ddlParsed)		sb.append("- ddlParsedError = ").append(ddlParsedError).append(NL);
+		sb.append("TABLE [\n- name =").append(name).append(NL).append("- status = ").append((ok ? "OK" : "ERROR"))
+				.append(NL);
+
+		if (!ddlParsed)
+			sb.append("- ddlParsedError = ").append(ddlParsedError).append(NL);
 		else {
-			if(!tableCreated)		sb.append("- tableCreatedError = ").append(tableCreatedError).append(NL);
+			if (!tableCreated)
+				sb.append("- tableCreatedError = ").append(tableCreatedError).append(NL);
 			else {
-				if(!dataTranslated)		sb.append("- dataTranslatedError = ").append(dataTranslatedError).append(NL);
+				if (!dataTranslated)
+					sb.append("- dataTranslatedError = ").append(dataTranslatedError).append(NL);
 				else {
-					if(!tableLoaded)		sb.append("- tableLoadedError = ").append(tableLoadedError).append(NL);
+					if (!tableLoaded)
+						sb.append("- tableLoadedError = ").append(tableLoadedError).append(NL);
 				}
 			}
 		}

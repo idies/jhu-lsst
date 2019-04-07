@@ -52,12 +52,6 @@ ddl_clause
     ;
 
 
-
-
-
-
-
-
 // DDL
 
 // https://msdn.microsoft.com/en-us/library/ms188783.aspx
@@ -67,17 +61,25 @@ create_index
 
 // https://msdn.microsoft.com/en-us/library/ms174979.aspx
 create_table
-    : CREATE TABLE table_name  '(' column_def_table_constraint (',' column_def_table_constraint )* ')'
+    : CREATE TABLE table_name  '(' column_def_table_constraint (',' column_def_table_constraint )* ')' table_options? table_comment?
     ;
 
+table_options: table_option (',' table_options)? 
+	;
+
+table_option:
+    (DEFAULT)? CHARSET ('=')? char_set
+  ;
+
+char_set: 'utf8' ;
 
 
 table_comment
-	: COMMENT '=' '\'' ~'\'' '\''
+	: COMMENT ('=')? STRING
 	;
 
 column_comment
-	: COMMENT '\'' ~'\'' '\''
+	: COMMENT STRING
 	;
 	
 // https://msdn.microsoft.com/en-us/library/ms190273.aspx
@@ -102,7 +104,7 @@ column_def_table_constraint
 
 // https://msdn.microsoft.com/en-us/library/ms187742.aspx
 column_definition
-    : id data_type null_notnull? ( DEFAULT constant_expression )?  ( AUTO_INCREMENT)?  ( (UNIQUE | PRIMARY) KEY?)? (COMMENT STRING)?
+    : id data_type null_notnull? column_default?  ( AUTO_INCREMENT)?  ( (UNIQUE | PRIMARY) KEY?)? (COMMENT STRING)?
     ;
     
 column_definition1
@@ -112,6 +114,9 @@ column_definition1
       column_comment
     ;
 
+column_default:
+	DEFAULT constant_expression
+;
 constant_expression
     : NULL
     | constant
@@ -128,10 +133,17 @@ column_constraint
 table_constraint
     : (CONSTRAINT id)?
        ((PRIMARY KEY | UNIQUE) clustered? '(' column_name_list (ASC | DESC)? ')' )
+    | UNIQUE? KEY id? '(' column_name_list ')'
+    | table_foreign_key_def 
   ;
 
+table_foreign_key_def:
+	FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' fk_on_delete?
+	;
 
-// Primitive.
+fk_on_delete:
+	ON DELETE ( CASCADE | RESTRICT)
+;
 
 full_table_name
     : (server=id '.' database=id '.'  schema=id   '.'
@@ -236,7 +248,7 @@ ms_data_type
 
 data_type
     :  BIT (DECIMAL_LITERAL)?
-  	| TINYINT ( '(' DECIMAL_LITERAL ')' )? (UNSIGNED)? (ZEROFILL)?
+    | TINYINT ( '(' DECIMAL_LITERAL ')' )? (UNSIGNED)? (ZEROFILL)?
   	| SMALLINT ( '(' DECIMAL_LITERAL ')' )? (UNSIGNED)? (ZEROFILL)?
   	| MEDIUMINT ( '(' DECIMAL_LITERAL ')' )? (UNSIGNED)? (ZEROFILL)?
   	| INT ( '(' DECIMAL_LITERAL ')' )? (UNSIGNED)? (ZEROFILL)?
@@ -256,6 +268,7 @@ data_type
   	| VARCHAR ( '(' DECIMAL_LITERAL ')')? (BINARY)? (CHARACTER SET id)? (COLLATE id)?
   	| BINARY ( '(' DECIMAL_LITERAL ')' )?
   	| VARBINARY ( '(' DECIMAL_LITERAL ')' )?
+  	| BOOLEAN 
   	| TINYBLOB
   	| BLOB
   	| MEDIUMBLOB
@@ -280,7 +293,7 @@ default_value
 // https://msdn.microsoft.com/en-us/library/ms179899.aspx
 constant
     : STRING // string, datetime or uniqueidentifier
-    | BINARY
+    | BINARY_LITERAL
     | sign? DECIMAL_LITERAL
     | sign? (REAL_LITERAL | FLOAT_LITERAL)  // float or decimal
     | sign? dollar='$' (DECIMAL_LITERAL | FLOAT_LITERAL)       // money
@@ -663,6 +676,7 @@ CAST:                                  C A S T;
 CATCH:                                 C A T C H;
 CHANGE_RETENTION:                      C H A N G E '_' R E T E N T I O N; 
 CHANGE_TRACKING:                       C H A N G E '_' T R A C K I N G; 
+CHARSET:							   C H A R S E T;
 CHECKSUM:                              C H E C K S U M;
 CHECKSUM_AGG:                          C H E C K S U M '_' A G G;
 COMMENT:                               C O M M E N T;
@@ -847,6 +861,8 @@ DOLLAR_ACTION:                         '$' A C T I O N;
 
 // datatypes 
 BIT:		B I T;
+BINARY:		B I N A R Y;
+BOOLEAN:	B O O L E A N;
 TINYINT:	T I N Y I N T;
 SMALLINT:	S M A L L I N T;
 MEDIUMINT:	M E D I U M I N T;
@@ -879,7 +895,8 @@ JSON:		J S O N;
 
 SPACE:              [ \t\r\n]+    -> skip;
 MULTILINE_COMMENT:            '/*' .*? '*/' -> channel(HIDDEN);
-LINE_COMMENT:       '--' ~[\r\n]* -> channel(HIDDEN);
+LINE_COMMENT:       ('--'|'#') ~[\r\n]* -> channel(HIDDEN);
+
 
 // TODO: ID can be not only Latin.
 DOUBLE_QUOTE_ID:    '"' ~'"'+ '"';
@@ -889,7 +906,7 @@ LOCAL_ID:           '@' ([a-zA-Z_$@#0-9] | FullWidthLetter)+;
 DECIMAL_LITERAL:     DEC_DIGIT+;
 ID:                  ( [a-zA-Z_#] | FullWidthLetter) ( [a-zA-Z_#$@0-9] | FullWidthLetter )*;
 STRING:              N? '\'' (~'\'' | '\'\'')* '\'';
-BINARY:              '0' X HEX_DIGIT*;
+BINARY_LITERAL:              '0' X HEX_DIGIT*;
 FLOAT_LITERAL:               DEC_DOT_DEC;
 REAL_LITERAL:                DEC_DOT_DEC (E [+-]? DEC_DIGIT+)?;
 

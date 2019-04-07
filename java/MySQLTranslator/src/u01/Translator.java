@@ -164,7 +164,7 @@ public class Translator {
 	  	name_end=matcher.start()-1;
 	  	end=matcher.end();
 	  } else {
-	  	throw new Exception("no parens after create table");
+	  	throw new Exception("no parens () after create table");
 	  }
 	  String tablename=contents.substring(name_start, name_end).trim().replaceAll("`","");
 	  t.name = tablename;
@@ -218,7 +218,7 @@ public class Translator {
 	  	String[] words = line.split("[ ]+");
 	  	String name=words[0].replaceAll("`", "");
 	  	if(words.length < 2){
-		  	throw new Exception(String.format("Parsing probem for table %s\n",t.name, line));
+		  	throw new Exception(String.format("Parsing probeml for table %s\n",t.name, line));
 	  	}
 	  	String type=typeFor(words[1]);
 	  	if(count++ > 0)

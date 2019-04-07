@@ -90,7 +90,8 @@ DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `cancer_study`;
 DROP TABLE IF EXISTS `type_of_cancer`;
 
--- --------------------------------------------------------
+  CREATE TABLE another_type_of_cancer ( foo int(10) default null, bar datetime  default 0, decc decimal(10)
+  ) ;
 CREATE TABLE `type_of_cancer` (
   `TYPE_OF_CANCER_ID` varchar(63) NOT NULL,
   `NAME` varchar(255) NOT NULL,
@@ -101,7 +102,6 @@ CREATE TABLE `type_of_cancer` (
   PRIMARY KEY (`TYPE_OF_CANCER_ID`)
 );
 
--- --------------------------------------------------------
 CREATE TABLE `cancer_study` (
   `CANCER_STUDY_ID` int(11) NOT NULL auto_increment,
   `CANCER_STUDY_IDENTIFIER` varchar(255),
@@ -694,5 +694,6 @@ CREATE TABLE `clinical_event_data` (
 CREATE TABLE `info` (
   `DB_SCHEMA_VERSION` varchar(24)
 ) DEFAULT CHARSET=utf8;
+
 -- THIS MUST BE KEPT IN SYNC WITH db.version PROPERTY IN pom.xml
-INSERT INTO info VALUES ('1.4.0');
+--INSERT INTO info VALUES ('1.4.0');

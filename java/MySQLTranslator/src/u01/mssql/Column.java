@@ -10,7 +10,7 @@ public class Column {
 	 * Write as MS SQL CREATE TABLE.<br/>
 	 * @param out
 	 */
-	public void create(PrintStream out ){
+	public void create(PrintStream out, boolean external ){
 		out.printf("  %s %s",name,datatype);
 		if(length != null){
 			out.printf("(%s",length);
@@ -18,5 +18,9 @@ public class Column {
 				out.printf(",%s", precision);
 			out.print(")");
 		}
+		if(nullnotnull != null)
+			out.append(" ").append(nullnotnull);
+		if(!external && defaultvalue != null)
+			out.append(" DEFAULT ").append(defaultvalue);
 	}
 }

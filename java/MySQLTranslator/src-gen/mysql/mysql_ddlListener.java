@@ -68,6 +68,36 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 */
 	void exitCreate_table(mysql_ddlParser.Create_tableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_options}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_options(mysql_ddlParser.Table_optionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_options}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_options(mysql_ddlParser.Table_optionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_option}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_option(mysql_ddlParser.Table_optionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_option}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_option(mysql_ddlParser.Table_optionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#char_set}.
+	 * @param ctx the parse tree
+	 */
+	void enterChar_set(mysql_ddlParser.Char_setContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#char_set}.
+	 * @param ctx the parse tree
+	 */
+	void exitChar_set(mysql_ddlParser.Char_setContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#table_comment}.
 	 * @param ctx the parse tree
 	 */
@@ -148,6 +178,16 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 */
 	void exitColumn_definition1(mysql_ddlParser.Column_definition1Context ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#column_default}.
+	 * @param ctx the parse tree
+	 */
+	void enterColumn_default(mysql_ddlParser.Column_defaultContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#column_default}.
+	 * @param ctx the parse tree
+	 */
+	void exitColumn_default(mysql_ddlParser.Column_defaultContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#constant_expression}.
 	 * @param ctx the parse tree
 	 */
@@ -177,6 +217,26 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTable_constraint(mysql_ddlParser.Table_constraintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#fk_on_delete}.
+	 * @param ctx the parse tree
+	 */
+	void enterFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#fk_on_delete}.
+	 * @param ctx the parse tree
+	 */
+	void exitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#full_table_name}.
 	 * @param ctx the parse tree

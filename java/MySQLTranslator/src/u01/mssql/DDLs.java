@@ -8,10 +8,15 @@ public class DDLs {
 	public ArrayList<Table> creates = new ArrayList<Table>();
 	public ArrayList<String> drops = new ArrayList<String>();
 	
-	public void write(PrintStream out){
+	public void write(PrintStream out, ExternalTableWriter et){
 		for(String t : drops)
-			out.printf("DROP TABLE %s;\n", t);
-		for(Table t : creates)
-			t.create(out);
+			out.printf("DROP %sTABLE %s;\n", et==null?"":"EXTERNAL ",t);
+		for(Table t : creates) {
+			if(et == null)
+				t.create(out,false);
+			else
+				et.create(t, out);
+			out.print(";\n\n");
+		}
 	}
 }

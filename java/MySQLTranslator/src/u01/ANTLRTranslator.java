@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import u01.mssql.DDLs;
+import u01.mssql.ExternalTableWriter;
 import mysql.mysql_ddlLexer;
 import mysql.mysql_ddlParser;
 
@@ -25,7 +26,9 @@ public class ANTLRTranslator {
 			mysql_ddlParser.BatchContext ct = t.parse(new File(args[0]));
 			MySQLDDLVisitor v = new MySQLDDLVisitor();
 			DDLs ddls = v.visitDdl_clauses(ct.ddl_clauses());
-			ddls.write(System.out);
+			
+			ExternalTableWriter etw = new ExternalTableWriter("pg64","manga.mangadapdb.binid");
+			ddls.write(System.out, etw);
 			// print(ct);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -15,18 +15,18 @@ public class Table{
 	 * Write as MS SQL CREATE TABLE.<br/>
 	 * @param out
 	 */
-	public void create(PrintStream out ){
-		out.printf("CREATE TABLE %s (\n",name);
+	public void create(PrintStream out , boolean external){
+		out.printf("CREATE %sTABLE %s (\n",external?"EXTERNAL ":"", name);
 		boolean first = true;
 		for(Column c : columns){
 			if(!first) {
 				first = false;
 				out.print(",");
 			}
-			c.create(out);
+			c.create(out,external);
 			out.print("\n");
 		}
-		out.printf(");\n\n");
+		out.printf(")");
 	}
 	
 }
