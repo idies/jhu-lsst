@@ -132,8 +132,9 @@ column_constraint
 // https://msdn.microsoft.com/en-us/library/ms188066.aspx
 table_constraint
     : (CONSTRAINT id)?
-       ((PRIMARY KEY | UNIQUE) clustered? '(' column_name_list (ASC | DESC)? ')' )
-    | UNIQUE? KEY id? '(' column_name_list ')'
+       ((PRIMARY KEY | UNIQUE ) clustered? '(' column_name_list (ASC | DESC)? ')' )
+    | UNIQUE? KEY id? '(' column_name_list (ASC | DESC)?')'
+    | UNIQUE? INDEX id? '(' column_name_list (ASC | DESC)?')'
     | table_foreign_key_def 
   ;
 
