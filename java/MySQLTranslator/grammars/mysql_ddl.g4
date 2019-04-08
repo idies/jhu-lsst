@@ -132,18 +132,21 @@ column_constraint
 // https://msdn.microsoft.com/en-us/library/ms188066.aspx
 table_constraint
     : (CONSTRAINT id)?
-       ((PRIMARY KEY | UNIQUE ) clustered? '(' column_name_list (ASC | DESC)? ')' )
-    | UNIQUE? KEY id? '(' column_name_list (ASC | DESC)?')'
-    | UNIQUE? INDEX id? '(' column_name_list (ASC | DESC)?')'
+       ((PRIMARY KEY | UNIQUE ) clustered? '(' sorted_column_name_list ')' )
+    | UNIQUE? KEY id? '(' sorted_column_name_list')'
+    | UNIQUE? INDEX id? '(' sorted_column_name_list ')'
     | table_foreign_key_def 
   ;
 
 table_foreign_key_def:
-	FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' fk_on_delete?
+	FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' (fk_on_delete | fk_on_update)*
 	;
 
 fk_on_delete:
-	ON DELETE ( CASCADE | RESTRICT)
+	ON DELETE ( CASCADE | RESTRICT | NO ACTION)
+;
+fk_on_update:
+	ON UPDATE ( RESTRICT | NO ACTION)
 ;
 
 full_table_name
@@ -175,6 +178,10 @@ full_column_name
 
 column_name_list
     : id (',' id)*
+    ;
+
+sorted_column_name_list
+    : id (ASC | DESC)? (',' id (ASC | DESC)? )*
     ;
 
 cursor_name
@@ -457,7 +464,8 @@ file_size:
 // Lexer
 
 // Basic keywords (from https://msdn.microsoft.com/en-us/library/ms189822.aspx)
-ADD:                                   A D D;
+ACTION:                                A C T I O N;                            
+ADD:                                   A D D;  
 ALL:                                   A L L;
 ALTER:                                 A L T E R;
 AND:                                   A N D;
@@ -562,6 +570,7 @@ NATIONAL:                              N A T I O N A L;
 NOCHECK:                               N O C H E C K;
 NONCLUSTERED:                          N O N C L U S T E R E D;
 NONE:                                  N O N E;
+NO:                                    N O;
 NOT:                                   N O T;
 NULL:                                  N U L L;
 NULLIF:                                N U L L I F;

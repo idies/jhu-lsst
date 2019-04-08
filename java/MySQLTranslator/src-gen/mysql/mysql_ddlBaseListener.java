@@ -292,6 +292,18 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFull_table_name(mysql_ddlParser.Full_table_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -371,6 +383,18 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitColumn_name_list(mysql_ddlParser.Column_name_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

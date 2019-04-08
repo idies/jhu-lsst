@@ -149,6 +149,12 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#fk_on_update}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#full_table_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -190,6 +196,12 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitColumn_name_list(mysql_ddlParser.Column_name_listContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#sorted_column_name_list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#cursor_name}.
 	 * @param ctx the parse tree
