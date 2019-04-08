@@ -6,6 +6,7 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: mssql-storage-pool-default
+  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-storage-pool-default
 spec:
   podManagementPolicy: Parallel

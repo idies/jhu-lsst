@@ -1,0 +1,170 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  name: mssql-controller
+  selfLink: /apis/apps/v1/namespaces/filedb/replicasets/mssql-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql-controller
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: mssql-controller
+    spec:
+      containers:
+      - env:
+        - name: ACCEPT_EULA
+          value: "yes"
+        - name: CONTROLLER_ENABLE_TDS_PROXY
+          value: "false"
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-controller:latest
+        imagePullPolicy: Always
+        name: mssql-controller
+        ports:
+        - containerPort: 8081
+          name: controller-port
+          protocol: TCP
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt
+          name: controller-storage
+        - mountPath: /root/secrets/controller-login
+          name: controller-login-secret
+          readOnly: true
+        - mountPath: /root/secrets/knox
+          name: controller-knox-secret
+          readOnly: true
+        - mountPath: /root/secrets/node-admin-login
+          name: node-admin-login-secret
+          readOnly: true
+        - mountPath: /var/opt/controller/config
+          name: controller-config-volume
+      - image: private-repo.microsoft.com/mssql-private-preview/mssql-portal:latest
+        imagePullPolicy: Always
+        name: mssql-portal
+        ports:
+        - containerPort: 6001
+          name: portal-port
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt
+          name: controller-storage
+      - env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: Qt1Tt5Um3
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-controller:latest
+        imagePullPolicy: Always
+        name: mssql-server-controller
+        ports:
+        - containerPort: 1433
+          name: ctrl-sql-port
+          protocol: TCP
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt
+          name: controller-storage
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: service-monitor-elasticsearch
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-controller.conf
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:latest
+        imagePullPolicy: Always
+        name: mssql-monitor-fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/opt
+          name: controller-storage
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: sa-mssql-controller
+      serviceAccountName: sa-mssql-controller
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: controller-storage
+        persistentVolumeClaim:
+          claimName: controller-pvc
+      - name: controller-login-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-login-secret
+      - name: controller-sa-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-sa-secret
+      - name: controller-knox-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-knox-secret
+      - name: node-admin-login-secret
+        secret:
+          defaultMode: 420
+          secretName: node-admin-login-secret
+      - configMap:
+          defaultMode: 420
+          name: mssql-controller-config
+        name: controller-config-volume
+status:
+  replicas: 0
