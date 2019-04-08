@@ -44,3 +44,4 @@ spark-ingest-lsst-object-parquet
 spark-ingest-lsst-source-parquet
 # hope "*.key" isn't too broad; meant for certificate keys like Aris/kube/pki.filedbcluster/ca.key
 *.key
+/.project
