@@ -346,3 +346,6 @@ INFO | Creating cluster with name: filedb
 2019-03-05 18:02:17.0952 UTC [INFO    ] Cluster state: Ready
 2019-03-05 18:02:17.0952 UTC [INFO    ] Monitor and track your cluster at the Portal Endpoint: https://172.23.25.60:30777/portal/
 2019-03-05 18:02:17.0953 UTC [INFO    ] Cluster deployed successfully.
+2019-04-08 15:44:32.0276 UTC [DEBUG   ] Completed configuring logger()!
+2019-04-08 15:44:51.0715 UTC [DEBUG   ] Completed configuring logger()!
+2019-04-08 15:44:51.0728 UTC [INFO    ] Deleting cluster ...
