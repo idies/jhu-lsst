@@ -185,6 +185,9 @@ spec:
           name: pvc-data1
           subPath: Aris/mssql-storage-pool-default/var/opt
 #          subPath: Aris/varopt
+        - mountPath: /pvcadmin
+          name: pvc-data1
+          subPath: Aris
         - mountPath: /sciserver
           name: autofs-sciserver
         - mountPath: /srv

@@ -190,6 +190,9 @@ spec:
         - mountPath: /var/opt
           name: pvc-nvme1
           subPath: Aris/mssql-master-pool/var/opt
+        - mountPath: /pvcadmin
+          name: pvc-nvme1
+          subPath: Aris
         - mountPath: /opt/mssql/mlservices
           name: mlservices-storage
         - mountPath: /opt/mssql/java

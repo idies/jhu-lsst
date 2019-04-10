@@ -10,7 +10,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-100483bd
-    resourceVersion: "57100581"
+    resourceVersion: "57510511"
     selfLink: /api/v1/persistentvolumes/local-pv-100483bd
     uid: 459a076c-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -48,7 +48,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-174f1e2a
-    resourceVersion: "57100570"
+    resourceVersion: "57511184"
     selfLink: /api/v1/persistentvolumes/local-pv-174f1e2a
     uid: 61941bb8-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -85,7 +85,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-24566b13
-    resourceVersion: "57100575"
+    resourceVersion: "57510503"
     selfLink: /api/v1/persistentvolumes/local-pv-24566b13
     uid: 2ace0518-3f8a-11e9-a147-0cc47ad46d50
   spec:
@@ -123,7 +123,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-4903b508
-    resourceVersion: "57100568"
+    resourceVersion: "57511180"
     selfLink: /api/v1/persistentvolumes/local-pv-4903b508
     uid: 63aadc4e-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -161,7 +161,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-740f1d60
-    resourceVersion: "57100573"
+    resourceVersion: "57510500"
     selfLink: /api/v1/persistentvolumes/local-pv-740f1d60
     uid: a970abd3-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -199,7 +199,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-8961a58c
-    resourceVersion: "57100576"
+    resourceVersion: "57510508"
     selfLink: /api/v1/persistentvolumes/local-pv-8961a58c
     uid: a934145b-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -237,7 +237,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-9fe86233
-    resourceVersion: "57100574"
+    resourceVersion: "57510502"
     selfLink: /api/v1/persistentvolumes/local-pv-9fe86233
     uid: a9fd68ab-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -275,7 +275,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-a41e3121
-    resourceVersion: "57100565"
+    resourceVersion: "57511176"
     selfLink: /api/v1/persistentvolumes/local-pv-a41e3121
     uid: 62208630-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -313,7 +313,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-cf98ab10
-    resourceVersion: "57100577"
+    resourceVersion: "57510510"
     selfLink: /api/v1/persistentvolumes/local-pv-cf98ab10
     uid: 2dc11e2d-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -351,7 +351,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-e7eba29e
-    resourceVersion: "57100564"
+    resourceVersion: "57511170"
     selfLink: /api/v1/persistentvolumes/local-pv-e7eba29e
     uid: 6157c60a-1831-11e9-a147-0cc47ad46d50
   spec:
