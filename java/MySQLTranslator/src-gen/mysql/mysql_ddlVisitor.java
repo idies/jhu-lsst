@@ -137,6 +137,18 @@ public interface mysql_ddlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTable_constraint(mysql_ddlParser.Table_constraintContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#table_unique_constraint}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link mysql_ddlParser#table_index_constraint}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

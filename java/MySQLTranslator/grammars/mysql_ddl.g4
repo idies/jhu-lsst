@@ -130,13 +130,18 @@ column_constraint
     ;
 
 // https://msdn.microsoft.com/en-us/library/ms188066.aspx
-table_constraint
-    : (CONSTRAINT id)?
-       ((PRIMARY KEY | UNIQUE ) clustered? '(' sorted_column_name_list ')' )
-    | UNIQUE? KEY id? '(' sorted_column_name_list')'
-    | UNIQUE? INDEX id? '(' sorted_column_name_list ')'
+table_constraint: 
+	table_unique_constraint
+	| table_index_constraint
     | table_foreign_key_def 
   ;
+
+table_unique_constraint :
+    (CONSTRAINT id)? ((PRIMARY KEY | UNIQUE ) clustered? '(' sorted_column_name_list ')' )
+;
+table_index_constraint:
+     UNIQUE? (KEY|INDEX) id? '(' sorted_column_name_list')'
+;
 
 table_foreign_key_def:
 	FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' (fk_on_delete | fk_on_update)*

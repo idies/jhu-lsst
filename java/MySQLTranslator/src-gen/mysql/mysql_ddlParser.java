@@ -110,25 +110,27 @@ public class mysql_ddlParser extends Parser {
 		RULE_alter_table = 11, RULE_drop_index = 12, RULE_drop_table = 13, RULE_column_def_table_constraint = 14, 
 		RULE_column_definition = 15, RULE_column_definition1 = 16, RULE_column_default = 17, 
 		RULE_constant_expression = 18, RULE_column_constraint = 19, RULE_table_constraint = 20, 
-		RULE_table_foreign_key_def = 21, RULE_fk_on_delete = 22, RULE_fk_on_update = 23, 
-		RULE_full_table_name = 24, RULE_table_name = 25, RULE_simple_name = 26, 
-		RULE_func_proc_name = 27, RULE_ddl_object = 28, RULE_full_column_name = 29, 
-		RULE_column_name_list = 30, RULE_sorted_column_name_list = 31, RULE_cursor_name = 32, 
-		RULE_on_off = 33, RULE_clustered = 34, RULE_null_notnull = 35, RULE_scalar_function_name = 36, 
-		RULE_ms_data_type = 37, RULE_data_type = 38, RULE_default_value = 39, 
-		RULE_constant = 40, RULE_sign = 41, RULE_id = 42, RULE_simple_id = 43, 
-		RULE_comparison_operator = 44, RULE_assignment_operator = 45, RULE_file_size = 46;
+		RULE_table_unique_constraint = 21, RULE_table_index_constraint = 22, RULE_table_foreign_key_def = 23, 
+		RULE_fk_on_delete = 24, RULE_fk_on_update = 25, RULE_full_table_name = 26, 
+		RULE_table_name = 27, RULE_simple_name = 28, RULE_func_proc_name = 29, 
+		RULE_ddl_object = 30, RULE_full_column_name = 31, RULE_column_name_list = 32, 
+		RULE_sorted_column_name_list = 33, RULE_cursor_name = 34, RULE_on_off = 35, 
+		RULE_clustered = 36, RULE_null_notnull = 37, RULE_scalar_function_name = 38, 
+		RULE_ms_data_type = 39, RULE_data_type = 40, RULE_default_value = 41, 
+		RULE_constant = 42, RULE_sign = 43, RULE_id = 44, RULE_simple_id = 45, 
+		RULE_comparison_operator = 46, RULE_assignment_operator = 47, RULE_file_size = 48;
 	public static final String[] ruleNames = {
 		"mysql_ddl_file", "batch", "ddl_clauses", "ddl_clause", "create_index", 
 		"create_table", "table_options", "table_option", "char_set", "table_comment", 
 		"column_comment", "alter_table", "drop_index", "drop_table", "column_def_table_constraint", 
 		"column_definition", "column_definition1", "column_default", "constant_expression", 
-		"column_constraint", "table_constraint", "table_foreign_key_def", "fk_on_delete", 
-		"fk_on_update", "full_table_name", "table_name", "simple_name", "func_proc_name", 
-		"ddl_object", "full_column_name", "column_name_list", "sorted_column_name_list", 
-		"cursor_name", "on_off", "clustered", "null_notnull", "scalar_function_name", 
-		"ms_data_type", "data_type", "default_value", "constant", "sign", "id", 
-		"simple_id", "comparison_operator", "assignment_operator", "file_size"
+		"column_constraint", "table_constraint", "table_unique_constraint", "table_index_constraint", 
+		"table_foreign_key_def", "fk_on_delete", "fk_on_update", "full_table_name", 
+		"table_name", "simple_name", "func_proc_name", "ddl_object", "full_column_name", 
+		"column_name_list", "sorted_column_name_list", "cursor_name", "on_off", 
+		"clustered", "null_notnull", "scalar_function_name", "ms_data_type", "data_type", 
+		"default_value", "constant", "sign", "id", "simple_id", "comparison_operator", 
+		"assignment_operator", "file_size"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -335,21 +337,21 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(97);
+			setState(101);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ALTER) | (1L << CREATE) | (1L << DROP))) != 0)) {
 				{
 				{
-				setState(94);
+				setState(98);
 				batch();
 				}
 				}
-				setState(99);
+				setState(103);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(100);
+			setState(104);
 			match(EOF);
 			}
 		}
@@ -393,7 +395,7 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102);
+			setState(106);
 			ddl_clauses();
 			}
 		}
@@ -445,7 +447,7 @@ public class mysql_ddlParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(107); 
+			setState(111); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -453,9 +455,9 @@ public class mysql_ddlParser extends Parser {
 				case 1:
 					{
 					{
-					setState(104);
+					setState(108);
 					ddl_clause();
-					setState(105);
+					setState(109);
 					match(SEMI);
 					}
 					}
@@ -463,7 +465,7 @@ public class mysql_ddlParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(109); 
+				setState(113); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -519,41 +521,41 @@ public class mysql_ddlParser extends Parser {
 		Ddl_clauseContext _localctx = new Ddl_clauseContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_ddl_clause);
 		try {
-			setState(116);
+			setState(120);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(111);
+				setState(115);
 				create_index();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(112);
+				setState(116);
 				create_table();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(113);
+				setState(117);
 				alter_table();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(114);
+				setState(118);
 				drop_index();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(115);
+				setState(119);
 				drop_table();
 				}
 				break;
@@ -615,43 +617,43 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(118);
+			setState(122);
 			match(CREATE);
-			setState(120);
+			setState(124);
 			_la = _input.LA(1);
 			if (_la==UNIQUE) {
 				{
-				setState(119);
+				setState(123);
 				match(UNIQUE);
 				}
 			}
 
-			setState(123);
+			setState(127);
 			_la = _input.LA(1);
 			if (_la==CLUSTERED || _la==NONCLUSTERED) {
 				{
-				setState(122);
+				setState(126);
 				clustered();
 				}
 			}
 
-			setState(125);
-			match(INDEX);
-			setState(126);
-			id();
-			setState(127);
-			match(ON);
-			setState(128);
-			table_name();
 			setState(129);
-			match(LR_BRACKET);
+			match(INDEX);
 			setState(130);
-			column_name_list();
+			id();
+			setState(131);
+			match(ON);
 			setState(132);
+			table_name();
+			setState(133);
+			match(LR_BRACKET);
+			setState(134);
+			column_name_list();
+			setState(136);
 			_la = _input.LA(1);
 			if (_la==ASC || _la==DESC) {
 				{
-				setState(131);
+				setState(135);
 				_la = _input.LA(1);
 				if ( !(_la==ASC || _la==DESC) ) {
 				_errHandler.recoverInline(this);
@@ -661,7 +663,7 @@ public class mysql_ddlParser extends Parser {
 				}
 			}
 
-			setState(134);
+			setState(138);
 			match(RR_BRACKET);
 			}
 		}
@@ -720,48 +722,48 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(136);
-			match(CREATE);
-			setState(137);
-			match(TABLE);
-			setState(138);
-			table_name();
-			setState(139);
-			match(LR_BRACKET);
 			setState(140);
+			match(CREATE);
+			setState(141);
+			match(TABLE);
+			setState(142);
+			table_name();
+			setState(143);
+			match(LR_BRACKET);
+			setState(144);
 			column_def_table_constraint();
-			setState(145);
+			setState(149);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(141);
+				setState(145);
 				match(COMMA);
-				setState(142);
+				setState(146);
 				column_def_table_constraint();
 				}
 				}
-				setState(147);
+				setState(151);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(148);
+			setState(152);
 			match(RR_BRACKET);
-			setState(150);
+			setState(154);
 			_la = _input.LA(1);
 			if (_la==DEFAULT || _la==CHARSET) {
 				{
-				setState(149);
+				setState(153);
 				table_options();
 				}
 			}
 
-			setState(153);
+			setState(157);
 			_la = _input.LA(1);
 			if (_la==COMMENT) {
 				{
-				setState(152);
+				setState(156);
 				table_comment();
 				}
 			}
@@ -812,15 +814,15 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155);
+			setState(159);
 			table_option();
-			setState(158);
+			setState(162);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(156);
+				setState(160);
 				match(COMMA);
-				setState(157);
+				setState(161);
 				table_options();
 				}
 			}
@@ -870,27 +872,27 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(161);
+			setState(165);
 			_la = _input.LA(1);
 			if (_la==DEFAULT) {
 				{
-				setState(160);
+				setState(164);
 				match(DEFAULT);
 				}
 			}
 
-			setState(163);
+			setState(167);
 			match(CHARSET);
-			setState(165);
+			setState(169);
 			_la = _input.LA(1);
 			if (_la==EQUAL) {
 				{
-				setState(164);
+				setState(168);
 				match(EQUAL);
 				}
 			}
 
-			setState(167);
+			setState(171);
 			char_set();
 			}
 		}
@@ -931,7 +933,7 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(169);
+			setState(173);
 			match(T__0);
 			}
 		}
@@ -975,18 +977,18 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(171);
+			setState(175);
 			match(COMMENT);
-			setState(173);
+			setState(177);
 			_la = _input.LA(1);
 			if (_la==EQUAL) {
 				{
-				setState(172);
+				setState(176);
 				match(EQUAL);
 				}
 			}
 
-			setState(175);
+			setState(179);
 			match(STRING);
 			}
 		}
@@ -1029,9 +1031,9 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(177);
+			setState(181);
 			match(COMMENT);
-			setState(178);
+			setState(182);
 			match(STRING);
 			}
 		}
@@ -1081,15 +1083,15 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180);
-			match(ALTER);
-			setState(181);
-			match(TABLE);
-			setState(182);
-			table_name();
-			setState(183);
-			match(ADD);
 			setState(184);
+			match(ALTER);
+			setState(185);
+			match(TABLE);
+			setState(186);
+			table_name();
+			setState(187);
+			match(ADD);
+			setState(188);
 			column_def_table_constraint();
 			}
 		}
@@ -1143,40 +1145,40 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(186);
-			match(DROP);
-			setState(187);
-			match(INDEX);
 			setState(190);
+			match(DROP);
+			setState(191);
+			match(INDEX);
+			setState(194);
 			_la = _input.LA(1);
 			if (_la==IF) {
 				{
-				setState(188);
+				setState(192);
 				match(IF);
-				setState(189);
+				setState(193);
 				match(EXISTS);
 				}
 			}
 
-			setState(192);
+			setState(196);
 			((Drop_indexContext)_localctx).name = id();
-			setState(195);
+			setState(199);
 			_la = _input.LA(1);
 			if (_la==ON) {
 				{
-				setState(193);
+				setState(197);
 				match(ON);
-				setState(194);
+				setState(198);
 				table_name();
 				}
 			}
 
-			setState(198);
+			setState(202);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
 				{
-				setState(197);
+				setState(201);
 				match(SEMI);
 				}
 				break;
@@ -1228,22 +1230,22 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(200);
-			match(DROP);
-			setState(201);
-			match(TABLE);
 			setState(204);
+			match(DROP);
+			setState(205);
+			match(TABLE);
+			setState(208);
 			_la = _input.LA(1);
 			if (_la==IF) {
 				{
-				setState(202);
+				setState(206);
 				match(IF);
-				setState(203);
+				setState(207);
 				match(EXISTS);
 				}
 			}
 
-			setState(206);
+			setState(210);
 			table_name();
 			}
 		}
@@ -1288,7 +1290,7 @@ public class mysql_ddlParser extends Parser {
 		Column_def_table_constraintContext _localctx = new Column_def_table_constraintContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_column_def_table_constraint);
 		try {
-			setState(210);
+			setState(214);
 			switch (_input.LA(1)) {
 			case FORCESEEK:
 			case ABSOLUTE:
@@ -1418,7 +1420,7 @@ public class mysql_ddlParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(208);
+				setState(212);
 				column_definition();
 				}
 				break;
@@ -1430,7 +1432,7 @@ public class mysql_ddlParser extends Parser {
 			case UNIQUE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(209);
+				setState(213);
 				table_constraint();
 				}
 				break;
@@ -1494,53 +1496,53 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(212);
+			setState(216);
 			id();
-			setState(213);
+			setState(217);
 			data_type();
-			setState(215);
+			setState(219);
 			_la = _input.LA(1);
 			if (_la==NOT || _la==NULL) {
 				{
-				setState(214);
+				setState(218);
 				null_notnull();
 				}
 			}
 
-			setState(218);
+			setState(222);
 			_la = _input.LA(1);
 			if (_la==DEFAULT) {
 				{
-				setState(217);
+				setState(221);
 				column_default();
 				}
 			}
 
-			setState(221);
+			setState(225);
 			_la = _input.LA(1);
 			if (_la==AUTO_INCREMENT) {
 				{
-				setState(220);
+				setState(224);
 				match(AUTO_INCREMENT);
 				}
 			}
 
-			setState(227);
+			setState(231);
 			_la = _input.LA(1);
 			if (_la==PRIMARY || _la==UNIQUE) {
 				{
-				setState(223);
+				setState(227);
 				_la = _input.LA(1);
 				if ( !(_la==PRIMARY || _la==UNIQUE) ) {
 				_errHandler.recoverInline(this);
 				} else {
 					consume();
 				}
-				setState(225);
+				setState(229);
 				_la = _input.LA(1);
 				if (_la==KEY) {
 					{
-					setState(224);
+					setState(228);
 					match(KEY);
 					}
 				}
@@ -1548,13 +1550,13 @@ public class mysql_ddlParser extends Parser {
 				}
 			}
 
-			setState(231);
+			setState(235);
 			_la = _input.LA(1);
 			if (_la==COMMENT) {
 				{
-				setState(229);
+				setState(233);
 				match(COMMENT);
-				setState(230);
+				setState(234);
 				match(STRING);
 				}
 			}
@@ -1616,32 +1618,32 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(233);
+			setState(237);
 			id();
-			setState(234);
+			setState(238);
 			data_type();
-			setState(236);
+			setState(240);
 			_la = _input.LA(1);
 			if (_la==NOT || _la==NULL) {
 				{
-				setState(235);
+				setState(239);
 				null_notnull();
 				}
 			}
 
-			setState(241);
+			setState(245);
 			switch (_input.LA(1)) {
 			case DEFAULT:
 				{
-				setState(238);
+				setState(242);
 				match(DEFAULT);
-				setState(239);
+				setState(243);
 				constant_expression();
 				}
 				break;
 			case AUTO_INCREMENT:
 				{
-				setState(240);
+				setState(244);
 				match(AUTO_INCREMENT);
 				}
 				break;
@@ -1650,7 +1652,7 @@ public class mysql_ddlParser extends Parser {
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(243);
+			setState(247);
 			column_comment();
 			}
 		}
@@ -1695,9 +1697,9 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(245);
+			setState(249);
 			match(DEFAULT);
-			setState(246);
+			setState(250);
 			constant_expression();
 			}
 		}
@@ -1743,12 +1745,12 @@ public class mysql_ddlParser extends Parser {
 		Constant_expressionContext _localctx = new Constant_expressionContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_constant_expression);
 		try {
-			setState(254);
+			setState(258);
 			switch (_input.LA(1)) {
 			case NULL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(248);
+				setState(252);
 				match(NULL);
 				}
 				break;
@@ -1762,18 +1764,18 @@ public class mysql_ddlParser extends Parser {
 			case MINUS:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(249);
+				setState(253);
 				constant();
 				}
 				break;
 			case LR_BRACKET:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(250);
+				setState(254);
 				match(LR_BRACKET);
-				setState(251);
+				setState(255);
 				constant_expression();
-				setState(252);
+				setState(256);
 				match(RR_BRACKET);
 				}
 				break;
@@ -1832,51 +1834,51 @@ public class mysql_ddlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(258);
+			setState(262);
 			_la = _input.LA(1);
 			if (_la==CONSTRAINT) {
 				{
-				setState(256);
+				setState(260);
 				match(CONSTRAINT);
-				setState(257);
+				setState(261);
 				id();
 				}
 			}
 
-			setState(261);
+			setState(265);
 			_la = _input.LA(1);
 			if (_la==NOT || _la==NULL) {
 				{
-				setState(260);
+				setState(264);
 				null_notnull();
 				}
 			}
 
 			{
-			setState(266);
+			setState(270);
 			switch (_input.LA(1)) {
 			case PRIMARY:
 				{
-				setState(263);
+				setState(267);
 				match(PRIMARY);
-				setState(264);
+				setState(268);
 				match(KEY);
 				}
 				break;
 			case UNIQUE:
 				{
-				setState(265);
+				setState(269);
 				match(UNIQUE);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(269);
+			setState(273);
 			_la = _input.LA(1);
 			if (_la==CLUSTERED || _la==NONCLUSTERED) {
 				{
-				setState(268);
+				setState(272);
 				clustered();
 				}
 			}
@@ -1896,20 +1898,12 @@ public class mysql_ddlParser extends Parser {
 	}
 
 	public static class Table_constraintContext extends ParserRuleContext {
-		public Sorted_column_name_listContext sorted_column_name_list() {
-			return getRuleContext(Sorted_column_name_listContext.class,0);
+		public Table_unique_constraintContext table_unique_constraint() {
+			return getRuleContext(Table_unique_constraintContext.class,0);
 		}
-		public TerminalNode CONSTRAINT() { return getToken(mysql_ddlParser.CONSTRAINT, 0); }
-		public IdContext id() {
-			return getRuleContext(IdContext.class,0);
+		public Table_index_constraintContext table_index_constraint() {
+			return getRuleContext(Table_index_constraintContext.class,0);
 		}
-		public TerminalNode PRIMARY() { return getToken(mysql_ddlParser.PRIMARY, 0); }
-		public TerminalNode KEY() { return getToken(mysql_ddlParser.KEY, 0); }
-		public TerminalNode UNIQUE() { return getToken(mysql_ddlParser.UNIQUE, 0); }
-		public ClusteredContext clustered() {
-			return getRuleContext(ClusteredContext.class,0);
-		}
-		public TerminalNode INDEX() { return getToken(mysql_ddlParser.INDEX, 0); }
 		public Table_foreign_key_defContext table_foreign_key_def() {
 			return getRuleContext(Table_foreign_key_defContext.class,0);
 		}
@@ -1935,132 +1929,211 @@ public class mysql_ddlParser extends Parser {
 	public final Table_constraintContext table_constraint() throws RecognitionException {
 		Table_constraintContext _localctx = new Table_constraintContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_table_constraint);
-		int _la;
 		try {
-			setState(310);
+			setState(278);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,38,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(273);
-				_la = _input.LA(1);
-				if (_la==CONSTRAINT) {
-					{
-					setState(271);
-					match(CONSTRAINT);
-					setState(272);
-					id();
-					}
-				}
-
-				{
-				setState(278);
-				switch (_input.LA(1)) {
-				case PRIMARY:
-					{
-					setState(275);
-					match(PRIMARY);
-					setState(276);
-					match(KEY);
-					}
-					break;
-				case UNIQUE:
-					{
-					setState(277);
-					match(UNIQUE);
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
-				}
-				setState(281);
-				_la = _input.LA(1);
-				if (_la==CLUSTERED || _la==NONCLUSTERED) {
-					{
-					setState(280);
-					clustered();
-					}
-				}
-
-				setState(283);
-				match(LR_BRACKET);
-				setState(284);
-				sorted_column_name_list();
-				setState(285);
-				match(RR_BRACKET);
-				}
+				setState(275);
+				table_unique_constraint();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(288);
-				_la = _input.LA(1);
-				if (_la==UNIQUE) {
-					{
-					setState(287);
-					match(UNIQUE);
-					}
-				}
-
-				setState(290);
-				match(KEY);
-				setState(292);
-				_la = _input.LA(1);
-				if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
-					{
-					setState(291);
-					id();
-					}
-				}
-
-				setState(294);
-				match(LR_BRACKET);
-				setState(295);
-				sorted_column_name_list();
-				setState(296);
-				match(RR_BRACKET);
+				setState(276);
+				table_index_constraint();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(299);
-				_la = _input.LA(1);
-				if (_la==UNIQUE) {
-					{
-					setState(298);
-					match(UNIQUE);
-					}
-				}
-
-				setState(301);
-				match(INDEX);
-				setState(303);
-				_la = _input.LA(1);
-				if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
-					{
-					setState(302);
-					id();
-					}
-				}
-
-				setState(305);
-				match(LR_BRACKET);
-				setState(306);
-				sorted_column_name_list();
-				setState(307);
-				match(RR_BRACKET);
-				}
-				break;
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(309);
+				setState(277);
 				table_foreign_key_def();
 				}
 				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Table_unique_constraintContext extends ParserRuleContext {
+		public Sorted_column_name_listContext sorted_column_name_list() {
+			return getRuleContext(Sorted_column_name_listContext.class,0);
+		}
+		public TerminalNode CONSTRAINT() { return getToken(mysql_ddlParser.CONSTRAINT, 0); }
+		public IdContext id() {
+			return getRuleContext(IdContext.class,0);
+		}
+		public TerminalNode PRIMARY() { return getToken(mysql_ddlParser.PRIMARY, 0); }
+		public TerminalNode KEY() { return getToken(mysql_ddlParser.KEY, 0); }
+		public TerminalNode UNIQUE() { return getToken(mysql_ddlParser.UNIQUE, 0); }
+		public ClusteredContext clustered() {
+			return getRuleContext(ClusteredContext.class,0);
+		}
+		public Table_unique_constraintContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_table_unique_constraint; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof mysql_ddlListener ) ((mysql_ddlListener)listener).enterTable_unique_constraint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof mysql_ddlListener ) ((mysql_ddlListener)listener).exitTable_unique_constraint(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof mysql_ddlVisitor ) return ((mysql_ddlVisitor<? extends T>)visitor).visitTable_unique_constraint(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Table_unique_constraintContext table_unique_constraint() throws RecognitionException {
+		Table_unique_constraintContext _localctx = new Table_unique_constraintContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_table_unique_constraint);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(282);
+			_la = _input.LA(1);
+			if (_la==CONSTRAINT) {
+				{
+				setState(280);
+				match(CONSTRAINT);
+				setState(281);
+				id();
+				}
+			}
+
+			{
+			setState(287);
+			switch (_input.LA(1)) {
+			case PRIMARY:
+				{
+				setState(284);
+				match(PRIMARY);
+				setState(285);
+				match(KEY);
+				}
+				break;
+			case UNIQUE:
+				{
+				setState(286);
+				match(UNIQUE);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+			setState(290);
+			_la = _input.LA(1);
+			if (_la==CLUSTERED || _la==NONCLUSTERED) {
+				{
+				setState(289);
+				clustered();
+				}
+			}
+
+			setState(292);
+			match(LR_BRACKET);
+			setState(293);
+			sorted_column_name_list();
+			setState(294);
+			match(RR_BRACKET);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Table_index_constraintContext extends ParserRuleContext {
+		public Sorted_column_name_listContext sorted_column_name_list() {
+			return getRuleContext(Sorted_column_name_listContext.class,0);
+		}
+		public TerminalNode KEY() { return getToken(mysql_ddlParser.KEY, 0); }
+		public TerminalNode INDEX() { return getToken(mysql_ddlParser.INDEX, 0); }
+		public TerminalNode UNIQUE() { return getToken(mysql_ddlParser.UNIQUE, 0); }
+		public IdContext id() {
+			return getRuleContext(IdContext.class,0);
+		}
+		public Table_index_constraintContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_table_index_constraint; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof mysql_ddlListener ) ((mysql_ddlListener)listener).enterTable_index_constraint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof mysql_ddlListener ) ((mysql_ddlListener)listener).exitTable_index_constraint(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof mysql_ddlVisitor ) return ((mysql_ddlVisitor<? extends T>)visitor).visitTable_index_constraint(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Table_index_constraintContext table_index_constraint() throws RecognitionException {
+		Table_index_constraintContext _localctx = new Table_index_constraintContext(_ctx, getState());
+		enterRule(_localctx, 44, RULE_table_index_constraint);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(297);
+			_la = _input.LA(1);
+			if (_la==UNIQUE) {
+				{
+				setState(296);
+				match(UNIQUE);
+				}
+			}
+
+			setState(299);
+			_la = _input.LA(1);
+			if ( !(_la==INDEX || _la==KEY) ) {
+			_errHandler.recoverInline(this);
+			} else {
+				consume();
+			}
+			setState(301);
+			_la = _input.LA(1);
+			if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
+				{
+				setState(300);
+				id();
+				}
+			}
+
+			setState(303);
+			match(LR_BRACKET);
+			setState(304);
+			sorted_column_name_list();
+			setState(305);
+			match(RR_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2120,54 +2193,54 @@ public class mysql_ddlParser extends Parser {
 
 	public final Table_foreign_key_defContext table_foreign_key_def() throws RecognitionException {
 		Table_foreign_key_defContext _localctx = new Table_foreign_key_defContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_table_foreign_key_def);
+		enterRule(_localctx, 46, RULE_table_foreign_key_def);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(312);
+			setState(307);
 			match(FOREIGN);
-			setState(313);
+			setState(308);
 			match(KEY);
+			setState(309);
+			match(LR_BRACKET);
+			setState(310);
+			column_name_list();
+			setState(311);
+			match(RR_BRACKET);
+			setState(312);
+			match(REFERENCES);
+			setState(313);
+			id();
 			setState(314);
 			match(LR_BRACKET);
 			setState(315);
 			column_name_list();
 			setState(316);
 			match(RR_BRACKET);
-			setState(317);
-			match(REFERENCES);
-			setState(318);
-			id();
-			setState(319);
-			match(LR_BRACKET);
-			setState(320);
-			column_name_list();
 			setState(321);
-			match(RR_BRACKET);
-			setState(326);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==ON) {
 				{
-				setState(324);
+				setState(319);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,39,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,37,_ctx) ) {
 				case 1:
 					{
-					setState(322);
+					setState(317);
 					fk_on_delete();
 					}
 					break;
 				case 2:
 					{
-					setState(323);
+					setState(318);
 					fk_on_update();
 					}
 					break;
 				}
 				}
-				setState(328);
+				setState(323);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2212,33 +2285,33 @@ public class mysql_ddlParser extends Parser {
 
 	public final Fk_on_deleteContext fk_on_delete() throws RecognitionException {
 		Fk_on_deleteContext _localctx = new Fk_on_deleteContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_fk_on_delete);
+		enterRule(_localctx, 48, RULE_fk_on_delete);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(329);
+			setState(324);
 			match(ON);
-			setState(330);
+			setState(325);
 			match(DELETE);
-			setState(335);
+			setState(330);
 			switch (_input.LA(1)) {
 			case CASCADE:
 				{
-				setState(331);
+				setState(326);
 				match(CASCADE);
 				}
 				break;
 			case RESTRICT:
 				{
-				setState(332);
+				setState(327);
 				match(RESTRICT);
 				}
 				break;
 			case NO:
 				{
-				setState(333);
+				setState(328);
 				match(NO);
-				setState(334);
+				setState(329);
 				match(ACTION);
 				}
 				break;
@@ -2285,27 +2358,27 @@ public class mysql_ddlParser extends Parser {
 
 	public final Fk_on_updateContext fk_on_update() throws RecognitionException {
 		Fk_on_updateContext _localctx = new Fk_on_updateContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_fk_on_update);
+		enterRule(_localctx, 50, RULE_fk_on_update);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(337);
+			setState(332);
 			match(ON);
-			setState(338);
+			setState(333);
 			match(UPDATE);
-			setState(342);
+			setState(337);
 			switch (_input.LA(1)) {
 			case RESTRICT:
 				{
-				setState(339);
+				setState(334);
 				match(RESTRICT);
 				}
 				break;
 			case NO:
 				{
-				setState(340);
+				setState(335);
 				match(NO);
-				setState(341);
+				setState(336);
 				match(ACTION);
 				}
 				break;
@@ -2357,59 +2430,59 @@ public class mysql_ddlParser extends Parser {
 
 	public final Full_table_nameContext full_table_name() throws RecognitionException {
 		Full_table_nameContext _localctx = new Full_table_nameContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_full_table_name);
+		enterRule(_localctx, 52, RULE_full_table_name);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(361);
+			setState(356);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,44,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,42,_ctx) ) {
 			case 1:
 				{
-				setState(344);
+				setState(339);
 				((Full_table_nameContext)_localctx).server = id();
-				setState(345);
+				setState(340);
 				match(DOT);
-				setState(346);
+				setState(341);
 				((Full_table_nameContext)_localctx).database = id();
-				setState(347);
+				setState(342);
 				match(DOT);
-				setState(348);
+				setState(343);
 				((Full_table_nameContext)_localctx).schema = id();
-				setState(349);
+				setState(344);
 				match(DOT);
 				}
 				break;
 			case 2:
 				{
-				setState(351);
+				setState(346);
 				((Full_table_nameContext)_localctx).database = id();
-				setState(352);
+				setState(347);
 				match(DOT);
-				setState(354);
+				setState(349);
 				_la = _input.LA(1);
 				if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
 					{
-					setState(353);
+					setState(348);
 					((Full_table_nameContext)_localctx).schema = id();
 					}
 				}
 
-				setState(356);
+				setState(351);
 				match(DOT);
 				}
 				break;
 			case 3:
 				{
-				setState(358);
+				setState(353);
 				((Full_table_nameContext)_localctx).schema = id();
-				setState(359);
+				setState(354);
 				match(DOT);
 				}
 				break;
 			}
-			setState(363);
+			setState(358);
 			((Full_table_nameContext)_localctx).table = id();
 			}
 		}
@@ -2455,43 +2528,43 @@ public class mysql_ddlParser extends Parser {
 
 	public final Table_nameContext table_name() throws RecognitionException {
 		Table_nameContext _localctx = new Table_nameContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_table_name);
+		enterRule(_localctx, 54, RULE_table_name);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(375);
+			setState(370);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,46,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,44,_ctx) ) {
 			case 1:
 				{
-				setState(365);
+				setState(360);
 				((Table_nameContext)_localctx).database = id();
-				setState(366);
+				setState(361);
 				match(DOT);
-				setState(368);
+				setState(363);
 				_la = _input.LA(1);
 				if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
 					{
-					setState(367);
+					setState(362);
 					((Table_nameContext)_localctx).schema = id();
 					}
 				}
 
-				setState(370);
+				setState(365);
 				match(DOT);
 				}
 				break;
 			case 2:
 				{
-				setState(372);
+				setState(367);
 				((Table_nameContext)_localctx).schema = id();
-				setState(373);
+				setState(368);
 				match(DOT);
 				}
 				break;
 			}
-			setState(377);
+			setState(372);
 			((Table_nameContext)_localctx).table = id();
 			}
 		}
@@ -2536,23 +2609,23 @@ public class mysql_ddlParser extends Parser {
 
 	public final Simple_nameContext simple_name() throws RecognitionException {
 		Simple_nameContext _localctx = new Simple_nameContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_simple_name);
+		enterRule(_localctx, 56, RULE_simple_name);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(382);
+			setState(377);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,45,_ctx) ) {
 			case 1:
 				{
-				setState(379);
+				setState(374);
 				((Simple_nameContext)_localctx).schema = id();
-				setState(380);
+				setState(375);
 				match(DOT);
 				}
 				break;
 			}
-			setState(384);
+			setState(379);
 			((Simple_nameContext)_localctx).name = id();
 			}
 		}
@@ -2598,45 +2671,45 @@ public class mysql_ddlParser extends Parser {
 
 	public final Func_proc_nameContext func_proc_name() throws RecognitionException {
 		Func_proc_nameContext _localctx = new Func_proc_nameContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_func_proc_name);
+		enterRule(_localctx, 58, RULE_func_proc_name);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(396);
+			setState(391);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,49,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
 			case 1:
 				{
-				setState(386);
+				setState(381);
 				((Func_proc_nameContext)_localctx).database = id();
-				setState(387);
+				setState(382);
 				match(DOT);
-				setState(389);
+				setState(384);
 				_la = _input.LA(1);
 				if (_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (DOUBLE_QUOTE_ID - 388)) | (1L << (LEFT_QUOTE_ID - 388)) | (1L << (ID - 388)))) != 0)) {
 					{
-					setState(388);
+					setState(383);
 					((Func_proc_nameContext)_localctx).schema = id();
 					}
 				}
 
-				setState(391);
+				setState(386);
 				match(DOT);
 				}
 				break;
 			case 2:
 				{
 				{
-				setState(393);
+				setState(388);
 				((Func_proc_nameContext)_localctx).schema = id();
 				}
-				setState(394);
+				setState(389);
 				match(DOT);
 				}
 				break;
 			}
-			setState(398);
+			setState(393);
 			((Func_proc_nameContext)_localctx).procedure = id();
 			}
 		}
@@ -2677,9 +2750,9 @@ public class mysql_ddlParser extends Parser {
 
 	public final Ddl_objectContext ddl_object() throws RecognitionException {
 		Ddl_objectContext _localctx = new Ddl_objectContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_ddl_object);
+		enterRule(_localctx, 60, RULE_ddl_object);
 		try {
-			setState(402);
+			setState(397);
 			switch (_input.LA(1)) {
 			case FORCESEEK:
 			case ABSOLUTE:
@@ -2809,14 +2882,14 @@ public class mysql_ddlParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(400);
+				setState(395);
 				full_table_name();
 				}
 				break;
 			case LOCAL_ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(401);
+				setState(396);
 				match(LOCAL_ID);
 				}
 				break;
@@ -2863,23 +2936,23 @@ public class mysql_ddlParser extends Parser {
 
 	public final Full_column_nameContext full_column_name() throws RecognitionException {
 		Full_column_nameContext _localctx = new Full_column_nameContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_full_column_name);
+		enterRule(_localctx, 62, RULE_full_column_name);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(407);
+			setState(402);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,51,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,49,_ctx) ) {
 			case 1:
 				{
-				setState(404);
+				setState(399);
 				table_name();
-				setState(405);
+				setState(400);
 				match(DOT);
 				}
 				break;
 			}
-			setState(409);
+			setState(404);
 			id();
 			}
 		}
@@ -2922,26 +2995,26 @@ public class mysql_ddlParser extends Parser {
 
 	public final Column_name_listContext column_name_list() throws RecognitionException {
 		Column_name_listContext _localctx = new Column_name_listContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_column_name_list);
+		enterRule(_localctx, 64, RULE_column_name_list);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(411);
+			setState(406);
 			id();
-			setState(416);
+			setState(411);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(412);
+				setState(407);
 				match(COMMA);
-				setState(413);
+				setState(408);
 				id();
 				}
 				}
-				setState(418);
+				setState(413);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -2994,18 +3067,18 @@ public class mysql_ddlParser extends Parser {
 
 	public final Sorted_column_name_listContext sorted_column_name_list() throws RecognitionException {
 		Sorted_column_name_listContext _localctx = new Sorted_column_name_listContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_sorted_column_name_list);
+		enterRule(_localctx, 66, RULE_sorted_column_name_list);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(419);
+			setState(414);
 			id();
-			setState(421);
+			setState(416);
 			_la = _input.LA(1);
 			if (_la==ASC || _la==DESC) {
 				{
-				setState(420);
+				setState(415);
 				_la = _input.LA(1);
 				if ( !(_la==ASC || _la==DESC) ) {
 				_errHandler.recoverInline(this);
@@ -3015,21 +3088,21 @@ public class mysql_ddlParser extends Parser {
 				}
 			}
 
-			setState(430);
+			setState(425);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(423);
+				setState(418);
 				match(COMMA);
-				setState(424);
+				setState(419);
 				id();
-				setState(426);
+				setState(421);
 				_la = _input.LA(1);
 				if (_la==ASC || _la==DESC) {
 					{
-					setState(425);
+					setState(420);
 					_la = _input.LA(1);
 					if ( !(_la==ASC || _la==DESC) ) {
 					_errHandler.recoverInline(this);
@@ -3041,7 +3114,7 @@ public class mysql_ddlParser extends Parser {
 
 				}
 				}
-				setState(432);
+				setState(427);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3084,9 +3157,9 @@ public class mysql_ddlParser extends Parser {
 
 	public final Cursor_nameContext cursor_name() throws RecognitionException {
 		Cursor_nameContext _localctx = new Cursor_nameContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_cursor_name);
+		enterRule(_localctx, 68, RULE_cursor_name);
 		try {
-			setState(435);
+			setState(430);
 			switch (_input.LA(1)) {
 			case FORCESEEK:
 			case ABSOLUTE:
@@ -3216,14 +3289,14 @@ public class mysql_ddlParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(433);
+				setState(428);
 				id();
 				}
 				break;
 			case LOCAL_ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(434);
+				setState(429);
 				match(LOCAL_ID);
 				}
 				break;
@@ -3266,12 +3339,12 @@ public class mysql_ddlParser extends Parser {
 
 	public final On_offContext on_off() throws RecognitionException {
 		On_offContext _localctx = new On_offContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_on_off);
+		enterRule(_localctx, 70, RULE_on_off);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(437);
+			setState(432);
 			_la = _input.LA(1);
 			if ( !(_la==OFF || _la==ON) ) {
 			_errHandler.recoverInline(this);
@@ -3315,12 +3388,12 @@ public class mysql_ddlParser extends Parser {
 
 	public final ClusteredContext clustered() throws RecognitionException {
 		ClusteredContext _localctx = new ClusteredContext(_ctx, getState());
-		enterRule(_localctx, 68, RULE_clustered);
+		enterRule(_localctx, 72, RULE_clustered);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(439);
+			setState(434);
 			_la = _input.LA(1);
 			if ( !(_la==CLUSTERED || _la==NONCLUSTERED) ) {
 			_errHandler.recoverInline(this);
@@ -3364,21 +3437,21 @@ public class mysql_ddlParser extends Parser {
 
 	public final Null_notnullContext null_notnull() throws RecognitionException {
 		Null_notnullContext _localctx = new Null_notnullContext(_ctx, getState());
-		enterRule(_localctx, 70, RULE_null_notnull);
+		enterRule(_localctx, 74, RULE_null_notnull);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(442);
+			setState(437);
 			_la = _input.LA(1);
 			if (_la==NOT) {
 				{
-				setState(441);
+				setState(436);
 				match(NOT);
 				}
 			}
 
-			setState(444);
+			setState(439);
 			match(NULL);
 			}
 		}
@@ -3422,9 +3495,9 @@ public class mysql_ddlParser extends Parser {
 
 	public final Scalar_function_nameContext scalar_function_name() throws RecognitionException {
 		Scalar_function_nameContext _localctx = new Scalar_function_nameContext(_ctx, getState());
-		enterRule(_localctx, 72, RULE_scalar_function_name);
+		enterRule(_localctx, 76, RULE_scalar_function_name);
 		try {
-			setState(451);
+			setState(446);
 			switch (_input.LA(1)) {
 			case FORCESEEK:
 			case ABSOLUTE:
@@ -3554,35 +3627,35 @@ public class mysql_ddlParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(446);
+				setState(441);
 				func_proc_name();
 				}
 				break;
 			case RIGHT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(447);
+				setState(442);
 				match(RIGHT);
 				}
 				break;
 			case LEFT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(448);
+				setState(443);
 				match(LEFT);
 				}
 				break;
 			case BINARY_CHECKSUM:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(449);
+				setState(444);
 				match(BINARY_CHECKSUM);
 				}
 				break;
 			case CHECKSUM:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(450);
+				setState(445);
 				match(CHECKSUM);
 				}
 				break;
@@ -3632,47 +3705,47 @@ public class mysql_ddlParser extends Parser {
 
 	public final Ms_data_typeContext ms_data_type() throws RecognitionException {
 		Ms_data_typeContext _localctx = new Ms_data_typeContext(_ctx, getState());
-		enterRule(_localctx, 74, RULE_ms_data_type);
+		enterRule(_localctx, 78, RULE_ms_data_type);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(453);
+			setState(448);
 			id();
-			setState(455);
+			setState(450);
 			_la = _input.LA(1);
 			if (_la==IDENTITY) {
 				{
-				setState(454);
+				setState(449);
 				match(IDENTITY);
 				}
 			}
 
-			setState(464);
+			setState(459);
 			_la = _input.LA(1);
 			if (_la==LR_BRACKET) {
 				{
-				setState(457);
+				setState(452);
 				match(LR_BRACKET);
-				setState(458);
+				setState(453);
 				_la = _input.LA(1);
 				if ( !(_la==MAX || _la==DECIMAL_LITERAL) ) {
 				_errHandler.recoverInline(this);
 				} else {
 					consume();
 				}
-				setState(461);
+				setState(456);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(459);
+					setState(454);
 					match(COMMA);
-					setState(460);
+					setState(455);
 					match(DECIMAL_LITERAL);
 					}
 				}
 
-				setState(463);
+				setState(458);
 				match(RR_BRACKET);
 				}
 			}
@@ -3762,21 +3835,21 @@ public class mysql_ddlParser extends Parser {
 
 	public final Data_typeContext data_type() throws RecognitionException {
 		Data_typeContext _localctx = new Data_typeContext(_ctx, getState());
-		enterRule(_localctx, 76, RULE_data_type);
+		enterRule(_localctx, 80, RULE_data_type);
 		int _la;
 		try {
-			setState(778);
+			setState(773);
 			switch (_input.LA(1)) {
 			case BIT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(466);
+				setState(461);
 				match(BIT);
-				setState(468);
+				setState(463);
 				_la = _input.LA(1);
 				if (_la==DECIMAL_LITERAL) {
 					{
-					setState(467);
+					setState(462);
 					match(DECIMAL_LITERAL);
 					}
 				}
@@ -3786,35 +3859,35 @@ public class mysql_ddlParser extends Parser {
 			case TINYINT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(470);
+				setState(465);
 				match(TINYINT);
-				setState(474);
+				setState(469);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(471);
+					setState(466);
 					match(LR_BRACKET);
-					setState(472);
+					setState(467);
 					match(DECIMAL_LITERAL);
-					setState(473);
+					setState(468);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(477);
+				setState(472);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(476);
+					setState(471);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(480);
+				setState(475);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(479);
+					setState(474);
 					match(ZEROFILL);
 					}
 				}
@@ -3824,35 +3897,35 @@ public class mysql_ddlParser extends Parser {
 			case SMALLINT:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(482);
+				setState(477);
 				match(SMALLINT);
-				setState(486);
+				setState(481);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(483);
+					setState(478);
 					match(LR_BRACKET);
-					setState(484);
+					setState(479);
 					match(DECIMAL_LITERAL);
-					setState(485);
+					setState(480);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(489);
+				setState(484);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(488);
+					setState(483);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(492);
+				setState(487);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(491);
+					setState(486);
 					match(ZEROFILL);
 					}
 				}
@@ -3862,35 +3935,35 @@ public class mysql_ddlParser extends Parser {
 			case MEDIUMINT:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(494);
+				setState(489);
 				match(MEDIUMINT);
-				setState(498);
+				setState(493);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(495);
+					setState(490);
 					match(LR_BRACKET);
-					setState(496);
+					setState(491);
 					match(DECIMAL_LITERAL);
-					setState(497);
+					setState(492);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(501);
+				setState(496);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(500);
+					setState(495);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(504);
+				setState(499);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(503);
+					setState(498);
 					match(ZEROFILL);
 					}
 				}
@@ -3900,35 +3973,35 @@ public class mysql_ddlParser extends Parser {
 			case INT:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(506);
+				setState(501);
 				match(INT);
-				setState(510);
+				setState(505);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(507);
+					setState(502);
 					match(LR_BRACKET);
-					setState(508);
+					setState(503);
 					match(DECIMAL_LITERAL);
-					setState(509);
+					setState(504);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(513);
+				setState(508);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(512);
+					setState(507);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(516);
+				setState(511);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(515);
+					setState(510);
 					match(ZEROFILL);
 					}
 				}
@@ -3938,35 +4011,35 @@ public class mysql_ddlParser extends Parser {
 			case INTEGER:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(518);
+				setState(513);
 				match(INTEGER);
-				setState(522);
+				setState(517);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(519);
+					setState(514);
 					match(LR_BRACKET);
-					setState(520);
+					setState(515);
 					match(DECIMAL_LITERAL);
-					setState(521);
+					setState(516);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(525);
+				setState(520);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(524);
+					setState(519);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(528);
+				setState(523);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(527);
+					setState(522);
 					match(ZEROFILL);
 					}
 				}
@@ -3976,35 +4049,35 @@ public class mysql_ddlParser extends Parser {
 			case BIGINT:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(530);
+				setState(525);
 				match(BIGINT);
-				setState(534);
+				setState(529);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(531);
+					setState(526);
 					match(LR_BRACKET);
-					setState(532);
+					setState(527);
 					match(DECIMAL_LITERAL);
-					setState(533);
+					setState(528);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(537);
+				setState(532);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(536);
+					setState(531);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(540);
+				setState(535);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(539);
+					setState(534);
 					match(ZEROFILL);
 					}
 				}
@@ -4014,39 +4087,39 @@ public class mysql_ddlParser extends Parser {
 			case REAL:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(542);
+				setState(537);
 				match(REAL);
-				setState(548);
+				setState(543);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(543);
+					setState(538);
 					match(LR_BRACKET);
-					setState(544);
+					setState(539);
 					match(DECIMAL_LITERAL);
-					setState(545);
+					setState(540);
 					match(COMMA);
-					setState(546);
+					setState(541);
 					match(DECIMAL_LITERAL);
-					setState(547);
+					setState(542);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(551);
+				setState(546);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(550);
+					setState(545);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(554);
+				setState(549);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(553);
+					setState(548);
 					match(ZEROFILL);
 					}
 				}
@@ -4056,39 +4129,39 @@ public class mysql_ddlParser extends Parser {
 			case DOUBLE:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(556);
+				setState(551);
 				match(DOUBLE);
-				setState(562);
+				setState(557);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(557);
+					setState(552);
 					match(LR_BRACKET);
-					setState(558);
+					setState(553);
 					match(DECIMAL_LITERAL);
-					setState(559);
+					setState(554);
 					match(COMMA);
-					setState(560);
+					setState(555);
 					match(DECIMAL_LITERAL);
-					setState(561);
+					setState(556);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(565);
+				setState(560);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(564);
+					setState(559);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(568);
+				setState(563);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(567);
+					setState(562);
 					match(ZEROFILL);
 					}
 				}
@@ -4098,39 +4171,39 @@ public class mysql_ddlParser extends Parser {
 			case FLOAT:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(570);
+				setState(565);
 				match(FLOAT);
-				setState(576);
+				setState(571);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(571);
+					setState(566);
 					match(LR_BRACKET);
-					setState(572);
+					setState(567);
 					match(DECIMAL_LITERAL);
-					setState(573);
+					setState(568);
 					match(COMMA);
-					setState(574);
+					setState(569);
 					match(DECIMAL_LITERAL);
-					setState(575);
+					setState(570);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(579);
+				setState(574);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(578);
+					setState(573);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(582);
+				setState(577);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(581);
+					setState(576);
 					match(ZEROFILL);
 					}
 				}
@@ -4140,46 +4213,46 @@ public class mysql_ddlParser extends Parser {
 			case DECIMAL:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(584);
+				setState(579);
 				match(DECIMAL);
-				setState(592);
+				setState(587);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(585);
+					setState(580);
 					match(LR_BRACKET);
-					setState(586);
+					setState(581);
 					match(DECIMAL_LITERAL);
-					setState(589);
+					setState(584);
 					_la = _input.LA(1);
 					if (_la==COMMA) {
 						{
-						setState(587);
+						setState(582);
 						match(COMMA);
-						setState(588);
+						setState(583);
 						match(DECIMAL_LITERAL);
 						}
 					}
 
-					setState(591);
+					setState(586);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(595);
+				setState(590);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(594);
+					setState(589);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(598);
+				setState(593);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(597);
+					setState(592);
 					match(ZEROFILL);
 					}
 				}
@@ -4189,46 +4262,46 @@ public class mysql_ddlParser extends Parser {
 			case NUMERIC:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(600);
+				setState(595);
 				match(NUMERIC);
-				setState(608);
+				setState(603);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(601);
+					setState(596);
 					match(LR_BRACKET);
-					setState(602);
+					setState(597);
 					match(DECIMAL_LITERAL);
-					setState(605);
+					setState(600);
 					_la = _input.LA(1);
 					if (_la==COMMA) {
 						{
-						setState(603);
+						setState(598);
 						match(COMMA);
-						setState(604);
+						setState(599);
 						match(DECIMAL_LITERAL);
 						}
 					}
 
-					setState(607);
+					setState(602);
 					match(RR_BRACKET);
 					}
 				}
 
-				setState(611);
+				setState(606);
 				_la = _input.LA(1);
 				if (_la==UNSIGNED) {
 					{
-					setState(610);
+					setState(605);
 					match(UNSIGNED);
 					}
 				}
 
-				setState(614);
+				setState(609);
 				_la = _input.LA(1);
 				if (_la==ZEROFILL) {
 					{
-					setState(613);
+					setState(608);
 					match(ZEROFILL);
 					}
 				}
@@ -4238,24 +4311,24 @@ public class mysql_ddlParser extends Parser {
 			case DATE:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(616);
+				setState(611);
 				match(DATE);
 				}
 				break;
 			case TIME:
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(617);
+				setState(612);
 				match(TIME);
-				setState(621);
+				setState(616);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(618);
+					setState(613);
 					match(LR_BRACKET);
-					setState(619);
+					setState(614);
 					match(DECIMAL_LITERAL);
-					setState(620);
+					setState(615);
 					match(RR_BRACKET);
 					}
 				}
@@ -4265,17 +4338,17 @@ public class mysql_ddlParser extends Parser {
 			case TIMESTAMP:
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(623);
+				setState(618);
 				match(TIMESTAMP);
-				setState(627);
+				setState(622);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(624);
+					setState(619);
 					match(LR_BRACKET);
-					setState(625);
+					setState(620);
 					match(DECIMAL_LITERAL);
-					setState(626);
+					setState(621);
 					match(RR_BRACKET);
 					}
 				}
@@ -4285,17 +4358,17 @@ public class mysql_ddlParser extends Parser {
 			case DATETIME:
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(629);
+				setState(624);
 				match(DATETIME);
-				setState(633);
+				setState(628);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(630);
+					setState(625);
 					match(LR_BRACKET);
-					setState(631);
+					setState(626);
 					match(DECIMAL_LITERAL);
-					setState(632);
+					setState(627);
 					match(RR_BRACKET);
 					}
 				}
@@ -4305,57 +4378,57 @@ public class mysql_ddlParser extends Parser {
 			case YEAR:
 				enterOuterAlt(_localctx, 17);
 				{
-				setState(635);
+				setState(630);
 				match(YEAR);
 				}
 				break;
 			case CHAR:
 				enterOuterAlt(_localctx, 18);
 				{
-				setState(636);
+				setState(631);
 				match(CHAR);
-				setState(640);
+				setState(635);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(637);
+					setState(632);
 					match(LR_BRACKET);
-					setState(638);
+					setState(633);
 					match(DECIMAL_LITERAL);
-					setState(639);
+					setState(634);
 					match(RR_BRACKET);
+					}
+				}
+
+				setState(638);
+				_la = _input.LA(1);
+				if (_la==BINARY) {
+					{
+					setState(637);
+					match(BINARY);
 					}
 				}
 
 				setState(643);
 				_la = _input.LA(1);
-				if (_la==BINARY) {
-					{
-					setState(642);
-					match(BINARY);
-					}
-				}
-
-				setState(648);
-				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(645);
+					setState(640);
 					match(CHARACTER);
-					setState(646);
+					setState(641);
 					match(SET);
-					setState(647);
+					setState(642);
 					id();
 					}
 				}
 
-				setState(652);
+				setState(647);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(650);
+					setState(645);
 					match(COLLATE);
-					setState(651);
+					setState(646);
 					id();
 					}
 				}
@@ -4365,50 +4438,50 @@ public class mysql_ddlParser extends Parser {
 			case VARCHAR:
 				enterOuterAlt(_localctx, 19);
 				{
-				setState(654);
+				setState(649);
 				match(VARCHAR);
-				setState(658);
+				setState(653);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(655);
+					setState(650);
 					match(LR_BRACKET);
-					setState(656);
+					setState(651);
 					match(DECIMAL_LITERAL);
-					setState(657);
+					setState(652);
 					match(RR_BRACKET);
+					}
+				}
+
+				setState(656);
+				_la = _input.LA(1);
+				if (_la==BINARY) {
+					{
+					setState(655);
+					match(BINARY);
 					}
 				}
 
 				setState(661);
 				_la = _input.LA(1);
-				if (_la==BINARY) {
-					{
-					setState(660);
-					match(BINARY);
-					}
-				}
-
-				setState(666);
-				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(663);
+					setState(658);
 					match(CHARACTER);
-					setState(664);
+					setState(659);
 					match(SET);
-					setState(665);
+					setState(660);
 					id();
 					}
 				}
 
-				setState(670);
+				setState(665);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(668);
+					setState(663);
 					match(COLLATE);
-					setState(669);
+					setState(664);
 					id();
 					}
 				}
@@ -4418,17 +4491,17 @@ public class mysql_ddlParser extends Parser {
 			case BINARY:
 				enterOuterAlt(_localctx, 20);
 				{
-				setState(672);
+				setState(667);
 				match(BINARY);
-				setState(676);
+				setState(671);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(673);
+					setState(668);
 					match(LR_BRACKET);
-					setState(674);
+					setState(669);
 					match(DECIMAL_LITERAL);
-					setState(675);
+					setState(670);
 					match(RR_BRACKET);
 					}
 				}
@@ -4438,17 +4511,17 @@ public class mysql_ddlParser extends Parser {
 			case VARBINARY:
 				enterOuterAlt(_localctx, 21);
 				{
-				setState(678);
+				setState(673);
 				match(VARBINARY);
-				setState(682);
+				setState(677);
 				_la = _input.LA(1);
 				if (_la==LR_BRACKET) {
 					{
-					setState(679);
+					setState(674);
 					match(LR_BRACKET);
-					setState(680);
+					setState(675);
 					match(DECIMAL_LITERAL);
-					setState(681);
+					setState(676);
 					match(RR_BRACKET);
 					}
 				}
@@ -4458,72 +4531,72 @@ public class mysql_ddlParser extends Parser {
 			case BOOLEAN:
 				enterOuterAlt(_localctx, 22);
 				{
-				setState(684);
+				setState(679);
 				match(BOOLEAN);
 				}
 				break;
 			case TINYBLOB:
 				enterOuterAlt(_localctx, 23);
 				{
-				setState(685);
+				setState(680);
 				match(TINYBLOB);
 				}
 				break;
 			case BLOB:
 				enterOuterAlt(_localctx, 24);
 				{
-				setState(686);
+				setState(681);
 				match(BLOB);
 				}
 				break;
 			case MEDIUMBLOB:
 				enterOuterAlt(_localctx, 25);
 				{
-				setState(687);
+				setState(682);
 				match(MEDIUMBLOB);
 				}
 				break;
 			case LONGBLOB:
 				enterOuterAlt(_localctx, 26);
 				{
-				setState(688);
+				setState(683);
 				match(LONGBLOB);
 				}
 				break;
 			case TINYTEXT:
 				enterOuterAlt(_localctx, 27);
 				{
-				setState(689);
+				setState(684);
 				match(TINYTEXT);
-				setState(691);
+				setState(686);
 				_la = _input.LA(1);
 				if (_la==BINARY) {
 					{
-					setState(690);
+					setState(685);
 					match(BINARY);
 					}
 				}
 
-				setState(696);
+				setState(691);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(693);
+					setState(688);
 					match(CHARACTER);
-					setState(694);
+					setState(689);
 					match(SET);
-					setState(695);
+					setState(690);
 					id();
 					}
 				}
 
-				setState(700);
+				setState(695);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(698);
+					setState(693);
 					match(COLLATE);
-					setState(699);
+					setState(694);
 					id();
 					}
 				}
@@ -4533,37 +4606,37 @@ public class mysql_ddlParser extends Parser {
 			case TEXT:
 				enterOuterAlt(_localctx, 28);
 				{
-				setState(702);
+				setState(697);
 				match(TEXT);
-				setState(704);
+				setState(699);
 				_la = _input.LA(1);
 				if (_la==BINARY) {
 					{
-					setState(703);
+					setState(698);
 					match(BINARY);
 					}
 				}
 
-				setState(709);
+				setState(704);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(706);
+					setState(701);
 					match(CHARACTER);
-					setState(707);
+					setState(702);
 					match(SET);
-					setState(708);
+					setState(703);
 					id();
 					}
 				}
 
-				setState(713);
+				setState(708);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(711);
+					setState(706);
 					match(COLLATE);
-					setState(712);
+					setState(707);
 					id();
 					}
 				}
@@ -4573,37 +4646,37 @@ public class mysql_ddlParser extends Parser {
 			case MEDIUMTEXT:
 				enterOuterAlt(_localctx, 29);
 				{
-				setState(715);
+				setState(710);
 				match(MEDIUMTEXT);
-				setState(717);
+				setState(712);
 				_la = _input.LA(1);
 				if (_la==BINARY) {
 					{
-					setState(716);
+					setState(711);
 					match(BINARY);
 					}
 				}
 
-				setState(722);
+				setState(717);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(719);
+					setState(714);
 					match(CHARACTER);
-					setState(720);
+					setState(715);
 					match(SET);
-					setState(721);
+					setState(716);
 					id();
 					}
 				}
 
-				setState(726);
+				setState(721);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(724);
+					setState(719);
 					match(COLLATE);
-					setState(725);
+					setState(720);
 					id();
 					}
 				}
@@ -4613,37 +4686,37 @@ public class mysql_ddlParser extends Parser {
 			case LONGTEXT:
 				enterOuterAlt(_localctx, 30);
 				{
-				setState(728);
+				setState(723);
 				match(LONGTEXT);
-				setState(730);
+				setState(725);
 				_la = _input.LA(1);
 				if (_la==BINARY) {
 					{
-					setState(729);
+					setState(724);
 					match(BINARY);
 					}
 				}
 
-				setState(735);
+				setState(730);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(732);
+					setState(727);
 					match(CHARACTER);
-					setState(733);
+					setState(728);
 					match(SET);
-					setState(734);
+					setState(729);
 					id();
 					}
 				}
 
-				setState(739);
+				setState(734);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(737);
+					setState(732);
 					match(COLLATE);
-					setState(738);
+					setState(733);
 					id();
 					}
 				}
@@ -4653,47 +4726,47 @@ public class mysql_ddlParser extends Parser {
 			case ENUM:
 				enterOuterAlt(_localctx, 31);
 				{
-				setState(741);
+				setState(736);
 				match(ENUM);
 				{
-				setState(742);
+				setState(737);
 				match(LR_BRACKET);
-				setState(743);
+				setState(738);
 				id();
-				setState(746);
+				setState(741);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(744);
+					setState(739);
 					match(COMMA);
-					setState(745);
+					setState(740);
 					id();
 					}
 				}
 
-				setState(748);
+				setState(743);
 				match(RR_BRACKET);
 				}
-				setState(753);
+				setState(748);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(750);
+					setState(745);
 					match(CHARACTER);
-					setState(751);
+					setState(746);
 					match(SET);
-					setState(752);
+					setState(747);
 					id();
 					}
 				}
 
-				setState(757);
+				setState(752);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(755);
+					setState(750);
 					match(COLLATE);
-					setState(756);
+					setState(751);
 					id();
 					}
 				}
@@ -4703,47 +4776,47 @@ public class mysql_ddlParser extends Parser {
 			case SET:
 				enterOuterAlt(_localctx, 32);
 				{
-				setState(759);
+				setState(754);
 				match(SET);
 				{
-				setState(760);
+				setState(755);
 				match(LR_BRACKET);
-				setState(761);
+				setState(756);
 				id();
-				setState(764);
+				setState(759);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(762);
+					setState(757);
 					match(COMMA);
-					setState(763);
+					setState(758);
 					id();
 					}
 				}
 
-				setState(766);
+				setState(761);
 				match(RR_BRACKET);
 				}
-				setState(771);
+				setState(766);
 				_la = _input.LA(1);
 				if (_la==CHARACTER) {
 					{
-					setState(768);
+					setState(763);
 					match(CHARACTER);
-					setState(769);
+					setState(764);
 					match(SET);
-					setState(770);
+					setState(765);
 					id();
 					}
 				}
 
-				setState(775);
+				setState(770);
 				_la = _input.LA(1);
 				if (_la==COLLATE) {
 					{
-					setState(773);
+					setState(768);
 					match(COLLATE);
-					setState(774);
+					setState(769);
 					id();
 					}
 				}
@@ -4753,7 +4826,7 @@ public class mysql_ddlParser extends Parser {
 			case JSON:
 				enterOuterAlt(_localctx, 33);
 				{
-				setState(777);
+				setState(772);
 				match(JSON);
 				}
 				break;
@@ -4798,14 +4871,14 @@ public class mysql_ddlParser extends Parser {
 
 	public final Default_valueContext default_value() throws RecognitionException {
 		Default_valueContext _localctx = new Default_valueContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_default_value);
+		enterRule(_localctx, 82, RULE_default_value);
 		try {
-			setState(782);
+			setState(777);
 			switch (_input.LA(1)) {
 			case NULL:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(780);
+				setState(775);
 				match(NULL);
 				}
 				break;
@@ -4819,7 +4892,7 @@ public class mysql_ddlParser extends Parser {
 			case MINUS:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(781);
+				setState(776);
 				constant();
 				}
 				break;
@@ -4869,55 +4942,55 @@ public class mysql_ddlParser extends Parser {
 
 	public final ConstantContext constant() throws RecognitionException {
 		ConstantContext _localctx = new ConstantContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_constant);
+		enterRule(_localctx, 84, RULE_constant);
 		int _la;
 		try {
-			setState(799);
+			setState(794);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,134,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,132,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(784);
+				setState(779);
 				match(STRING);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(785);
+				setState(780);
 				match(BINARY_LITERAL);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(787);
+				setState(782);
 				_la = _input.LA(1);
 				if (_la==PLUS || _la==MINUS) {
 					{
-					setState(786);
+					setState(781);
 					sign();
 					}
 				}
 
-				setState(789);
+				setState(784);
 				match(DECIMAL_LITERAL);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(791);
+				setState(786);
 				_la = _input.LA(1);
 				if (_la==PLUS || _la==MINUS) {
 					{
-					setState(790);
+					setState(785);
 					sign();
 					}
 				}
 
-				setState(793);
+				setState(788);
 				_la = _input.LA(1);
 				if ( !(_la==FLOAT_LITERAL || _la==REAL_LITERAL) ) {
 				_errHandler.recoverInline(this);
@@ -4929,18 +5002,18 @@ public class mysql_ddlParser extends Parser {
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(795);
+				setState(790);
 				_la = _input.LA(1);
 				if (_la==PLUS || _la==MINUS) {
 					{
-					setState(794);
+					setState(789);
 					sign();
 					}
 				}
 
-				setState(797);
+				setState(792);
 				((ConstantContext)_localctx).dollar = match(DOLLAR);
-				setState(798);
+				setState(793);
 				_la = _input.LA(1);
 				if ( !(_la==DECIMAL_LITERAL || _la==FLOAT_LITERAL) ) {
 				_errHandler.recoverInline(this);
@@ -4984,12 +5057,12 @@ public class mysql_ddlParser extends Parser {
 
 	public final SignContext sign() throws RecognitionException {
 		SignContext _localctx = new SignContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_sign);
+		enterRule(_localctx, 86, RULE_sign);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(801);
+			setState(796);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MINUS) ) {
 			_errHandler.recoverInline(this);
@@ -5036,9 +5109,9 @@ public class mysql_ddlParser extends Parser {
 
 	public final IdContext id() throws RecognitionException {
 		IdContext _localctx = new IdContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_id);
+		enterRule(_localctx, 88, RULE_id);
 		try {
-			setState(806);
+			setState(801);
 			switch (_input.LA(1)) {
 			case FORCESEEK:
 			case ABSOLUTE:
@@ -5166,21 +5239,21 @@ public class mysql_ddlParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(803);
+				setState(798);
 				simple_id();
 				}
 				break;
 			case DOUBLE_QUOTE_ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(804);
+				setState(799);
 				match(DOUBLE_QUOTE_ID);
 				}
 				break;
 			case LEFT_QUOTE_ID:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(805);
+				setState(800);
 				match(LEFT_QUOTE_ID);
 				}
 				break;
@@ -5345,12 +5418,12 @@ public class mysql_ddlParser extends Parser {
 
 	public final Simple_idContext simple_id() throws RecognitionException {
 		Simple_idContext _localctx = new Simple_idContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_simple_id);
+		enterRule(_localctx, 90, RULE_simple_id);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(808);
+			setState(803);
 			_la = _input.LA(1);
 			if ( !(_la==FORCESEEK || ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ABSOLUTE - 196)) | (1L << (APPLY - 196)) | (1L << (AUTO - 196)) | (1L << (AVG - 196)) | (1L << (BASE64 - 196)) | (1L << (CALLER - 196)) | (1L << (CAST - 196)) | (1L << (CATCH - 196)) | (1L << (CHECKSUM_AGG - 196)) | (1L << (COMMITTED - 196)) | (1L << (CONCAT - 196)) | (1L << (CONTROL - 196)) | (1L << (COOKIE - 196)) | (1L << (COUNT - 196)) | (1L << (COUNT_BIG - 196)) | (1L << (DELAY - 196)) | (1L << (DELETED - 196)) | (1L << (DENSE_RANK - 196)) | (1L << (DISABLE - 196)) | (1L << (DYNAMIC - 196)) | (1L << (ENCRYPTION - 196)) | (1L << (EXPAND - 196)) | (1L << (FAST - 196)))) != 0) || ((((_la - 260)) & ~0x3f) == 0 && ((1L << (_la - 260)) & ((1L << (FAST_FORWARD - 260)) | (1L << (FIRST - 260)) | (1L << (FOLLOWING - 260)) | (1L << (FORCE - 260)) | (1L << (FORCED - 260)) | (1L << (FORWARD_ONLY - 260)) | (1L << (FULLSCAN - 260)) | (1L << (GLOBAL - 260)) | (1L << (GO - 260)) | (1L << (GROUPING - 260)) | (1L << (GROUPING_ID - 260)) | (1L << (HASH - 260)) | (1L << (IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX - 260)) | (1L << (IMPERSONATE - 260)) | (1L << (INSENSITIVE - 260)) | (1L << (INSERTED - 260)) | (1L << (ISOLATION - 260)) | (1L << (KEEP - 260)) | (1L << (KEEPFIXED - 260)) | (1L << (KEYSET - 260)) | (1L << (LAST - 260)) | (1L << (LEVEL - 260)) | (1L << (LOCAL - 260)) | (1L << (LOCK_ESCALATION - 260)) | (1L << (LOGIN - 260)) | (1L << (LOOP - 260)) | (1L << (MARK - 260)) | (1L << (MAX - 260)) | (1L << (MAXDOP - 260)) | (1L << (MAXRECURSION - 260)) | (1L << (MIN - 260)) | (1L << (MODIFY - 260)) | (1L << (NAME - 260)) | (1L << (NEXT - 260)) | (1L << (NOCOUNT - 260)) | (1L << (NOEXPAND - 260)) | (1L << (NORECOMPUTE - 260)) | (1L << (NTILE - 260)) | (1L << (NUMBER - 260)) | (1L << (OFFSET - 260)) | (1L << (ONLINE - 260)))) != 0) || ((((_la - 324)) & ~0x3f) == 0 && ((1L << (_la - 324)) & ((1L << (ONLY - 324)) | (1L << (OPTIMISTIC - 324)) | (1L << (OPTIMIZE - 324)) | (1L << (OUT - 324)) | (1L << (OUTPUT - 324)) | (1L << (OWNER - 324)) | (1L << (PARAMETERIZATION - 324)) | (1L << (PARTITION - 324)) | (1L << (PATH - 324)) | (1L << (PRECEDING - 324)) | (1L << (PRIOR - 324)) | (1L << (PRIVILEGES - 324)) | (1L << (RANGE - 324)) | (1L << (RANK - 324)) | (1L << (READONLY - 324)) | (1L << (READ_ONLY - 324)) | (1L << (RECOMPILE - 324)) | (1L << (RELATIVE - 324)) | (1L << (REMOTE - 324)) | (1L << (REPEATABLE - 324)) | (1L << (ROBUST - 324)) | (1L << (ROOT - 324)) | (1L << (ROW - 324)) | (1L << (ROWGUID - 324)) | (1L << (ROWS - 324)) | (1L << (ROW_NUMBER - 324)) | (1L << (SAMPLE - 324)) | (1L << (SCHEMABINDING - 324)) | (1L << (SCROLL - 324)) | (1L << (SCROLL_LOCKS - 324)) | (1L << (SELF - 324)) | (1L << (SERIALIZABLE - 324)) | (1L << (SIMPLE - 324)) | (1L << (SNAPSHOT - 324)) | (1L << (SPATIAL_WINDOW_MAX_CELLS - 324)) | (1L << (STATIC - 324)) | (1L << (STATS_STREAM - 324)) | (1L << (STDEV - 324)) | (1L << (STDEVP - 324)) | (1L << (SUM - 324)) | (1L << (TEXTIMAGE_ON - 324)) | (1L << (THROW - 324)) | (1L << (TIES - 324)) | (1L << (TIME - 324)) | (1L << (TRY - 324)) | (1L << (TYPE - 324)))) != 0) || ((((_la - 388)) & ~0x3f) == 0 && ((1L << (_la - 388)) & ((1L << (TYPE_WARNING - 388)) | (1L << (UNBOUNDED - 388)) | (1L << (UNCOMMITTED - 388)) | (1L << (UNKNOWN - 388)) | (1L << (USING - 388)) | (1L << (VAR - 388)) | (1L << (VARP - 388)) | (1L << (VIEWS - 388)) | (1L << (VIEW_METADATA - 388)) | (1L << (WORK - 388)) | (1L << (XML - 388)) | (1L << (XMLNAMESPACES - 388)) | (1L << (ID - 388)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -5392,83 +5465,83 @@ public class mysql_ddlParser extends Parser {
 
 	public final Comparison_operatorContext comparison_operator() throws RecognitionException {
 		Comparison_operatorContext _localctx = new Comparison_operatorContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_comparison_operator);
+		enterRule(_localctx, 92, RULE_comparison_operator);
 		try {
-			setState(825);
+			setState(820);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,136,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,134,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(810);
+				setState(805);
 				match(EQUAL);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(811);
+				setState(806);
 				match(GREATER);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(812);
+				setState(807);
 				match(LESS);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(813);
+				setState(808);
 				match(LESS);
-				setState(814);
+				setState(809);
 				match(EQUAL);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(815);
+				setState(810);
 				match(GREATER);
-				setState(816);
+				setState(811);
 				match(EQUAL);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(817);
+				setState(812);
 				match(LESS);
-				setState(818);
+				setState(813);
 				match(GREATER);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(819);
+				setState(814);
 				match(EXCLAMATION);
-				setState(820);
+				setState(815);
 				match(EQUAL);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(821);
+				setState(816);
 				match(EXCLAMATION);
-				setState(822);
+				setState(817);
 				match(GREATER);
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(823);
+				setState(818);
 				match(EXCLAMATION);
-				setState(824);
+				setState(819);
 				match(LESS);
 				}
 				break;
@@ -5507,12 +5580,12 @@ public class mysql_ddlParser extends Parser {
 
 	public final Assignment_operatorContext assignment_operator() throws RecognitionException {
 		Assignment_operatorContext _localctx = new Assignment_operatorContext(_ctx, getState());
-		enterRule(_localctx, 90, RULE_assignment_operator);
+		enterRule(_localctx, 94, RULE_assignment_operator);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(827);
+			setState(822);
 			_la = _input.LA(1);
 			if ( !(((((_la - 452)) & ~0x3f) == 0 && ((1L << (_la - 452)) & ((1L << (PLUS_ASSIGN - 452)) | (1L << (MINUS_ASSIGN - 452)) | (1L << (MULT_ASSIGN - 452)) | (1L << (DIV_ASSIGN - 452)) | (1L << (MOD_ASSIGN - 452)) | (1L << (AND_ASSIGN - 452)) | (1L << (XOR_ASSIGN - 452)) | (1L << (OR_ASSIGN - 452)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -5559,18 +5632,18 @@ public class mysql_ddlParser extends Parser {
 
 	public final File_sizeContext file_size() throws RecognitionException {
 		File_sizeContext _localctx = new File_sizeContext(_ctx, getState());
-		enterRule(_localctx, 92, RULE_file_size);
+		enterRule(_localctx, 96, RULE_file_size);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(829);
+			setState(824);
 			match(DECIMAL_LITERAL);
-			setState(831);
+			setState(826);
 			_la = _input.LA(1);
 			if (((((_la - 270)) & ~0x3f) == 0 && ((1L << (_la - 270)) & ((1L << (GB - 270)) | (1L << (KB - 270)) | (1L << (MB - 270)))) != 0) || _la==TB || _la==MODULE) {
 				{
-				setState(830);
+				setState(825);
 				_la = _input.LA(1);
 				if ( !(((((_la - 270)) & ~0x3f) == 0 && ((1L << (_la - 270)) & ((1L << (GB - 270)) | (1L << (KB - 270)) | (1L << (MB - 270)))) != 0) || _la==TB || _la==MODULE) ) {
 				_errHandler.recoverInline(this);
@@ -5594,364 +5667,362 @@ public class mysql_ddlParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\u01e0\u0344\4\2\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\u01e0\u033f\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4"+
-		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\3\2\7\2b\n\2\f\2\16\2e\13\2\3\2\3\2\3"+
-		"\3\3\3\3\4\3\4\3\4\6\4n\n\4\r\4\16\4o\3\5\3\5\3\5\3\5\3\5\5\5w\n\5\3\6"+
-		"\3\6\5\6{\n\6\3\6\5\6~\n\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6\u0087\n\6\3"+
-		"\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7\u0092\n\7\f\7\16\7\u0095\13\7\3"+
-		"\7\3\7\5\7\u0099\n\7\3\7\5\7\u009c\n\7\3\b\3\b\3\b\5\b\u00a1\n\b\3\t\5"+
-		"\t\u00a4\n\t\3\t\3\t\5\t\u00a8\n\t\3\t\3\t\3\n\3\n\3\13\3\13\5\13\u00b0"+
-		"\n\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16"+
-		"\5\16\u00c1\n\16\3\16\3\16\3\16\5\16\u00c6\n\16\3\16\5\16\u00c9\n\16\3"+
-		"\17\3\17\3\17\3\17\5\17\u00cf\n\17\3\17\3\17\3\20\3\20\5\20\u00d5\n\20"+
-		"\3\21\3\21\3\21\5\21\u00da\n\21\3\21\5\21\u00dd\n\21\3\21\5\21\u00e0\n"+
-		"\21\3\21\3\21\5\21\u00e4\n\21\5\21\u00e6\n\21\3\21\3\21\5\21\u00ea\n\21"+
-		"\3\22\3\22\3\22\5\22\u00ef\n\22\3\22\3\22\3\22\5\22\u00f4\n\22\3\22\3"+
-		"\22\3\23\3\23\3\23\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u0101\n\24\3\25"+
-		"\3\25\5\25\u0105\n\25\3\25\5\25\u0108\n\25\3\25\3\25\3\25\5\25\u010d\n"+
-		"\25\3\25\5\25\u0110\n\25\3\26\3\26\5\26\u0114\n\26\3\26\3\26\3\26\5\26"+
-		"\u0119\n\26\3\26\5\26\u011c\n\26\3\26\3\26\3\26\3\26\3\26\5\26\u0123\n"+
-		"\26\3\26\3\26\5\26\u0127\n\26\3\26\3\26\3\26\3\26\3\26\5\26\u012e\n\26"+
-		"\3\26\3\26\5\26\u0132\n\26\3\26\3\26\3\26\3\26\3\26\5\26\u0139\n\26\3"+
-		"\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\7\27\u0147"+
-		"\n\27\f\27\16\27\u014a\13\27\3\30\3\30\3\30\3\30\3\30\3\30\5\30\u0152"+
-		"\n\30\3\31\3\31\3\31\3\31\3\31\5\31\u0159\n\31\3\32\3\32\3\32\3\32\3\32"+
-		"\3\32\3\32\3\32\3\32\3\32\5\32\u0165\n\32\3\32\3\32\3\32\3\32\3\32\5\32"+
-		"\u016c\n\32\3\32\3\32\3\33\3\33\3\33\5\33\u0173\n\33\3\33\3\33\3\33\3"+
-		"\33\3\33\5\33\u017a\n\33\3\33\3\33\3\34\3\34\3\34\5\34\u0181\n\34\3\34"+
-		"\3\34\3\35\3\35\3\35\5\35\u0188\n\35\3\35\3\35\3\35\3\35\3\35\5\35\u018f"+
-		"\n\35\3\35\3\35\3\36\3\36\5\36\u0195\n\36\3\37\3\37\3\37\5\37\u019a\n"+
-		"\37\3\37\3\37\3 \3 \3 \7 \u01a1\n \f \16 \u01a4\13 \3!\3!\5!\u01a8\n!"+
-		"\3!\3!\3!\5!\u01ad\n!\7!\u01af\n!\f!\16!\u01b2\13!\3\"\3\"\5\"\u01b6\n"+
-		"\"\3#\3#\3$\3$\3%\5%\u01bd\n%\3%\3%\3&\3&\3&\3&\3&\5&\u01c6\n&\3\'\3\'"+
-		"\5\'\u01ca\n\'\3\'\3\'\3\'\3\'\5\'\u01d0\n\'\3\'\5\'\u01d3\n\'\3(\3(\5"+
-		"(\u01d7\n(\3(\3(\3(\3(\5(\u01dd\n(\3(\5(\u01e0\n(\3(\5(\u01e3\n(\3(\3"+
-		"(\3(\3(\5(\u01e9\n(\3(\5(\u01ec\n(\3(\5(\u01ef\n(\3(\3(\3(\3(\5(\u01f5"+
-		"\n(\3(\5(\u01f8\n(\3(\5(\u01fb\n(\3(\3(\3(\3(\5(\u0201\n(\3(\5(\u0204"+
-		"\n(\3(\5(\u0207\n(\3(\3(\3(\3(\5(\u020d\n(\3(\5(\u0210\n(\3(\5(\u0213"+
-		"\n(\3(\3(\3(\3(\5(\u0219\n(\3(\5(\u021c\n(\3(\5(\u021f\n(\3(\3(\3(\3("+
-		"\3(\3(\5(\u0227\n(\3(\5(\u022a\n(\3(\5(\u022d\n(\3(\3(\3(\3(\3(\3(\5("+
-		"\u0235\n(\3(\5(\u0238\n(\3(\5(\u023b\n(\3(\3(\3(\3(\3(\3(\5(\u0243\n("+
-		"\3(\5(\u0246\n(\3(\5(\u0249\n(\3(\3(\3(\3(\3(\5(\u0250\n(\3(\5(\u0253"+
-		"\n(\3(\5(\u0256\n(\3(\5(\u0259\n(\3(\3(\3(\3(\3(\5(\u0260\n(\3(\5(\u0263"+
-		"\n(\3(\5(\u0266\n(\3(\5(\u0269\n(\3(\3(\3(\3(\3(\5(\u0270\n(\3(\3(\3("+
-		"\3(\5(\u0276\n(\3(\3(\3(\3(\5(\u027c\n(\3(\3(\3(\3(\3(\5(\u0283\n(\3("+
-		"\5(\u0286\n(\3(\3(\3(\5(\u028b\n(\3(\3(\5(\u028f\n(\3(\3(\3(\3(\5(\u0295"+
-		"\n(\3(\5(\u0298\n(\3(\3(\3(\5(\u029d\n(\3(\3(\5(\u02a1\n(\3(\3(\3(\3("+
-		"\5(\u02a7\n(\3(\3(\3(\3(\5(\u02ad\n(\3(\3(\3(\3(\3(\3(\3(\5(\u02b6\n("+
-		"\3(\3(\3(\5(\u02bb\n(\3(\3(\5(\u02bf\n(\3(\3(\5(\u02c3\n(\3(\3(\3(\5("+
-		"\u02c8\n(\3(\3(\5(\u02cc\n(\3(\3(\5(\u02d0\n(\3(\3(\3(\5(\u02d5\n(\3("+
-		"\3(\5(\u02d9\n(\3(\3(\5(\u02dd\n(\3(\3(\3(\5(\u02e2\n(\3(\3(\5(\u02e6"+
-		"\n(\3(\3(\3(\3(\3(\5(\u02ed\n(\3(\3(\3(\3(\3(\5(\u02f4\n(\3(\3(\5(\u02f8"+
-		"\n(\3(\3(\3(\3(\3(\5(\u02ff\n(\3(\3(\3(\3(\3(\5(\u0306\n(\3(\3(\5(\u030a"+
-		"\n(\3(\5(\u030d\n(\3)\3)\5)\u0311\n)\3*\3*\3*\5*\u0316\n*\3*\3*\5*\u031a"+
-		"\n*\3*\3*\5*\u031e\n*\3*\3*\5*\u0322\n*\3+\3+\3,\3,\3,\5,\u0329\n,\3-"+
-		"\3-\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\3.\5.\u033c\n.\3/\3/\3\60"+
-		"\3\60\5\60\u0342\n\60\3\60\2\2\61\2\4\6\b\n\f\16\20\22\24\26\30\32\34"+
-		"\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^\2\r\4\2\13\13\67\67\4\2"+
-		"\u0085\u0085\u00b5\u00b5\4\2ssuu\4\2\34\34ll\4\2\u012b\u012b\u01bc\u01bc"+
-		"\3\2\u01c0\u01c1\4\2\u01bc\u01bc\u01c0\u01c0\3\2\u01db\u01dc.\2KK\u00c6"+
-		"\u00c6\u00ce\u00ce\u00d0\u00d0\u00d7\u00d8\u00db\u00dd\u00e2\u00e2\u00e4"+
-		"\u00e4\u00e6\u00e6\u00e8\u00eb\u00f7\u00f7\u00f9\u00fa\u00fc\u00fc\u00ff"+
-		"\u00ff\u0102\u0102\u0104\u0106\u010a\u010f\u0111\u0114\u0116\u0116\u0119"+
-		"\u0119\u011b\u011b\u011d\u011f\u0121\u012d\u0131\u0131\u0135\u0135\u0137"+
-		"\u0137\u013a\u013c\u013e\u013e\u0140\u0141\u0144\u014b\u014d\u0152\u0154"+
-		"\u0156\u0158\u0158\u015a\u015a\u015d\u015f\u0161\u016a\u016c\u016d\u016f"+
-		"\u016f\u0172\u0178\u017c\u017f\u0183\u0183\u0185\u0189\u018b\u0192\u01bd"+
-		"\u01bd\3\2\u01c6\u01cd\7\2\u0110\u0110\u0120\u0120\u012f\u012f\u017b\u017b"+
-		"\u01da\u01da\u03d7\2c\3\2\2\2\4h\3\2\2\2\6m\3\2\2\2\bv\3\2\2\2\nx\3\2"+
-		"\2\2\f\u008a\3\2\2\2\16\u009d\3\2\2\2\20\u00a3\3\2\2\2\22\u00ab\3\2\2"+
-		"\2\24\u00ad\3\2\2\2\26\u00b3\3\2\2\2\30\u00b6\3\2\2\2\32\u00bc\3\2\2\2"+
-		"\34\u00ca\3\2\2\2\36\u00d4\3\2\2\2 \u00d6\3\2\2\2\"\u00eb\3\2\2\2$\u00f7"+
-		"\3\2\2\2&\u0100\3\2\2\2(\u0104\3\2\2\2*\u0138\3\2\2\2,\u013a\3\2\2\2."+
-		"\u014b\3\2\2\2\60\u0153\3\2\2\2\62\u016b\3\2\2\2\64\u0179\3\2\2\2\66\u0180"+
-		"\3\2\2\28\u018e\3\2\2\2:\u0194\3\2\2\2<\u0199\3\2\2\2>\u019d\3\2\2\2@"+
-		"\u01a5\3\2\2\2B\u01b5\3\2\2\2D\u01b7\3\2\2\2F\u01b9\3\2\2\2H\u01bc\3\2"+
-		"\2\2J\u01c5\3\2\2\2L\u01c7\3\2\2\2N\u030c\3\2\2\2P\u0310\3\2\2\2R\u0321"+
-		"\3\2\2\2T\u0323\3\2\2\2V\u0328\3\2\2\2X\u032a\3\2\2\2Z\u033b\3\2\2\2\\"+
-		"\u033d\3\2\2\2^\u033f\3\2\2\2`b\5\4\3\2a`\3\2\2\2be\3\2\2\2ca\3\2\2\2"+
-		"cd\3\2\2\2df\3\2\2\2ec\3\2\2\2fg\7\2\2\3g\3\3\2\2\2hi\5\6\4\2i\5\3\2\2"+
-		"\2jk\5\b\5\2kl\7\u01d6\2\2ln\3\2\2\2mj\3\2\2\2no\3\2\2\2om\3\2\2\2op\3"+
-		"\2\2\2p\7\3\2\2\2qw\5\n\6\2rw\5\f\7\2sw\5\30\r\2tw\5\32\16\2uw\5\34\17"+
-		"\2vq\3\2\2\2vr\3\2\2\2vs\3\2\2\2vt\3\2\2\2vu\3\2\2\2w\t\3\2\2\2xz\7(\2"+
-		"\2y{\7\u00b5\2\2zy\3\2\2\2z{\3\2\2\2{}\3\2\2\2|~\5F$\2}|\3\2\2\2}~\3\2"+
-		"\2\2~\177\3\2\2\2\177\u0080\7[\2\2\u0080\u0081\5V,\2\u0081\u0082\7u\2"+
-		"\2\u0082\u0083\5\64\33\2\u0083\u0084\7\u01d3\2\2\u0084\u0086\5> \2\u0085"+
-		"\u0087\t\2\2\2\u0086\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u0088\3\2"+
-		"\2\2\u0088\u0089\7\u01d4\2\2\u0089\13\3\2\2\2\u008a\u008b\7(\2\2\u008b"+
-		"\u008c\7\u00a8\2\2\u008c\u008d\5\64\33\2\u008d\u008e\7\u01d3\2\2\u008e"+
-		"\u0093\5\36\20\2\u008f\u0090\7\u01d5\2\2\u0090\u0092\5\36\20\2\u0091\u008f"+
-		"\3\2\2\2\u0092\u0095\3\2\2\2\u0093\u0091\3\2\2\2\u0093\u0094\3\2\2\2\u0094"+
-		"\u0096\3\2\2\2\u0095\u0093\3\2\2\2\u0096\u0098\7\u01d4\2\2\u0097\u0099"+
-		"\5\16\b\2\u0098\u0097\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u009b\3\2\2\2"+
-		"\u009a\u009c\5\24\13\2\u009b\u009a\3\2\2\2\u009b\u009c\3\2\2\2\u009c\r"+
-		"\3\2\2\2\u009d\u00a0\5\20\t\2\u009e\u009f\7\u01d5\2\2\u009f\u00a1\5\16"+
-		"\b\2\u00a0\u009e\3\2\2\2\u00a0\u00a1\3\2\2\2\u00a1\17\3\2\2\2\u00a2\u00a4"+
-		"\7\64\2\2\u00a3\u00a2\3\2\2\2\u00a3\u00a4\3\2\2\2\u00a4\u00a5\3\2\2\2"+
-		"\u00a5\u00a7\7\u00e0\2\2\u00a6\u00a8\7\u01c2\2\2\u00a7\u00a6\3\2\2\2\u00a7"+
-		"\u00a8\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\u00aa\5\22\n\2\u00aa\21\3\2\2"+
-		"\2\u00ab\u00ac\7\3\2\2\u00ac\23\3\2\2\2\u00ad\u00af\7\u00e3\2\2\u00ae"+
-		"\u00b0\7\u01c2\2\2\u00af\u00ae\3\2\2\2\u00af\u00b0\3\2\2\2\u00b0\u00b1"+
-		"\3\2\2\2\u00b1\u00b2\7\u01be\2\2\u00b2\25\3\2\2\2\u00b3\u00b4\7\u00e3"+
-		"\2\2\u00b4\u00b5\7\u01be\2\2\u00b5\27\3\2\2\2\u00b6\u00b7\7\7\2\2\u00b7"+
-		"\u00b8\7\u00a8\2\2\u00b8\u00b9\5\64\33\2\u00b9\u00ba\7\5\2\2\u00ba\u00bb"+
-		"\5\36\20\2\u00bb\31\3\2\2\2\u00bc\u00bd\7;\2\2\u00bd\u00c0\7[\2\2\u00be"+
-		"\u00bf\7Y\2\2\u00bf\u00c1\7C\2\2\u00c0\u00be\3\2\2\2\u00c0\u00c1\3\2\2"+
-		"\2\u00c1\u00c2\3\2\2\2\u00c2\u00c5\5V,\2\u00c3\u00c4\7u\2\2\u00c4\u00c6"+
-		"\5\64\33\2\u00c5\u00c3\3\2\2\2\u00c5\u00c6\3\2\2\2\u00c6\u00c8\3\2\2\2"+
-		"\u00c7\u00c9\7\u01d6\2\2\u00c8\u00c7\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9"+
-		"\33\3\2\2\2\u00ca\u00cb\7;\2\2\u00cb\u00ce\7\u00a8\2\2\u00cc\u00cd\7Y"+
-		"\2\2\u00cd\u00cf\7C\2\2\u00ce\u00cc\3\2\2\2\u00ce\u00cf\3\2\2\2\u00cf"+
-		"\u00d0\3\2\2\2\u00d0\u00d1\5\64\33\2\u00d1\35\3\2\2\2\u00d2\u00d5\5 \21"+
-		"\2\u00d3\u00d5\5*\26\2\u00d4\u00d2\3\2\2\2\u00d4\u00d3\3\2\2\2\u00d5\37"+
-		"\3\2\2\2\u00d6\u00d7\5V,\2\u00d7\u00d9\5N(\2\u00d8\u00da\5H%\2\u00d9\u00d8"+
-		"\3\2\2\2\u00d9\u00da\3\2\2\2\u00da\u00dc\3\2\2\2\u00db\u00dd\5$\23\2\u00dc"+
-		"\u00db\3\2\2\2\u00dc\u00dd\3\2\2\2\u00dd\u00df\3\2\2\2\u00de\u00e0\7\r"+
-		"\2\2\u00df\u00de\3\2\2\2\u00df\u00e0\3\2\2\2\u00e0\u00e5\3\2\2\2\u00e1"+
-		"\u00e3\t\3\2\2\u00e2\u00e4\7b\2\2\u00e3\u00e2\3\2\2\2\u00e3\u00e4\3\2"+
-		"\2\2\u00e4\u00e6\3\2\2\2\u00e5\u00e1\3\2\2\2\u00e5\u00e6\3\2\2\2\u00e6"+
-		"\u00e9\3\2\2\2\u00e7\u00e8\7\u00e3\2\2\u00e8\u00ea\7\u01be\2\2\u00e9\u00e7"+
-		"\3\2\2\2\u00e9\u00ea\3\2\2\2\u00ea!\3\2\2\2\u00eb\u00ec\5V,\2\u00ec\u00ee"+
-		"\5N(\2\u00ed\u00ef\5H%\2\u00ee\u00ed\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef"+
-		"\u00f3\3\2\2\2\u00f0\u00f1\7\64\2\2\u00f1\u00f4\5&\24\2\u00f2\u00f4\7"+
-		"\r\2\2\u00f3\u00f0\3\2\2\2\u00f3\u00f2\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4"+
-		"\u00f5\3\2\2\2\u00f5\u00f6\5\26\f\2\u00f6#\3\2\2\2\u00f7\u00f8\7\64\2"+
-		"\2\u00f8\u00f9\5&\24\2\u00f9%\3\2\2\2\u00fa\u0101\7p\2\2\u00fb\u0101\5"+
-		"R*\2\u00fc\u00fd\7\u01d3\2\2\u00fd\u00fe\5&\24\2\u00fe\u00ff\7\u01d4\2"+
-		"\2\u00ff\u0101\3\2\2\2\u0100\u00fa\3\2\2\2\u0100\u00fb\3\2\2\2\u0100\u00fc"+
-		"\3\2\2\2\u0101\'\3\2\2\2\u0102\u0103\7\"\2\2\u0103\u0105\5V,\2\u0104\u0102"+
-		"\3\2\2\2\u0104\u0105\3\2\2\2\u0105\u0107\3\2\2\2\u0106\u0108\5H%\2\u0107"+
-		"\u0106\3\2\2\2\u0107\u0108\3\2\2\2\u0108\u010c\3\2\2\2\u0109\u010a\7\u0085"+
-		"\2\2\u010a\u010d\7b\2\2\u010b\u010d\7\u00b5\2\2\u010c\u0109\3\2\2\2\u010c"+
-		"\u010b\3\2\2\2\u010d\u010f\3\2\2\2\u010e\u0110\5F$\2\u010f\u010e\3\2\2"+
-		"\2\u010f\u0110\3\2\2\2\u0110)\3\2\2\2\u0111\u0112\7\"\2\2\u0112\u0114"+
-		"\5V,\2\u0113\u0111\3\2\2\2\u0113\u0114\3\2\2\2\u0114\u0118\3\2\2\2\u0115"+
-		"\u0116\7\u0085\2\2\u0116\u0119\7b\2\2\u0117\u0119\7\u00b5\2\2\u0118\u0115"+
-		"\3\2\2\2\u0118\u0117\3\2\2\2\u0119\u011b\3\2\2\2\u011a\u011c\5F$\2\u011b"+
-		"\u011a\3\2\2\2\u011b\u011c\3\2\2\2\u011c\u011d\3\2\2\2\u011d\u011e\7\u01d3"+
-		"\2\2\u011e\u011f\5@!\2\u011f\u0120\7\u01d4\2\2\u0120\u0139\3\2\2\2\u0121"+
-		"\u0123\7\u00b5\2\2\u0122\u0121\3\2\2\2\u0122\u0123\3\2\2\2\u0123\u0124"+
-		"\3\2\2\2\u0124\u0126\7b\2\2\u0125\u0127\5V,\2\u0126\u0125\3\2\2\2\u0126"+
-		"\u0127\3\2\2\2\u0127\u0128\3\2\2\2\u0128\u0129\7\u01d3\2\2\u0129\u012a"+
-		"\5@!\2\u012a\u012b\7\u01d4\2\2\u012b\u0139\3\2\2\2\u012c\u012e\7\u00b5"+
-		"\2\2\u012d\u012c\3\2\2\2\u012d\u012e\3\2\2\2\u012e\u012f\3\2\2\2\u012f"+
-		"\u0131\7[\2\2\u0130\u0132\5V,\2\u0131\u0130\3\2\2\2\u0131\u0132\3\2\2"+
-		"\2\u0132\u0133\3\2\2\2\u0133\u0134\7\u01d3\2\2\u0134\u0135\5@!\2\u0135"+
-		"\u0136\7\u01d4\2\2\u0136\u0139\3\2\2\2\u0137\u0139\5,\27\2\u0138\u0113"+
-		"\3\2\2\2\u0138\u0122\3\2\2\2\u0138\u012d\3\2\2\2\u0138\u0137\3\2\2\2\u0139"+
-		"+\3\2\2\2\u013a\u013b\7L\2\2\u013b\u013c\7b\2\2\u013c\u013d\7\u01d3\2"+
-		"\2\u013d\u013e\5> \2\u013e\u013f\7\u01d4\2\2\u013f\u0140\7\u008e\2\2\u0140"+
-		"\u0141\5V,\2\u0141\u0142\7\u01d3\2\2\u0142\u0143\5> \2\u0143\u0148\7\u01d4"+
-		"\2\2\u0144\u0147\5.\30\2\u0145\u0147\5\60\31\2\u0146\u0144\3\2\2\2\u0146"+
-		"\u0145\3\2\2\2\u0147\u014a\3\2\2\2\u0148\u0146\3\2\2\2\u0148\u0149\3\2"+
-		"\2\2\u0149-\3\2\2\2\u014a\u0148\3\2\2\2\u014b\u014c\7u\2\2\u014c\u0151"+
-		"\7\65\2\2\u014d\u0152\7\25\2\2\u014e\u0152\7\u0091\2\2\u014f\u0150\7n"+
-		"\2\2\u0150\u0152\7\4\2\2\u0151\u014d\3\2\2\2\u0151\u014e\3\2\2\2\u0151"+
-		"\u014f\3\2\2\2\u0152/\3\2\2\2\u0153\u0154\7u\2\2\u0154\u0158\7\u00b8\2"+
-		"\2\u0155\u0159\7\u0091\2\2\u0156\u0157\7n\2\2\u0157\u0159\7\4\2\2\u0158"+
-		"\u0155\3\2\2\2\u0158\u0156\3\2\2\2\u0159\61\3\2\2\2\u015a\u015b\5V,\2"+
-		"\u015b\u015c\7\u01ce\2\2\u015c\u015d\5V,\2\u015d\u015e\7\u01ce\2\2\u015e"+
-		"\u015f\5V,\2\u015f\u0160\7\u01ce\2\2\u0160\u016c\3\2\2\2\u0161\u0162\5"+
-		"V,\2\u0162\u0164\7\u01ce\2\2\u0163\u0165\5V,\2\u0164\u0163\3\2\2\2\u0164"+
-		"\u0165\3\2\2\2\u0165\u0166\3\2\2\2\u0166\u0167\7\u01ce\2\2\u0167\u016c"+
-		"\3\2\2\2\u0168\u0169\5V,\2\u0169\u016a\7\u01ce\2\2\u016a\u016c\3\2\2\2"+
-		"\u016b\u015a\3\2\2\2\u016b\u0161\3\2\2\2\u016b\u0168\3\2\2\2\u016b\u016c"+
-		"\3\2\2\2\u016c\u016d\3\2\2\2\u016d\u016e\5V,\2\u016e\63\3\2\2\2\u016f"+
-		"\u0170\5V,\2\u0170\u0172\7\u01ce\2\2\u0171\u0173\5V,\2\u0172\u0171\3\2"+
-		"\2\2\u0172\u0173\3\2\2\2\u0173\u0174\3\2\2\2\u0174\u0175\7\u01ce\2\2\u0175"+
-		"\u017a\3\2\2\2\u0176\u0177\5V,\2\u0177\u0178\7\u01ce\2\2\u0178\u017a\3"+
-		"\2\2\2\u0179\u016f\3\2\2\2\u0179\u0176\3\2\2\2\u0179\u017a\3\2\2\2\u017a"+
-		"\u017b\3\2\2\2\u017b\u017c\5V,\2\u017c\65\3\2\2\2\u017d\u017e\5V,\2\u017e"+
-		"\u017f\7\u01ce\2\2\u017f\u0181\3\2\2\2\u0180\u017d\3\2\2\2\u0180\u0181"+
-		"\3\2\2\2\u0181\u0182\3\2\2\2\u0182\u0183\5V,\2\u0183\67\3\2\2\2\u0184"+
-		"\u0185\5V,\2\u0185\u0187\7\u01ce\2\2\u0186\u0188\5V,\2\u0187\u0186\3\2"+
-		"\2\2\u0187\u0188\3\2\2\2\u0188\u0189\3\2\2\2\u0189\u018a\7\u01ce\2\2\u018a"+
-		"\u018f\3\2\2\2\u018b\u018c\5V,\2\u018c\u018d\7\u01ce\2\2\u018d\u018f\3"+
-		"\2\2\2\u018e\u0184\3\2\2\2\u018e\u018b\3\2\2\2\u018e\u018f\3\2\2\2\u018f"+
-		"\u0190\3\2\2\2\u0190\u0191\5V,\2\u01919\3\2\2\2\u0192\u0195\5\62\32\2"+
-		"\u0193\u0195\7\u01bb\2\2\u0194\u0192\3\2\2\2\u0194\u0193\3\2\2\2\u0195"+
-		";\3\2\2\2\u0196\u0197\5\64\33\2\u0197\u0198\7\u01ce\2\2\u0198\u019a\3"+
-		"\2\2\2\u0199\u0196\3\2\2\2\u0199\u019a\3\2\2\2\u019a\u019b\3\2\2\2\u019b"+
-		"\u019c\5V,\2\u019c=\3\2\2\2\u019d\u01a2\5V,\2\u019e\u019f\7\u01d5\2\2"+
-		"\u019f\u01a1\5V,\2\u01a0\u019e\3\2\2\2\u01a1\u01a4\3\2\2\2\u01a2\u01a0"+
-		"\3\2\2\2\u01a2\u01a3\3\2\2\2\u01a3?\3\2\2\2\u01a4\u01a2\3\2\2\2\u01a5"+
-		"\u01a7\5V,\2\u01a6\u01a8\t\2\2\2\u01a7\u01a6\3\2\2\2\u01a7\u01a8\3\2\2"+
-		"\2\u01a8\u01b0\3\2\2\2\u01a9\u01aa\7\u01d5\2\2\u01aa\u01ac\5V,\2\u01ab"+
-		"\u01ad\t\2\2\2\u01ac\u01ab\3\2\2\2\u01ac\u01ad\3\2\2\2\u01ad\u01af\3\2"+
-		"\2\2\u01ae\u01a9\3\2\2\2\u01af\u01b2\3\2\2\2\u01b0\u01ae\3\2\2\2\u01b0"+
-		"\u01b1\3\2\2\2\u01b1A\3\2\2\2\u01b2\u01b0\3\2\2\2\u01b3\u01b6\5V,\2\u01b4"+
-		"\u01b6\7\u01bb\2\2\u01b5\u01b3\3\2\2\2\u01b5\u01b4\3\2\2\2\u01b6C\3\2"+
-		"\2\2\u01b7\u01b8\t\4\2\2\u01b8E\3\2\2\2\u01b9\u01ba\t\5\2\2\u01baG\3\2"+
-		"\2\2\u01bb\u01bd\7o\2\2\u01bc\u01bb\3\2\2\2\u01bc\u01bd\3\2\2\2\u01bd"+
-		"\u01be\3\2\2\2\u01be\u01bf\7p\2\2\u01bfI\3\2\2\2\u01c0\u01c6\58\35\2\u01c1"+
-		"\u01c6\7\u0095\2\2\u01c2\u01c6\7d\2\2\u01c3\u01c6\7\u00d9\2\2\u01c4\u01c6"+
-		"\7\u00e1\2\2\u01c5\u01c0\3\2\2\2\u01c5\u01c1\3\2\2\2\u01c5\u01c2\3\2\2"+
-		"\2\u01c5\u01c3\3\2\2\2\u01c5\u01c4\3\2\2\2\u01c6K\3\2\2\2\u01c7\u01c9"+
-		"\5V,\2\u01c8\u01ca\7V\2\2\u01c9\u01c8\3\2\2\2\u01c9\u01ca\3\2\2\2\u01ca"+
-		"\u01d2\3\2\2\2\u01cb\u01cc\7\u01d3\2\2\u01cc\u01cf\t\6\2\2\u01cd\u01ce"+
-		"\7\u01d5\2\2\u01ce\u01d0\7\u01bc\2\2\u01cf\u01cd\3\2\2\2\u01cf\u01d0\3"+
-		"\2\2\2\u01d0\u01d1\3\2\2\2\u01d1\u01d3\7\u01d4\2\2\u01d2\u01cb\3\2\2\2"+
-		"\u01d2\u01d3\3\2\2\2\u01d3M\3\2\2\2\u01d4\u01d6\7\u0195\2\2\u01d5\u01d7"+
-		"\7\u01bc\2\2\u01d6\u01d5\3\2\2\2\u01d6\u01d7\3\2\2\2\u01d7\u030d\3\2\2"+
-		"\2\u01d8\u01dc\7\u0198\2\2\u01d9\u01da\7\u01d3\2\2\u01da\u01db\7\u01bc"+
-		"\2\2\u01db\u01dd\7\u01d4\2\2\u01dc\u01d9\3\2\2\2\u01dc\u01dd\3\2\2\2\u01dd"+
-		"\u01df\3\2\2\2\u01de\u01e0\7\u00b7\2\2\u01df\u01de\3\2\2\2\u01df\u01e0"+
-		"\3\2\2\2\u01e0\u01e2\3\2\2\2\u01e1\u01e3\7\u0193\2\2\u01e2\u01e1\3\2\2"+
-		"\2\u01e2\u01e3\3\2\2\2\u01e3\u030d\3\2\2\2\u01e4\u01e8\7\u0199\2\2\u01e5"+
-		"\u01e6\7\u01d3\2\2\u01e6\u01e7\7\u01bc\2\2\u01e7\u01e9\7\u01d4\2\2\u01e8"+
-		"\u01e5\3\2\2\2\u01e8\u01e9\3\2\2\2\u01e9\u01eb\3\2\2\2\u01ea\u01ec\7\u00b7"+
-		"\2\2\u01eb\u01ea\3\2\2\2\u01eb\u01ec\3\2\2\2\u01ec\u01ee\3\2\2\2\u01ed"+
-		"\u01ef\7\u0193\2\2\u01ee\u01ed\3\2\2\2\u01ee\u01ef\3\2\2\2\u01ef\u030d"+
-		"\3\2\2\2\u01f0\u01f4\7\u019a\2\2\u01f1\u01f2\7\u01d3\2\2\u01f2\u01f3\7"+
-		"\u01bc\2\2\u01f3\u01f5\7\u01d4\2\2\u01f4\u01f1\3\2\2\2\u01f4\u01f5\3\2"+
-		"\2\2\u01f5\u01f7\3\2\2\2\u01f6\u01f8\7\u00b7\2\2\u01f7\u01f6\3\2\2\2\u01f7"+
-		"\u01f8\3\2\2\2\u01f8\u01fa\3\2\2\2\u01f9\u01fb\7\u0193\2\2\u01fa\u01f9"+
-		"\3\2\2\2\u01fa\u01fb\3\2\2\2\u01fb\u030d\3\2\2\2\u01fc\u0200\7\u019b\2"+
-		"\2\u01fd\u01fe\7\u01d3\2\2\u01fe\u01ff\7\u01bc\2\2\u01ff\u0201\7\u01d4"+
-		"\2\2\u0200\u01fd\3\2\2\2\u0200\u0201\3\2\2\2\u0201\u0203\3\2\2\2\u0202"+
-		"\u0204\7\u00b7\2\2\u0203\u0202\3\2\2\2\u0203\u0204\3\2\2\2\u0204\u0206"+
-		"\3\2\2\2\u0205\u0207\7\u0193\2\2\u0206\u0205\3\2\2\2\u0206\u0207\3\2\2"+
-		"\2\u0207\u030d\3\2\2\2\u0208\u020c\7\u019c\2\2\u0209\u020a\7\u01d3\2\2"+
-		"\u020a\u020b\7\u01bc\2\2\u020b\u020d\7\u01d4\2\2\u020c\u0209\3\2\2\2\u020c"+
-		"\u020d\3\2\2\2\u020d\u020f\3\2\2\2\u020e\u0210\7\u00b7\2\2\u020f\u020e"+
-		"\3\2\2\2\u020f\u0210\3\2\2\2\u0210\u0212\3\2\2\2\u0211\u0213\7\u0193\2"+
-		"\2\u0212\u0211\3\2\2\2\u0212\u0213\3\2\2\2\u0213\u030d\3\2\2\2\u0214\u0218"+
-		"\7\u019d\2\2\u0215\u0216\7\u01d3\2\2\u0216\u0217\7\u01bc\2\2\u0217\u0219"+
-		"\7\u01d4\2\2\u0218\u0215\3\2\2\2\u0218\u0219\3\2\2\2\u0219\u021b\3\2\2"+
-		"\2\u021a\u021c\7\u00b7\2\2\u021b\u021a\3\2\2\2\u021b\u021c\3\2\2\2\u021c"+
-		"\u021e\3\2\2\2\u021d\u021f\7\u0193\2\2\u021e\u021d\3\2\2\2\u021e\u021f"+
-		"\3\2\2\2\u021f\u030d\3\2\2\2\u0220\u0226\7\u019e\2\2\u0221\u0222\7\u01d3"+
-		"\2\2\u0222\u0223\7\u01bc\2\2\u0223\u0224\7\u01d5\2\2\u0224\u0225\7\u01bc"+
-		"\2\2\u0225\u0227\7\u01d4\2\2\u0226\u0221\3\2\2\2\u0226\u0227\3\2\2\2\u0227"+
-		"\u0229\3\2\2\2\u0228\u022a\7\u00b7\2\2\u0229\u0228\3\2\2\2\u0229\u022a"+
-		"\3\2\2\2\u022a\u022c\3\2\2\2\u022b\u022d\7\u0193\2\2\u022c\u022b\3\2\2"+
-		"\2\u022c\u022d\3\2\2\2\u022d\u030d\3\2\2\2\u022e\u0234\7\u01a0\2\2\u022f"+
-		"\u0230\7\u01d3\2\2\u0230\u0231\7\u01bc\2\2\u0231\u0232\7\u01d5\2\2\u0232"+
-		"\u0233\7\u01bc\2\2\u0233\u0235\7\u01d4\2\2\u0234\u022f\3\2\2\2\u0234\u0235"+
-		"\3\2\2\2\u0235\u0237\3\2\2\2\u0236\u0238\7\u00b7\2\2\u0237\u0236\3\2\2"+
-		"\2\u0237\u0238\3\2\2\2\u0238\u023a\3\2\2\2\u0239\u023b\7\u0193\2\2\u023a"+
-		"\u0239\3\2\2\2\u023a\u023b\3\2\2\2\u023b\u030d\3\2\2\2\u023c\u0242\7\u019f"+
-		"\2\2\u023d\u023e\7\u01d3\2\2\u023e\u023f\7\u01bc\2\2\u023f\u0240\7\u01d5"+
-		"\2\2\u0240\u0241\7\u01bc\2\2\u0241\u0243\7\u01d4\2\2\u0242\u023d\3\2\2"+
-		"\2\u0242\u0243\3\2\2\2\u0243\u0245\3\2\2\2\u0244\u0246\7\u00b7\2\2\u0245"+
-		"\u0244\3\2\2\2\u0245\u0246\3\2\2\2\u0246\u0248\3\2\2\2\u0247\u0249\7\u0193"+
-		"\2\2\u0248\u0247\3\2\2\2\u0248\u0249\3\2\2\2\u0249\u030d\3\2\2\2\u024a"+
-		"\u0252\7\u01a1\2\2\u024b\u024c\7\u01d3\2\2\u024c\u024f\7\u01bc\2\2\u024d"+
-		"\u024e\7\u01d5\2\2\u024e\u0250\7\u01bc\2\2\u024f\u024d\3\2\2\2\u024f\u0250"+
-		"\3\2\2\2\u0250\u0251\3\2\2\2\u0251\u0253\7\u01d4\2\2\u0252\u024b\3\2\2"+
-		"\2\u0252\u0253\3\2\2\2\u0253\u0255\3\2\2\2\u0254\u0256\7\u00b7\2\2\u0255"+
-		"\u0254\3\2\2\2\u0255\u0256\3\2\2\2\u0256\u0258\3\2\2\2\u0257\u0259\7\u0193"+
-		"\2\2\u0258\u0257\3\2\2\2\u0258\u0259\3\2\2\2\u0259\u030d\3\2\2\2\u025a"+
-		"\u0262\7\u01a2\2\2\u025b\u025c\7\u01d3\2\2\u025c\u025f\7\u01bc\2\2\u025d"+
-		"\u025e\7\u01d5\2\2\u025e\u0260\7\u01bc\2\2\u025f\u025d\3\2\2\2\u025f\u0260"+
-		"\3\2\2\2\u0260\u0261\3\2\2\2\u0261\u0263\7\u01d4\2\2\u0262\u025b\3\2\2"+
-		"\2\u0262\u0263\3\2\2\2\u0263\u0265\3\2\2\2\u0264\u0266\7\u00b7\2\2\u0265"+
-		"\u0264\3\2\2\2\u0265\u0266\3\2\2\2\u0266\u0268\3\2\2\2\u0267\u0269\7\u0193"+
-		"\2\2\u0268\u0267\3\2\2\2\u0268\u0269\3\2\2\2\u0269\u030d\3\2\2\2\u026a"+
-		"\u030d\7\u01a3\2\2\u026b\u026f\7\u017f\2\2\u026c\u026d\7\u01d3\2\2\u026d"+
-		"\u026e\7\u01bc\2\2\u026e\u0270\7\u01d4\2\2\u026f\u026c\3\2\2\2\u026f\u0270"+
-		"\3\2\2\2\u0270\u030d\3\2\2\2\u0271\u0275\7\u01a5\2\2\u0272\u0273\7\u01d3"+
-		"\2\2\u0273\u0274\7\u01bc\2\2\u0274\u0276\7\u01d4\2\2\u0275\u0272\3\2\2"+
-		"\2\u0275\u0276\3\2\2\2\u0276\u030d\3\2\2\2\u0277\u027b\7\u01a4\2\2\u0278"+
-		"\u0279\7\u01d3\2\2\u0279\u027a\7\u01bc\2\2\u027a\u027c\7\u01d4\2\2\u027b"+
-		"\u0278\3\2\2\2\u027b\u027c\3\2\2\2\u027c\u030d\3\2\2\2\u027d\u030d\7\u01a6"+
-		"\2\2\u027e\u0282\7\u01a7\2\2\u027f\u0280\7\u01d3\2\2\u0280\u0281\7\u01bc"+
-		"\2\2\u0281\u0283\7\u01d4\2\2\u0282\u027f\3\2\2\2\u0282\u0283\3\2\2\2\u0283"+
-		"\u0285\3\2\2\2\u0284\u0286\7\u0196\2\2\u0285\u0284\3\2\2\2\u0285\u0286"+
-		"\3\2\2\2\u0286\u028a\3\2\2\2\u0287\u0288\7\u01a8\2\2\u0288\u0289\7\u00a2"+
-		"\2\2\u0289\u028b\5V,\2\u028a\u0287\3\2\2\2\u028a\u028b\3\2\2\2\u028b\u028e"+
-		"\3\2\2\2\u028c\u028d\7\36\2\2\u028d\u028f\5V,\2\u028e\u028c\3\2\2\2\u028e"+
-		"\u028f\3\2\2\2\u028f\u030d\3\2\2\2\u0290\u0294\7\u01a9\2\2\u0291\u0292"+
-		"\7\u01d3\2\2\u0292\u0293\7\u01bc\2\2\u0293\u0295\7\u01d4\2\2\u0294\u0291"+
-		"\3\2\2\2\u0294\u0295\3\2\2\2\u0295\u0297\3\2\2\2\u0296\u0298\7\u0196\2"+
-		"\2\u0297\u0296\3\2\2\2\u0297\u0298\3\2\2\2\u0298\u029c\3\2\2\2\u0299\u029a"+
-		"\7\u01a8\2\2\u029a\u029b\7\u00a2\2\2\u029b\u029d\5V,\2\u029c\u0299\3\2"+
-		"\2\2\u029c\u029d\3\2\2\2\u029d\u02a0\3\2\2\2\u029e\u029f\7\36\2\2\u029f"+
-		"\u02a1\5V,\2\u02a0\u029e\3\2\2\2\u02a0\u02a1\3\2\2\2\u02a1\u030d\3\2\2"+
-		"\2\u02a2\u02a6\7\u0196\2\2\u02a3\u02a4\7\u01d3\2\2\u02a4\u02a5\7\u01bc"+
-		"\2\2\u02a5\u02a7\7\u01d4\2\2\u02a6\u02a3\3\2\2\2\u02a6\u02a7\3\2\2\2\u02a7"+
-		"\u030d\3\2\2\2\u02a8\u02ac\7\u01aa\2\2\u02a9\u02aa\7\u01d3\2\2\u02aa\u02ab"+
-		"\7\u01bc\2\2\u02ab\u02ad\7\u01d4\2\2\u02ac\u02a9\3\2\2\2\u02ac\u02ad\3"+
-		"\2\2\2\u02ad\u030d\3\2\2\2\u02ae\u030d\7\u0197\2\2\u02af\u030d\7\u01ab"+
-		"\2\2\u02b0\u030d\7\u01ac\2\2\u02b1\u030d\7\u01ad\2\2\u02b2\u030d\7\u01ae"+
-		"\2\2\u02b3\u02b5\7\u01af\2\2\u02b4\u02b6\7\u0196\2\2\u02b5\u02b4\3\2\2"+
-		"\2\u02b5\u02b6\3\2\2\2\u02b6\u02ba\3\2\2\2\u02b7\u02b8\7\u01a8\2\2\u02b8"+
-		"\u02b9\7\u00a2\2\2\u02b9\u02bb\5V,\2\u02ba\u02b7\3\2\2\2\u02ba\u02bb\3"+
-		"\2\2\2\u02bb\u02be\3\2\2\2\u02bc\u02bd\7\36\2\2\u02bd\u02bf\5V,\2\u02be"+
-		"\u02bc\3\2\2\2\u02be\u02bf\3\2\2\2\u02bf\u030d\3\2\2\2\u02c0\u02c2\7\u01b0"+
-		"\2\2\u02c1\u02c3\7\u0196\2\2\u02c2\u02c1\3\2\2\2\u02c2\u02c3\3\2\2\2\u02c3"+
-		"\u02c7\3\2\2\2\u02c4\u02c5\7\u01a8\2\2\u02c5\u02c6\7\u00a2\2\2\u02c6\u02c8"+
-		"\5V,\2\u02c7\u02c4\3\2\2\2\u02c7\u02c8\3\2\2\2\u02c8\u02cb\3\2\2\2\u02c9"+
-		"\u02ca\7\36\2\2\u02ca\u02cc\5V,\2\u02cb\u02c9\3\2\2\2\u02cb\u02cc\3\2"+
-		"\2\2\u02cc\u030d\3\2\2\2\u02cd\u02cf\7\u01b1\2\2\u02ce\u02d0\7\u0196\2"+
-		"\2\u02cf\u02ce\3\2\2\2\u02cf\u02d0\3\2\2\2\u02d0\u02d4\3\2\2\2\u02d1\u02d2"+
-		"\7\u01a8\2\2\u02d2\u02d3\7\u00a2\2\2\u02d3\u02d5\5V,\2\u02d4\u02d1\3\2"+
-		"\2\2\u02d4\u02d5\3\2\2\2\u02d5\u02d8\3\2\2\2\u02d6\u02d7\7\36\2\2\u02d7"+
-		"\u02d9\5V,\2\u02d8\u02d6\3\2\2\2\u02d8\u02d9\3\2\2\2\u02d9\u030d\3\2\2"+
-		"\2\u02da\u02dc\7\u01b2\2\2\u02db\u02dd\7\u0196\2\2\u02dc\u02db\3\2\2\2"+
-		"\u02dc\u02dd\3\2\2\2\u02dd\u02e1\3\2\2\2\u02de\u02df\7\u01a8\2\2\u02df"+
-		"\u02e0\7\u00a2\2\2\u02e0\u02e2\5V,\2\u02e1\u02de\3\2\2\2\u02e1\u02e2\3"+
-		"\2\2\2\u02e2\u02e5\3\2\2\2\u02e3\u02e4\7\36\2\2\u02e4\u02e6\5V,\2\u02e5"+
-		"\u02e3\3\2\2\2\u02e5\u02e6\3\2\2\2\u02e6\u030d\3\2\2\2\u02e7\u02e8\7\u01b3"+
-		"\2\2\u02e8\u02e9\7\u01d3\2\2\u02e9\u02ec\5V,\2\u02ea\u02eb\7\u01d5\2\2"+
-		"\u02eb\u02ed\5V,\2\u02ec\u02ea\3\2\2\2\u02ec\u02ed\3\2\2\2\u02ed\u02ee"+
-		"\3\2\2\2\u02ee\u02ef\7\u01d4\2\2\u02ef\u02f3\3\2\2\2\u02f0\u02f1\7\u01a8"+
-		"\2\2\u02f1\u02f2\7\u00a2\2\2\u02f2\u02f4\5V,\2\u02f3\u02f0\3\2\2\2\u02f3"+
-		"\u02f4\3\2\2\2\u02f4\u02f7\3\2\2\2\u02f5\u02f6\7\36\2\2\u02f6\u02f8\5"+
-		"V,\2\u02f7\u02f5\3\2\2\2\u02f7\u02f8\3\2\2\2\u02f8\u030d\3\2\2\2\u02f9"+
-		"\u02fa\7\u00a2\2\2\u02fa\u02fb\7\u01d3\2\2\u02fb\u02fe\5V,\2\u02fc\u02fd"+
-		"\7\u01d5\2\2\u02fd\u02ff\5V,\2\u02fe\u02fc\3\2\2\2\u02fe\u02ff\3\2\2\2"+
-		"\u02ff\u0300\3\2\2\2\u0300\u0301\7\u01d4\2\2\u0301\u0305\3\2\2\2\u0302"+
-		"\u0303\7\u01a8\2\2\u0303\u0304\7\u00a2\2\2\u0304\u0306\5V,\2\u0305\u0302"+
-		"\3\2\2\2\u0305\u0306\3\2\2\2\u0306\u0309\3\2\2\2\u0307\u0308\7\36\2\2"+
-		"\u0308\u030a\5V,\2\u0309\u0307\3\2\2\2\u0309\u030a\3\2\2\2\u030a\u030d"+
-		"\3\2\2\2\u030b\u030d\7\u01b4\2\2\u030c\u01d4\3\2\2\2\u030c\u01d8\3\2\2"+
-		"\2\u030c\u01e4\3\2\2\2\u030c\u01f0\3\2\2\2\u030c\u01fc\3\2\2\2\u030c\u0208"+
-		"\3\2\2\2\u030c\u0214\3\2\2\2\u030c\u0220\3\2\2\2\u030c\u022e\3\2\2\2\u030c"+
-		"\u023c\3\2\2\2\u030c\u024a\3\2\2\2\u030c\u025a\3\2\2\2\u030c\u026a\3\2"+
-		"\2\2\u030c\u026b\3\2\2\2\u030c\u0271\3\2\2\2\u030c\u0277\3\2\2\2\u030c"+
-		"\u027d\3\2\2\2\u030c\u027e\3\2\2\2\u030c\u0290\3\2\2\2\u030c\u02a2\3\2"+
-		"\2\2\u030c\u02a8\3\2\2\2\u030c\u02ae\3\2\2\2\u030c\u02af\3\2\2\2\u030c"+
-		"\u02b0\3\2\2\2\u030c\u02b1\3\2\2\2\u030c\u02b2\3\2\2\2\u030c\u02b3\3\2"+
-		"\2\2\u030c\u02c0\3\2\2\2\u030c\u02cd\3\2\2\2\u030c\u02da\3\2\2\2\u030c"+
-		"\u02e7\3\2\2\2\u030c\u02f9\3\2\2\2\u030c\u030b\3\2\2\2\u030dO\3\2\2\2"+
-		"\u030e\u0311\7p\2\2\u030f\u0311\5R*\2\u0310\u030e\3\2\2\2\u0310\u030f"+
-		"\3\2\2\2\u0311Q\3\2\2\2\u0312\u0322\7\u01be\2\2\u0313\u0322\7\u01bf\2"+
-		"\2\u0314\u0316\5T+\2\u0315\u0314\3\2\2\2\u0315\u0316\3\2\2\2\u0316\u0317"+
-		"\3\2\2\2\u0317\u0322\7\u01bc\2\2\u0318\u031a\5T+\2\u0319\u0318\3\2\2\2"+
-		"\u0319\u031a\3\2\2\2\u031a\u031b\3\2\2\2\u031b\u0322\t\7\2\2\u031c\u031e"+
-		"\5T+\2\u031d\u031c\3\2\2\2\u031d\u031e\3\2\2\2\u031e\u031f\3\2\2\2\u031f"+
-		"\u0320\7\u01d2\2\2\u0320\u0322\t\b\2\2\u0321\u0312\3\2\2\2\u0321\u0313"+
-		"\3\2\2\2\u0321\u0315\3\2\2\2\u0321\u0319\3\2\2\2\u0321\u031d\3\2\2\2\u0322"+
-		"S\3\2\2\2\u0323\u0324\t\t\2\2\u0324U\3\2\2\2\u0325\u0329\5X-\2\u0326\u0329"+
-		"\7\u01b8\2\2\u0327\u0329\7\u01b9\2\2\u0328\u0325\3\2\2\2\u0328\u0326\3"+
-		"\2\2\2\u0328\u0327\3\2\2\2\u0329W\3\2\2\2\u032a\u032b\t\n\2\2\u032bY\3"+
-		"\2\2\2\u032c\u033c\7\u01c2\2\2\u032d\u033c\7\u01c3\2\2\u032e\u033c\7\u01c4"+
-		"\2\2\u032f\u0330\7\u01c4\2\2\u0330\u033c\7\u01c2\2\2\u0331\u0332\7\u01c3"+
-		"\2\2\u0332\u033c\7\u01c2\2\2\u0333\u0334\7\u01c4\2\2\u0334\u033c\7\u01c3"+
-		"\2\2\u0335\u0336\7\u01c5\2\2\u0336\u033c\7\u01c2\2\2\u0337\u0338\7\u01c5"+
-		"\2\2\u0338\u033c\7\u01c3\2\2\u0339\u033a\7\u01c5\2\2\u033a\u033c\7\u01c4"+
-		"\2\2\u033b\u032c\3\2\2\2\u033b\u032d\3\2\2\2\u033b\u032e\3\2\2\2\u033b"+
-		"\u032f\3\2\2\2\u033b\u0331\3\2\2\2\u033b\u0333\3\2\2\2\u033b\u0335\3\2"+
-		"\2\2\u033b\u0337\3\2\2\2\u033b\u0339\3\2\2\2\u033c[\3\2\2\2\u033d\u033e"+
-		"\t\13\2\2\u033e]\3\2\2\2\u033f\u0341\7\u01bc\2\2\u0340\u0342\t\f\2\2\u0341"+
-		"\u0340\3\2\2\2\u0341\u0342\3\2\2\2\u0342_\3\2\2\2\u008ccovz}\u0086\u0093"+
-		"\u0098\u009b\u00a0\u00a3\u00a7\u00af\u00c0\u00c5\u00c8\u00ce\u00d4\u00d9"+
-		"\u00dc\u00df\u00e3\u00e5\u00e9\u00ee\u00f3\u0100\u0104\u0107\u010c\u010f"+
-		"\u0113\u0118\u011b\u0122\u0126\u012d\u0131\u0138\u0146\u0148\u0151\u0158"+
-		"\u0164\u016b\u0172\u0179\u0180\u0187\u018e\u0194\u0199\u01a2\u01a7\u01ac"+
-		"\u01b0\u01b5\u01bc\u01c5\u01c9\u01cf\u01d2\u01d6\u01dc\u01df\u01e2\u01e8"+
-		"\u01eb\u01ee\u01f4\u01f7\u01fa\u0200\u0203\u0206\u020c\u020f\u0212\u0218"+
-		"\u021b\u021e\u0226\u0229\u022c\u0234\u0237\u023a\u0242\u0245\u0248\u024f"+
-		"\u0252\u0255\u0258\u025f\u0262\u0265\u0268\u026f\u0275\u027b\u0282\u0285"+
-		"\u028a\u028e\u0294\u0297\u029c\u02a0\u02a6\u02ac\u02b5\u02ba\u02be\u02c2"+
-		"\u02c7\u02cb\u02cf\u02d4\u02d8\u02dc\u02e1\u02e5\u02ec\u02f3\u02f7\u02fe"+
-		"\u0305\u0309\u030c\u0310\u0315\u0319\u031d\u0321\u0328\u033b\u0341";
+		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\3\2\7\2f\n\2\f\2"+
+		"\16\2i\13\2\3\2\3\2\3\3\3\3\3\4\3\4\3\4\6\4r\n\4\r\4\16\4s\3\5\3\5\3\5"+
+		"\3\5\3\5\5\5{\n\5\3\6\3\6\5\6\177\n\6\3\6\5\6\u0082\n\6\3\6\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\5\6\u008b\n\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7\u0096"+
+		"\n\7\f\7\16\7\u0099\13\7\3\7\3\7\5\7\u009d\n\7\3\7\5\7\u00a0\n\7\3\b\3"+
+		"\b\3\b\5\b\u00a5\n\b\3\t\5\t\u00a8\n\t\3\t\3\t\5\t\u00ac\n\t\3\t\3\t\3"+
+		"\n\3\n\3\13\3\13\5\13\u00b4\n\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\r\3\r"+
+		"\3\r\3\r\3\16\3\16\3\16\3\16\5\16\u00c5\n\16\3\16\3\16\3\16\5\16\u00ca"+
+		"\n\16\3\16\5\16\u00cd\n\16\3\17\3\17\3\17\3\17\5\17\u00d3\n\17\3\17\3"+
+		"\17\3\20\3\20\5\20\u00d9\n\20\3\21\3\21\3\21\5\21\u00de\n\21\3\21\5\21"+
+		"\u00e1\n\21\3\21\5\21\u00e4\n\21\3\21\3\21\5\21\u00e8\n\21\5\21\u00ea"+
+		"\n\21\3\21\3\21\5\21\u00ee\n\21\3\22\3\22\3\22\5\22\u00f3\n\22\3\22\3"+
+		"\22\3\22\5\22\u00f8\n\22\3\22\3\22\3\23\3\23\3\23\3\24\3\24\3\24\3\24"+
+		"\3\24\3\24\5\24\u0105\n\24\3\25\3\25\5\25\u0109\n\25\3\25\5\25\u010c\n"+
+		"\25\3\25\3\25\3\25\5\25\u0111\n\25\3\25\5\25\u0114\n\25\3\26\3\26\3\26"+
+		"\5\26\u0119\n\26\3\27\3\27\5\27\u011d\n\27\3\27\3\27\3\27\5\27\u0122\n"+
+		"\27\3\27\5\27\u0125\n\27\3\27\3\27\3\27\3\27\3\30\5\30\u012c\n\30\3\30"+
+		"\3\30\5\30\u0130\n\30\3\30\3\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31\3\31"+
+		"\3\31\3\31\3\31\3\31\3\31\3\31\7\31\u0142\n\31\f\31\16\31\u0145\13\31"+
+		"\3\32\3\32\3\32\3\32\3\32\3\32\5\32\u014d\n\32\3\33\3\33\3\33\3\33\3\33"+
+		"\5\33\u0154\n\33\3\34\3\34\3\34\3\34\3\34\3\34\3\34\3\34\3\34\3\34\5\34"+
+		"\u0160\n\34\3\34\3\34\3\34\3\34\3\34\5\34\u0167\n\34\3\34\3\34\3\35\3"+
+		"\35\3\35\5\35\u016e\n\35\3\35\3\35\3\35\3\35\3\35\5\35\u0175\n\35\3\35"+
+		"\3\35\3\36\3\36\3\36\5\36\u017c\n\36\3\36\3\36\3\37\3\37\3\37\5\37\u0183"+
+		"\n\37\3\37\3\37\3\37\3\37\3\37\5\37\u018a\n\37\3\37\3\37\3 \3 \5 \u0190"+
+		"\n \3!\3!\3!\5!\u0195\n!\3!\3!\3\"\3\"\3\"\7\"\u019c\n\"\f\"\16\"\u019f"+
+		"\13\"\3#\3#\5#\u01a3\n#\3#\3#\3#\5#\u01a8\n#\7#\u01aa\n#\f#\16#\u01ad"+
+		"\13#\3$\3$\5$\u01b1\n$\3%\3%\3&\3&\3\'\5\'\u01b8\n\'\3\'\3\'\3(\3(\3("+
+		"\3(\3(\5(\u01c1\n(\3)\3)\5)\u01c5\n)\3)\3)\3)\3)\5)\u01cb\n)\3)\5)\u01ce"+
+		"\n)\3*\3*\5*\u01d2\n*\3*\3*\3*\3*\5*\u01d8\n*\3*\5*\u01db\n*\3*\5*\u01de"+
+		"\n*\3*\3*\3*\3*\5*\u01e4\n*\3*\5*\u01e7\n*\3*\5*\u01ea\n*\3*\3*\3*\3*"+
+		"\5*\u01f0\n*\3*\5*\u01f3\n*\3*\5*\u01f6\n*\3*\3*\3*\3*\5*\u01fc\n*\3*"+
+		"\5*\u01ff\n*\3*\5*\u0202\n*\3*\3*\3*\3*\5*\u0208\n*\3*\5*\u020b\n*\3*"+
+		"\5*\u020e\n*\3*\3*\3*\3*\5*\u0214\n*\3*\5*\u0217\n*\3*\5*\u021a\n*\3*"+
+		"\3*\3*\3*\3*\3*\5*\u0222\n*\3*\5*\u0225\n*\3*\5*\u0228\n*\3*\3*\3*\3*"+
+		"\3*\3*\5*\u0230\n*\3*\5*\u0233\n*\3*\5*\u0236\n*\3*\3*\3*\3*\3*\3*\5*"+
+		"\u023e\n*\3*\5*\u0241\n*\3*\5*\u0244\n*\3*\3*\3*\3*\3*\5*\u024b\n*\3*"+
+		"\5*\u024e\n*\3*\5*\u0251\n*\3*\5*\u0254\n*\3*\3*\3*\3*\3*\5*\u025b\n*"+
+		"\3*\5*\u025e\n*\3*\5*\u0261\n*\3*\5*\u0264\n*\3*\3*\3*\3*\3*\5*\u026b"+
+		"\n*\3*\3*\3*\3*\5*\u0271\n*\3*\3*\3*\3*\5*\u0277\n*\3*\3*\3*\3*\3*\5*"+
+		"\u027e\n*\3*\5*\u0281\n*\3*\3*\3*\5*\u0286\n*\3*\3*\5*\u028a\n*\3*\3*"+
+		"\3*\3*\5*\u0290\n*\3*\5*\u0293\n*\3*\3*\3*\5*\u0298\n*\3*\3*\5*\u029c"+
+		"\n*\3*\3*\3*\3*\5*\u02a2\n*\3*\3*\3*\3*\5*\u02a8\n*\3*\3*\3*\3*\3*\3*"+
+		"\3*\5*\u02b1\n*\3*\3*\3*\5*\u02b6\n*\3*\3*\5*\u02ba\n*\3*\3*\5*\u02be"+
+		"\n*\3*\3*\3*\5*\u02c3\n*\3*\3*\5*\u02c7\n*\3*\3*\5*\u02cb\n*\3*\3*\3*"+
+		"\5*\u02d0\n*\3*\3*\5*\u02d4\n*\3*\3*\5*\u02d8\n*\3*\3*\3*\5*\u02dd\n*"+
+		"\3*\3*\5*\u02e1\n*\3*\3*\3*\3*\3*\5*\u02e8\n*\3*\3*\3*\3*\3*\5*\u02ef"+
+		"\n*\3*\3*\5*\u02f3\n*\3*\3*\3*\3*\3*\5*\u02fa\n*\3*\3*\3*\3*\3*\5*\u0301"+
+		"\n*\3*\3*\5*\u0305\n*\3*\5*\u0308\n*\3+\3+\5+\u030c\n+\3,\3,\3,\5,\u0311"+
+		"\n,\3,\3,\5,\u0315\n,\3,\3,\5,\u0319\n,\3,\3,\5,\u031d\n,\3-\3-\3.\3."+
+		"\3.\5.\u0324\n.\3/\3/\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60"+
+		"\3\60\3\60\3\60\3\60\3\60\5\60\u0337\n\60\3\61\3\61\3\62\3\62\5\62\u033d"+
+		"\n\62\3\62\2\2\63\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62"+
+		"\64\668:<>@BDFHJLNPRTVXZ\\^`b\2\16\4\2\13\13\67\67\4\2\u0085\u0085\u00b5"+
+		"\u00b5\4\2[[bb\4\2ssuu\4\2\34\34ll\4\2\u012b\u012b\u01bc\u01bc\3\2\u01c0"+
+		"\u01c1\4\2\u01bc\u01bc\u01c0\u01c0\3\2\u01db\u01dc.\2KK\u00c6\u00c6\u00ce"+
+		"\u00ce\u00d0\u00d0\u00d7\u00d8\u00db\u00dd\u00e2\u00e2\u00e4\u00e4\u00e6"+
+		"\u00e6\u00e8\u00eb\u00f7\u00f7\u00f9\u00fa\u00fc\u00fc\u00ff\u00ff\u0102"+
+		"\u0102\u0104\u0106\u010a\u010f\u0111\u0114\u0116\u0116\u0119\u0119\u011b"+
+		"\u011b\u011d\u011f\u0121\u012d\u0131\u0131\u0135\u0135\u0137\u0137\u013a"+
+		"\u013c\u013e\u013e\u0140\u0141\u0144\u014b\u014d\u0152\u0154\u0156\u0158"+
+		"\u0158\u015a\u015a\u015d\u015f\u0161\u016a\u016c\u016d\u016f\u016f\u0172"+
+		"\u0178\u017c\u017f\u0183\u0183\u0185\u0189\u018b\u0192\u01bd\u01bd\3\2"+
+		"\u01c6\u01cd\7\2\u0110\u0110\u0120\u0120\u012f\u012f\u017b\u017b\u01da"+
+		"\u01da\u03cd\2g\3\2\2\2\4l\3\2\2\2\6q\3\2\2\2\bz\3\2\2\2\n|\3\2\2\2\f"+
+		"\u008e\3\2\2\2\16\u00a1\3\2\2\2\20\u00a7\3\2\2\2\22\u00af\3\2\2\2\24\u00b1"+
+		"\3\2\2\2\26\u00b7\3\2\2\2\30\u00ba\3\2\2\2\32\u00c0\3\2\2\2\34\u00ce\3"+
+		"\2\2\2\36\u00d8\3\2\2\2 \u00da\3\2\2\2\"\u00ef\3\2\2\2$\u00fb\3\2\2\2"+
+		"&\u0104\3\2\2\2(\u0108\3\2\2\2*\u0118\3\2\2\2,\u011c\3\2\2\2.\u012b\3"+
+		"\2\2\2\60\u0135\3\2\2\2\62\u0146\3\2\2\2\64\u014e\3\2\2\2\66\u0166\3\2"+
+		"\2\28\u0174\3\2\2\2:\u017b\3\2\2\2<\u0189\3\2\2\2>\u018f\3\2\2\2@\u0194"+
+		"\3\2\2\2B\u0198\3\2\2\2D\u01a0\3\2\2\2F\u01b0\3\2\2\2H\u01b2\3\2\2\2J"+
+		"\u01b4\3\2\2\2L\u01b7\3\2\2\2N\u01c0\3\2\2\2P\u01c2\3\2\2\2R\u0307\3\2"+
+		"\2\2T\u030b\3\2\2\2V\u031c\3\2\2\2X\u031e\3\2\2\2Z\u0323\3\2\2\2\\\u0325"+
+		"\3\2\2\2^\u0336\3\2\2\2`\u0338\3\2\2\2b\u033a\3\2\2\2df\5\4\3\2ed\3\2"+
+		"\2\2fi\3\2\2\2ge\3\2\2\2gh\3\2\2\2hj\3\2\2\2ig\3\2\2\2jk\7\2\2\3k\3\3"+
+		"\2\2\2lm\5\6\4\2m\5\3\2\2\2no\5\b\5\2op\7\u01d6\2\2pr\3\2\2\2qn\3\2\2"+
+		"\2rs\3\2\2\2sq\3\2\2\2st\3\2\2\2t\7\3\2\2\2u{\5\n\6\2v{\5\f\7\2w{\5\30"+
+		"\r\2x{\5\32\16\2y{\5\34\17\2zu\3\2\2\2zv\3\2\2\2zw\3\2\2\2zx\3\2\2\2z"+
+		"y\3\2\2\2{\t\3\2\2\2|~\7(\2\2}\177\7\u00b5\2\2~}\3\2\2\2~\177\3\2\2\2"+
+		"\177\u0081\3\2\2\2\u0080\u0082\5J&\2\u0081\u0080\3\2\2\2\u0081\u0082\3"+
+		"\2\2\2\u0082\u0083\3\2\2\2\u0083\u0084\7[\2\2\u0084\u0085\5Z.\2\u0085"+
+		"\u0086\7u\2\2\u0086\u0087\58\35\2\u0087\u0088\7\u01d3\2\2\u0088\u008a"+
+		"\5B\"\2\u0089\u008b\t\2\2\2\u008a\u0089\3\2\2\2\u008a\u008b\3\2\2\2\u008b"+
+		"\u008c\3\2\2\2\u008c\u008d\7\u01d4\2\2\u008d\13\3\2\2\2\u008e\u008f\7"+
+		"(\2\2\u008f\u0090\7\u00a8\2\2\u0090\u0091\58\35\2\u0091\u0092\7\u01d3"+
+		"\2\2\u0092\u0097\5\36\20\2\u0093\u0094\7\u01d5\2\2\u0094\u0096\5\36\20"+
+		"\2\u0095\u0093\3\2\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098"+
+		"\3\2\2\2\u0098\u009a\3\2\2\2\u0099\u0097\3\2\2\2\u009a\u009c\7\u01d4\2"+
+		"\2\u009b\u009d\5\16\b\2\u009c\u009b\3\2\2\2\u009c\u009d\3\2\2\2\u009d"+
+		"\u009f\3\2\2\2\u009e\u00a0\5\24\13\2\u009f\u009e\3\2\2\2\u009f\u00a0\3"+
+		"\2\2\2\u00a0\r\3\2\2\2\u00a1\u00a4\5\20\t\2\u00a2\u00a3\7\u01d5\2\2\u00a3"+
+		"\u00a5\5\16\b\2\u00a4\u00a2\3\2\2\2\u00a4\u00a5\3\2\2\2\u00a5\17\3\2\2"+
+		"\2\u00a6\u00a8\7\64\2\2\u00a7\u00a6\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8"+
+		"\u00a9\3\2\2\2\u00a9\u00ab\7\u00e0\2\2\u00aa\u00ac\7\u01c2\2\2\u00ab\u00aa"+
+		"\3\2\2\2\u00ab\u00ac\3\2\2\2\u00ac\u00ad\3\2\2\2\u00ad\u00ae\5\22\n\2"+
+		"\u00ae\21\3\2\2\2\u00af\u00b0\7\3\2\2\u00b0\23\3\2\2\2\u00b1\u00b3\7\u00e3"+
+		"\2\2\u00b2\u00b4\7\u01c2\2\2\u00b3\u00b2\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4"+
+		"\u00b5\3\2\2\2\u00b5\u00b6\7\u01be\2\2\u00b6\25\3\2\2\2\u00b7\u00b8\7"+
+		"\u00e3\2\2\u00b8\u00b9\7\u01be\2\2\u00b9\27\3\2\2\2\u00ba\u00bb\7\7\2"+
+		"\2\u00bb\u00bc\7\u00a8\2\2\u00bc\u00bd\58\35\2\u00bd\u00be\7\5\2\2\u00be"+
+		"\u00bf\5\36\20\2\u00bf\31\3\2\2\2\u00c0\u00c1\7;\2\2\u00c1\u00c4\7[\2"+
+		"\2\u00c2\u00c3\7Y\2\2\u00c3\u00c5\7C\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c5"+
+		"\3\2\2\2\u00c5\u00c6\3\2\2\2\u00c6\u00c9\5Z.\2\u00c7\u00c8\7u\2\2\u00c8"+
+		"\u00ca\58\35\2\u00c9\u00c7\3\2\2\2\u00c9\u00ca\3\2\2\2\u00ca\u00cc\3\2"+
+		"\2\2\u00cb\u00cd\7\u01d6\2\2\u00cc\u00cb\3\2\2\2\u00cc\u00cd\3\2\2\2\u00cd"+
+		"\33\3\2\2\2\u00ce\u00cf\7;\2\2\u00cf\u00d2\7\u00a8\2\2\u00d0\u00d1\7Y"+
+		"\2\2\u00d1\u00d3\7C\2\2\u00d2\u00d0\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3"+
+		"\u00d4\3\2\2\2\u00d4\u00d5\58\35\2\u00d5\35\3\2\2\2\u00d6\u00d9\5 \21"+
+		"\2\u00d7\u00d9\5*\26\2\u00d8\u00d6\3\2\2\2\u00d8\u00d7\3\2\2\2\u00d9\37"+
+		"\3\2\2\2\u00da\u00db\5Z.\2\u00db\u00dd\5R*\2\u00dc\u00de\5L\'\2\u00dd"+
+		"\u00dc\3\2\2\2\u00dd\u00de\3\2\2\2\u00de\u00e0\3\2\2\2\u00df\u00e1\5$"+
+		"\23\2\u00e0\u00df\3\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\u00e3\3\2\2\2\u00e2"+
+		"\u00e4\7\r\2\2\u00e3\u00e2\3\2\2\2\u00e3\u00e4\3\2\2\2\u00e4\u00e9\3\2"+
+		"\2\2\u00e5\u00e7\t\3\2\2\u00e6\u00e8\7b\2\2\u00e7\u00e6\3\2\2\2\u00e7"+
+		"\u00e8\3\2\2\2\u00e8\u00ea\3\2\2\2\u00e9\u00e5\3\2\2\2\u00e9\u00ea\3\2"+
+		"\2\2\u00ea\u00ed\3\2\2\2\u00eb\u00ec\7\u00e3\2\2\u00ec\u00ee\7\u01be\2"+
+		"\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee!\3\2\2\2\u00ef\u00f0"+
+		"\5Z.\2\u00f0\u00f2\5R*\2\u00f1\u00f3\5L\'\2\u00f2\u00f1\3\2\2\2\u00f2"+
+		"\u00f3\3\2\2\2\u00f3\u00f7\3\2\2\2\u00f4\u00f5\7\64\2\2\u00f5\u00f8\5"+
+		"&\24\2\u00f6\u00f8\7\r\2\2\u00f7\u00f4\3\2\2\2\u00f7\u00f6\3\2\2\2\u00f7"+
+		"\u00f8\3\2\2\2\u00f8\u00f9\3\2\2\2\u00f9\u00fa\5\26\f\2\u00fa#\3\2\2\2"+
+		"\u00fb\u00fc\7\64\2\2\u00fc\u00fd\5&\24\2\u00fd%\3\2\2\2\u00fe\u0105\7"+
+		"p\2\2\u00ff\u0105\5V,\2\u0100\u0101\7\u01d3\2\2\u0101\u0102\5&\24\2\u0102"+
+		"\u0103\7\u01d4\2\2\u0103\u0105\3\2\2\2\u0104\u00fe\3\2\2\2\u0104\u00ff"+
+		"\3\2\2\2\u0104\u0100\3\2\2\2\u0105\'\3\2\2\2\u0106\u0107\7\"\2\2\u0107"+
+		"\u0109\5Z.\2\u0108\u0106\3\2\2\2\u0108\u0109\3\2\2\2\u0109\u010b\3\2\2"+
+		"\2\u010a\u010c\5L\'\2\u010b\u010a\3\2\2\2\u010b\u010c\3\2\2\2\u010c\u0110"+
+		"\3\2\2\2\u010d\u010e\7\u0085\2\2\u010e\u0111\7b\2\2\u010f\u0111\7\u00b5"+
+		"\2\2\u0110\u010d\3\2\2\2\u0110\u010f\3\2\2\2\u0111\u0113\3\2\2\2\u0112"+
+		"\u0114\5J&\2\u0113\u0112\3\2\2\2\u0113\u0114\3\2\2\2\u0114)\3\2\2\2\u0115"+
+		"\u0119\5,\27\2\u0116\u0119\5.\30\2\u0117\u0119\5\60\31\2\u0118\u0115\3"+
+		"\2\2\2\u0118\u0116\3\2\2\2\u0118\u0117\3\2\2\2\u0119+\3\2\2\2\u011a\u011b"+
+		"\7\"\2\2\u011b\u011d\5Z.\2\u011c\u011a\3\2\2\2\u011c\u011d\3\2\2\2\u011d"+
+		"\u0121\3\2\2\2\u011e\u011f\7\u0085\2\2\u011f\u0122\7b\2\2\u0120\u0122"+
+		"\7\u00b5\2\2\u0121\u011e\3\2\2\2\u0121\u0120\3\2\2\2\u0122\u0124\3\2\2"+
+		"\2\u0123\u0125\5J&\2\u0124\u0123\3\2\2\2\u0124\u0125\3\2\2\2\u0125\u0126"+
+		"\3\2\2\2\u0126\u0127\7\u01d3\2\2\u0127\u0128\5D#\2\u0128\u0129\7\u01d4"+
+		"\2\2\u0129-\3\2\2\2\u012a\u012c\7\u00b5\2\2\u012b\u012a\3\2\2\2\u012b"+
+		"\u012c\3\2\2\2\u012c\u012d\3\2\2\2\u012d\u012f\t\4\2\2\u012e\u0130\5Z"+
+		".\2\u012f\u012e\3\2\2\2\u012f\u0130\3\2\2\2\u0130\u0131\3\2\2\2\u0131"+
+		"\u0132\7\u01d3\2\2\u0132\u0133\5D#\2\u0133\u0134\7\u01d4\2\2\u0134/\3"+
+		"\2\2\2\u0135\u0136\7L\2\2\u0136\u0137\7b\2\2\u0137\u0138\7\u01d3\2\2\u0138"+
+		"\u0139\5B\"\2\u0139\u013a\7\u01d4\2\2\u013a\u013b\7\u008e\2\2\u013b\u013c"+
+		"\5Z.\2\u013c\u013d\7\u01d3\2\2\u013d\u013e\5B\"\2\u013e\u0143\7\u01d4"+
+		"\2\2\u013f\u0142\5\62\32\2\u0140\u0142\5\64\33\2\u0141\u013f\3\2\2\2\u0141"+
+		"\u0140\3\2\2\2\u0142\u0145\3\2\2\2\u0143\u0141\3\2\2\2\u0143\u0144\3\2"+
+		"\2\2\u0144\61\3\2\2\2\u0145\u0143\3\2\2\2\u0146\u0147\7u\2\2\u0147\u014c"+
+		"\7\65\2\2\u0148\u014d\7\25\2\2\u0149\u014d\7\u0091\2\2\u014a\u014b\7n"+
+		"\2\2\u014b\u014d\7\4\2\2\u014c\u0148\3\2\2\2\u014c\u0149\3\2\2\2\u014c"+
+		"\u014a\3\2\2\2\u014d\63\3\2\2\2\u014e\u014f\7u\2\2\u014f\u0153\7\u00b8"+
+		"\2\2\u0150\u0154\7\u0091\2\2\u0151\u0152\7n\2\2\u0152\u0154\7\4\2\2\u0153"+
+		"\u0150\3\2\2\2\u0153\u0151\3\2\2\2\u0154\65\3\2\2\2\u0155\u0156\5Z.\2"+
+		"\u0156\u0157\7\u01ce\2\2\u0157\u0158\5Z.\2\u0158\u0159\7\u01ce\2\2\u0159"+
+		"\u015a\5Z.\2\u015a\u015b\7\u01ce\2\2\u015b\u0167\3\2\2\2\u015c\u015d\5"+
+		"Z.\2\u015d\u015f\7\u01ce\2\2\u015e\u0160\5Z.\2\u015f\u015e\3\2\2\2\u015f"+
+		"\u0160\3\2\2\2\u0160\u0161\3\2\2\2\u0161\u0162\7\u01ce\2\2\u0162\u0167"+
+		"\3\2\2\2\u0163\u0164\5Z.\2\u0164\u0165\7\u01ce\2\2\u0165\u0167\3\2\2\2"+
+		"\u0166\u0155\3\2\2\2\u0166\u015c\3\2\2\2\u0166\u0163\3\2\2\2\u0166\u0167"+
+		"\3\2\2\2\u0167\u0168\3\2\2\2\u0168\u0169\5Z.\2\u0169\67\3\2\2\2\u016a"+
+		"\u016b\5Z.\2\u016b\u016d\7\u01ce\2\2\u016c\u016e\5Z.\2\u016d\u016c\3\2"+
+		"\2\2\u016d\u016e\3\2\2\2\u016e\u016f\3\2\2\2\u016f\u0170\7\u01ce\2\2\u0170"+
+		"\u0175\3\2\2\2\u0171\u0172\5Z.\2\u0172\u0173\7\u01ce\2\2\u0173\u0175\3"+
+		"\2\2\2\u0174\u016a\3\2\2\2\u0174\u0171\3\2\2\2\u0174\u0175\3\2\2\2\u0175"+
+		"\u0176\3\2\2\2\u0176\u0177\5Z.\2\u01779\3\2\2\2\u0178\u0179\5Z.\2\u0179"+
+		"\u017a\7\u01ce\2\2\u017a\u017c\3\2\2\2\u017b\u0178\3\2\2\2\u017b\u017c"+
+		"\3\2\2\2\u017c\u017d\3\2\2\2\u017d\u017e\5Z.\2\u017e;\3\2\2\2\u017f\u0180"+
+		"\5Z.\2\u0180\u0182\7\u01ce\2\2\u0181\u0183\5Z.\2\u0182\u0181\3\2\2\2\u0182"+
+		"\u0183\3\2\2\2\u0183\u0184\3\2\2\2\u0184\u0185\7\u01ce\2\2\u0185\u018a"+
+		"\3\2\2\2\u0186\u0187\5Z.\2\u0187\u0188\7\u01ce\2\2\u0188\u018a\3\2\2\2"+
+		"\u0189\u017f\3\2\2\2\u0189\u0186\3\2\2\2\u0189\u018a\3\2\2\2\u018a\u018b"+
+		"\3\2\2\2\u018b\u018c\5Z.\2\u018c=\3\2\2\2\u018d\u0190\5\66\34\2\u018e"+
+		"\u0190\7\u01bb\2\2\u018f\u018d\3\2\2\2\u018f\u018e\3\2\2\2\u0190?\3\2"+
+		"\2\2\u0191\u0192\58\35\2\u0192\u0193\7\u01ce\2\2\u0193\u0195\3\2\2\2\u0194"+
+		"\u0191\3\2\2\2\u0194\u0195\3\2\2\2\u0195\u0196\3\2\2\2\u0196\u0197\5Z"+
+		".\2\u0197A\3\2\2\2\u0198\u019d\5Z.\2\u0199\u019a\7\u01d5\2\2\u019a\u019c"+
+		"\5Z.\2\u019b\u0199\3\2\2\2\u019c\u019f\3\2\2\2\u019d\u019b\3\2\2\2\u019d"+
+		"\u019e\3\2\2\2\u019eC\3\2\2\2\u019f\u019d\3\2\2\2\u01a0\u01a2\5Z.\2\u01a1"+
+		"\u01a3\t\2\2\2\u01a2\u01a1\3\2\2\2\u01a2\u01a3\3\2\2\2\u01a3\u01ab\3\2"+
+		"\2\2\u01a4\u01a5\7\u01d5\2\2\u01a5\u01a7\5Z.\2\u01a6\u01a8\t\2\2\2\u01a7"+
+		"\u01a6\3\2\2\2\u01a7\u01a8\3\2\2\2\u01a8\u01aa\3\2\2\2\u01a9\u01a4\3\2"+
+		"\2\2\u01aa\u01ad\3\2\2\2\u01ab\u01a9\3\2\2\2\u01ab\u01ac\3\2\2\2\u01ac"+
+		"E\3\2\2\2\u01ad\u01ab\3\2\2\2\u01ae\u01b1\5Z.\2\u01af\u01b1\7\u01bb\2"+
+		"\2\u01b0\u01ae\3\2\2\2\u01b0\u01af\3\2\2\2\u01b1G\3\2\2\2\u01b2\u01b3"+
+		"\t\5\2\2\u01b3I\3\2\2\2\u01b4\u01b5\t\6\2\2\u01b5K\3\2\2\2\u01b6\u01b8"+
+		"\7o\2\2\u01b7\u01b6\3\2\2\2\u01b7\u01b8\3\2\2\2\u01b8\u01b9\3\2\2\2\u01b9"+
+		"\u01ba\7p\2\2\u01baM\3\2\2\2\u01bb\u01c1\5<\37\2\u01bc\u01c1\7\u0095\2"+
+		"\2\u01bd\u01c1\7d\2\2\u01be\u01c1\7\u00d9\2\2\u01bf\u01c1\7\u00e1\2\2"+
+		"\u01c0\u01bb\3\2\2\2\u01c0\u01bc\3\2\2\2\u01c0\u01bd\3\2\2\2\u01c0\u01be"+
+		"\3\2\2\2\u01c0\u01bf\3\2\2\2\u01c1O\3\2\2\2\u01c2\u01c4\5Z.\2\u01c3\u01c5"+
+		"\7V\2\2\u01c4\u01c3\3\2\2\2\u01c4\u01c5\3\2\2\2\u01c5\u01cd\3\2\2\2\u01c6"+
+		"\u01c7\7\u01d3\2\2\u01c7\u01ca\t\7\2\2\u01c8\u01c9\7\u01d5\2\2\u01c9\u01cb"+
+		"\7\u01bc\2\2\u01ca\u01c8\3\2\2\2\u01ca\u01cb\3\2\2\2\u01cb\u01cc\3\2\2"+
+		"\2\u01cc\u01ce\7\u01d4\2\2\u01cd\u01c6\3\2\2\2\u01cd\u01ce\3\2\2\2\u01ce"+
+		"Q\3\2\2\2\u01cf\u01d1\7\u0195\2\2\u01d0\u01d2\7\u01bc\2\2\u01d1\u01d0"+
+		"\3\2\2\2\u01d1\u01d2\3\2\2\2\u01d2\u0308\3\2\2\2\u01d3\u01d7\7\u0198\2"+
+		"\2\u01d4\u01d5\7\u01d3\2\2\u01d5\u01d6\7\u01bc\2\2\u01d6\u01d8\7\u01d4"+
+		"\2\2\u01d7\u01d4\3\2\2\2\u01d7\u01d8\3\2\2\2\u01d8\u01da\3\2\2\2\u01d9"+
+		"\u01db\7\u00b7\2\2\u01da\u01d9\3\2\2\2\u01da\u01db\3\2\2\2\u01db\u01dd"+
+		"\3\2\2\2\u01dc\u01de\7\u0193\2\2\u01dd\u01dc\3\2\2\2\u01dd\u01de\3\2\2"+
+		"\2\u01de\u0308\3\2\2\2\u01df\u01e3\7\u0199\2\2\u01e0\u01e1\7\u01d3\2\2"+
+		"\u01e1\u01e2\7\u01bc\2\2\u01e2\u01e4\7\u01d4\2\2\u01e3\u01e0\3\2\2\2\u01e3"+
+		"\u01e4\3\2\2\2\u01e4\u01e6\3\2\2\2\u01e5\u01e7\7\u00b7\2\2\u01e6\u01e5"+
+		"\3\2\2\2\u01e6\u01e7\3\2\2\2\u01e7\u01e9\3\2\2\2\u01e8\u01ea\7\u0193\2"+
+		"\2\u01e9\u01e8\3\2\2\2\u01e9\u01ea\3\2\2\2\u01ea\u0308\3\2\2\2\u01eb\u01ef"+
+		"\7\u019a\2\2\u01ec\u01ed\7\u01d3\2\2\u01ed\u01ee\7\u01bc\2\2\u01ee\u01f0"+
+		"\7\u01d4\2\2\u01ef\u01ec\3\2\2\2\u01ef\u01f0\3\2\2\2\u01f0\u01f2\3\2\2"+
+		"\2\u01f1\u01f3\7\u00b7\2\2\u01f2\u01f1\3\2\2\2\u01f2\u01f3\3\2\2\2\u01f3"+
+		"\u01f5\3\2\2\2\u01f4\u01f6\7\u0193\2\2\u01f5\u01f4\3\2\2\2\u01f5\u01f6"+
+		"\3\2\2\2\u01f6\u0308\3\2\2\2\u01f7\u01fb\7\u019b\2\2\u01f8\u01f9\7\u01d3"+
+		"\2\2\u01f9\u01fa\7\u01bc\2\2\u01fa\u01fc\7\u01d4\2\2\u01fb\u01f8\3\2\2"+
+		"\2\u01fb\u01fc\3\2\2\2\u01fc\u01fe\3\2\2\2\u01fd\u01ff\7\u00b7\2\2\u01fe"+
+		"\u01fd\3\2\2\2\u01fe\u01ff\3\2\2\2\u01ff\u0201\3\2\2\2\u0200\u0202\7\u0193"+
+		"\2\2\u0201\u0200\3\2\2\2\u0201\u0202\3\2\2\2\u0202\u0308\3\2\2\2\u0203"+
+		"\u0207\7\u019c\2\2\u0204\u0205\7\u01d3\2\2\u0205\u0206\7\u01bc\2\2\u0206"+
+		"\u0208\7\u01d4\2\2\u0207\u0204\3\2\2\2\u0207\u0208\3\2\2\2\u0208\u020a"+
+		"\3\2\2\2\u0209\u020b\7\u00b7\2\2\u020a\u0209\3\2\2\2\u020a\u020b\3\2\2"+
+		"\2\u020b\u020d\3\2\2\2\u020c\u020e\7\u0193\2\2\u020d\u020c\3\2\2\2\u020d"+
+		"\u020e\3\2\2\2\u020e\u0308\3\2\2\2\u020f\u0213\7\u019d\2\2\u0210\u0211"+
+		"\7\u01d3\2\2\u0211\u0212\7\u01bc\2\2\u0212\u0214\7\u01d4\2\2\u0213\u0210"+
+		"\3\2\2\2\u0213\u0214\3\2\2\2\u0214\u0216\3\2\2\2\u0215\u0217\7\u00b7\2"+
+		"\2\u0216\u0215\3\2\2\2\u0216\u0217\3\2\2\2\u0217\u0219\3\2\2\2\u0218\u021a"+
+		"\7\u0193\2\2\u0219\u0218\3\2\2\2\u0219\u021a\3\2\2\2\u021a\u0308\3\2\2"+
+		"\2\u021b\u0221\7\u019e\2\2\u021c\u021d\7\u01d3\2\2\u021d\u021e\7\u01bc"+
+		"\2\2\u021e\u021f\7\u01d5\2\2\u021f\u0220\7\u01bc\2\2\u0220\u0222\7\u01d4"+
+		"\2\2\u0221\u021c\3\2\2\2\u0221\u0222\3\2\2\2\u0222\u0224\3\2\2\2\u0223"+
+		"\u0225\7\u00b7\2\2\u0224\u0223\3\2\2\2\u0224\u0225\3\2\2\2\u0225\u0227"+
+		"\3\2\2\2\u0226\u0228\7\u0193\2\2\u0227\u0226\3\2\2\2\u0227\u0228\3\2\2"+
+		"\2\u0228\u0308\3\2\2\2\u0229\u022f\7\u01a0\2\2\u022a\u022b\7\u01d3\2\2"+
+		"\u022b\u022c\7\u01bc\2\2\u022c\u022d\7\u01d5\2\2\u022d\u022e\7\u01bc\2"+
+		"\2\u022e\u0230\7\u01d4\2\2\u022f\u022a\3\2\2\2\u022f\u0230\3\2\2\2\u0230"+
+		"\u0232\3\2\2\2\u0231\u0233\7\u00b7\2\2\u0232\u0231\3\2\2\2\u0232\u0233"+
+		"\3\2\2\2\u0233\u0235\3\2\2\2\u0234\u0236\7\u0193\2\2\u0235\u0234\3\2\2"+
+		"\2\u0235\u0236\3\2\2\2\u0236\u0308\3\2\2\2\u0237\u023d\7\u019f\2\2\u0238"+
+		"\u0239\7\u01d3\2\2\u0239\u023a\7\u01bc\2\2\u023a\u023b\7\u01d5\2\2\u023b"+
+		"\u023c\7\u01bc\2\2\u023c\u023e\7\u01d4\2\2\u023d\u0238\3\2\2\2\u023d\u023e"+
+		"\3\2\2\2\u023e\u0240\3\2\2\2\u023f\u0241\7\u00b7\2\2\u0240\u023f\3\2\2"+
+		"\2\u0240\u0241\3\2\2\2\u0241\u0243\3\2\2\2\u0242\u0244\7\u0193\2\2\u0243"+
+		"\u0242\3\2\2\2\u0243\u0244\3\2\2\2\u0244\u0308\3\2\2\2\u0245\u024d\7\u01a1"+
+		"\2\2\u0246\u0247\7\u01d3\2\2\u0247\u024a\7\u01bc\2\2\u0248\u0249\7\u01d5"+
+		"\2\2\u0249\u024b\7\u01bc\2\2\u024a\u0248\3\2\2\2\u024a\u024b\3\2\2\2\u024b"+
+		"\u024c\3\2\2\2\u024c\u024e\7\u01d4\2\2\u024d\u0246\3\2\2\2\u024d\u024e"+
+		"\3\2\2\2\u024e\u0250\3\2\2\2\u024f\u0251\7\u00b7\2\2\u0250\u024f\3\2\2"+
+		"\2\u0250\u0251\3\2\2\2\u0251\u0253\3\2\2\2\u0252\u0254\7\u0193\2\2\u0253"+
+		"\u0252\3\2\2\2\u0253\u0254\3\2\2\2\u0254\u0308\3\2\2\2\u0255\u025d\7\u01a2"+
+		"\2\2\u0256\u0257\7\u01d3\2\2\u0257\u025a\7\u01bc\2\2\u0258\u0259\7\u01d5"+
+		"\2\2\u0259\u025b\7\u01bc\2\2\u025a\u0258\3\2\2\2\u025a\u025b\3\2\2\2\u025b"+
+		"\u025c\3\2\2\2\u025c\u025e\7\u01d4\2\2\u025d\u0256\3\2\2\2\u025d\u025e"+
+		"\3\2\2\2\u025e\u0260\3\2\2\2\u025f\u0261\7\u00b7\2\2\u0260\u025f\3\2\2"+
+		"\2\u0260\u0261\3\2\2\2\u0261\u0263\3\2\2\2\u0262\u0264\7\u0193\2\2\u0263"+
+		"\u0262\3\2\2\2\u0263\u0264\3\2\2\2\u0264\u0308\3\2\2\2\u0265\u0308\7\u01a3"+
+		"\2\2\u0266\u026a\7\u017f\2\2\u0267\u0268\7\u01d3\2\2\u0268\u0269\7\u01bc"+
+		"\2\2\u0269\u026b\7\u01d4\2\2\u026a\u0267\3\2\2\2\u026a\u026b\3\2\2\2\u026b"+
+		"\u0308\3\2\2\2\u026c\u0270\7\u01a5\2\2\u026d\u026e\7\u01d3\2\2\u026e\u026f"+
+		"\7\u01bc\2\2\u026f\u0271\7\u01d4\2\2\u0270\u026d\3\2\2\2\u0270\u0271\3"+
+		"\2\2\2\u0271\u0308\3\2\2\2\u0272\u0276\7\u01a4\2\2\u0273\u0274\7\u01d3"+
+		"\2\2\u0274\u0275\7\u01bc\2\2\u0275\u0277\7\u01d4\2\2\u0276\u0273\3\2\2"+
+		"\2\u0276\u0277\3\2\2\2\u0277\u0308\3\2\2\2\u0278\u0308\7\u01a6\2\2\u0279"+
+		"\u027d\7\u01a7\2\2\u027a\u027b\7\u01d3\2\2\u027b\u027c\7\u01bc\2\2\u027c"+
+		"\u027e\7\u01d4\2\2\u027d\u027a\3\2\2\2\u027d\u027e\3\2\2\2\u027e\u0280"+
+		"\3\2\2\2\u027f\u0281\7\u0196\2\2\u0280\u027f\3\2\2\2\u0280\u0281\3\2\2"+
+		"\2\u0281\u0285\3\2\2\2\u0282\u0283\7\u01a8\2\2\u0283\u0284\7\u00a2\2\2"+
+		"\u0284\u0286\5Z.\2\u0285\u0282\3\2\2\2\u0285\u0286\3\2\2\2\u0286\u0289"+
+		"\3\2\2\2\u0287\u0288\7\36\2\2\u0288\u028a\5Z.\2\u0289\u0287\3\2\2\2\u0289"+
+		"\u028a\3\2\2\2\u028a\u0308\3\2\2\2\u028b\u028f\7\u01a9\2\2\u028c\u028d"+
+		"\7\u01d3\2\2\u028d\u028e\7\u01bc\2\2\u028e\u0290\7\u01d4\2\2\u028f\u028c"+
+		"\3\2\2\2\u028f\u0290\3\2\2\2\u0290\u0292\3\2\2\2\u0291\u0293\7\u0196\2"+
+		"\2\u0292\u0291\3\2\2\2\u0292\u0293\3\2\2\2\u0293\u0297\3\2\2\2\u0294\u0295"+
+		"\7\u01a8\2\2\u0295\u0296\7\u00a2\2\2\u0296\u0298\5Z.\2\u0297\u0294\3\2"+
+		"\2\2\u0297\u0298\3\2\2\2\u0298\u029b\3\2\2\2\u0299\u029a\7\36\2\2\u029a"+
+		"\u029c\5Z.\2\u029b\u0299\3\2\2\2\u029b\u029c\3\2\2\2\u029c\u0308\3\2\2"+
+		"\2\u029d\u02a1\7\u0196\2\2\u029e\u029f\7\u01d3\2\2\u029f\u02a0\7\u01bc"+
+		"\2\2\u02a0\u02a2\7\u01d4\2\2\u02a1\u029e\3\2\2\2\u02a1\u02a2\3\2\2\2\u02a2"+
+		"\u0308\3\2\2\2\u02a3\u02a7\7\u01aa\2\2\u02a4\u02a5\7\u01d3\2\2\u02a5\u02a6"+
+		"\7\u01bc\2\2\u02a6\u02a8\7\u01d4\2\2\u02a7\u02a4\3\2\2\2\u02a7\u02a8\3"+
+		"\2\2\2\u02a8\u0308\3\2\2\2\u02a9\u0308\7\u0197\2\2\u02aa\u0308\7\u01ab"+
+		"\2\2\u02ab\u0308\7\u01ac\2\2\u02ac\u0308\7\u01ad\2\2\u02ad\u0308\7\u01ae"+
+		"\2\2\u02ae\u02b0\7\u01af\2\2\u02af\u02b1\7\u0196\2\2\u02b0\u02af\3\2\2"+
+		"\2\u02b0\u02b1\3\2\2\2\u02b1\u02b5\3\2\2\2\u02b2\u02b3\7\u01a8\2\2\u02b3"+
+		"\u02b4\7\u00a2\2\2\u02b4\u02b6\5Z.\2\u02b5\u02b2\3\2\2\2\u02b5\u02b6\3"+
+		"\2\2\2\u02b6\u02b9\3\2\2\2\u02b7\u02b8\7\36\2\2\u02b8\u02ba\5Z.\2\u02b9"+
+		"\u02b7\3\2\2\2\u02b9\u02ba\3\2\2\2\u02ba\u0308\3\2\2\2\u02bb\u02bd\7\u01b0"+
+		"\2\2\u02bc\u02be\7\u0196\2\2\u02bd\u02bc\3\2\2\2\u02bd\u02be\3\2\2\2\u02be"+
+		"\u02c2\3\2\2\2\u02bf\u02c0\7\u01a8\2\2\u02c0\u02c1\7\u00a2\2\2\u02c1\u02c3"+
+		"\5Z.\2\u02c2\u02bf\3\2\2\2\u02c2\u02c3\3\2\2\2\u02c3\u02c6\3\2\2\2\u02c4"+
+		"\u02c5\7\36\2\2\u02c5\u02c7\5Z.\2\u02c6\u02c4\3\2\2\2\u02c6\u02c7\3\2"+
+		"\2\2\u02c7\u0308\3\2\2\2\u02c8\u02ca\7\u01b1\2\2\u02c9\u02cb\7\u0196\2"+
+		"\2\u02ca\u02c9\3\2\2\2\u02ca\u02cb\3\2\2\2\u02cb\u02cf\3\2\2\2\u02cc\u02cd"+
+		"\7\u01a8\2\2\u02cd\u02ce\7\u00a2\2\2\u02ce\u02d0\5Z.\2\u02cf\u02cc\3\2"+
+		"\2\2\u02cf\u02d0\3\2\2\2\u02d0\u02d3\3\2\2\2\u02d1\u02d2\7\36\2\2\u02d2"+
+		"\u02d4\5Z.\2\u02d3\u02d1\3\2\2\2\u02d3\u02d4\3\2\2\2\u02d4\u0308\3\2\2"+
+		"\2\u02d5\u02d7\7\u01b2\2\2\u02d6\u02d8\7\u0196\2\2\u02d7\u02d6\3\2\2\2"+
+		"\u02d7\u02d8\3\2\2\2\u02d8\u02dc\3\2\2\2\u02d9\u02da\7\u01a8\2\2\u02da"+
+		"\u02db\7\u00a2\2\2\u02db\u02dd\5Z.\2\u02dc\u02d9\3\2\2\2\u02dc\u02dd\3"+
+		"\2\2\2\u02dd\u02e0\3\2\2\2\u02de\u02df\7\36\2\2\u02df\u02e1\5Z.\2\u02e0"+
+		"\u02de\3\2\2\2\u02e0\u02e1\3\2\2\2\u02e1\u0308\3\2\2\2\u02e2\u02e3\7\u01b3"+
+		"\2\2\u02e3\u02e4\7\u01d3\2\2\u02e4\u02e7\5Z.\2\u02e5\u02e6\7\u01d5\2\2"+
+		"\u02e6\u02e8\5Z.\2\u02e7\u02e5\3\2\2\2\u02e7\u02e8\3\2\2\2\u02e8\u02e9"+
+		"\3\2\2\2\u02e9\u02ea\7\u01d4\2\2\u02ea\u02ee\3\2\2\2\u02eb\u02ec\7\u01a8"+
+		"\2\2\u02ec\u02ed\7\u00a2\2\2\u02ed\u02ef\5Z.\2\u02ee\u02eb\3\2\2\2\u02ee"+
+		"\u02ef\3\2\2\2\u02ef\u02f2\3\2\2\2\u02f0\u02f1\7\36\2\2\u02f1\u02f3\5"+
+		"Z.\2\u02f2\u02f0\3\2\2\2\u02f2\u02f3\3\2\2\2\u02f3\u0308\3\2\2\2\u02f4"+
+		"\u02f5\7\u00a2\2\2\u02f5\u02f6\7\u01d3\2\2\u02f6\u02f9\5Z.\2\u02f7\u02f8"+
+		"\7\u01d5\2\2\u02f8\u02fa\5Z.\2\u02f9\u02f7\3\2\2\2\u02f9\u02fa\3\2\2\2"+
+		"\u02fa\u02fb\3\2\2\2\u02fb\u02fc\7\u01d4\2\2\u02fc\u0300\3\2\2\2\u02fd"+
+		"\u02fe\7\u01a8\2\2\u02fe\u02ff\7\u00a2\2\2\u02ff\u0301\5Z.\2\u0300\u02fd"+
+		"\3\2\2\2\u0300\u0301\3\2\2\2\u0301\u0304\3\2\2\2\u0302\u0303\7\36\2\2"+
+		"\u0303\u0305\5Z.\2\u0304\u0302\3\2\2\2\u0304\u0305\3\2\2\2\u0305\u0308"+
+		"\3\2\2\2\u0306\u0308\7\u01b4\2\2\u0307\u01cf\3\2\2\2\u0307\u01d3\3\2\2"+
+		"\2\u0307\u01df\3\2\2\2\u0307\u01eb\3\2\2\2\u0307\u01f7\3\2\2\2\u0307\u0203"+
+		"\3\2\2\2\u0307\u020f\3\2\2\2\u0307\u021b\3\2\2\2\u0307\u0229\3\2\2\2\u0307"+
+		"\u0237\3\2\2\2\u0307\u0245\3\2\2\2\u0307\u0255\3\2\2\2\u0307\u0265\3\2"+
+		"\2\2\u0307\u0266\3\2\2\2\u0307\u026c\3\2\2\2\u0307\u0272\3\2\2\2\u0307"+
+		"\u0278\3\2\2\2\u0307\u0279\3\2\2\2\u0307\u028b\3\2\2\2\u0307\u029d\3\2"+
+		"\2\2\u0307\u02a3\3\2\2\2\u0307\u02a9\3\2\2\2\u0307\u02aa\3\2\2\2\u0307"+
+		"\u02ab\3\2\2\2\u0307\u02ac\3\2\2\2\u0307\u02ad\3\2\2\2\u0307\u02ae\3\2"+
+		"\2\2\u0307\u02bb\3\2\2\2\u0307\u02c8\3\2\2\2\u0307\u02d5\3\2\2\2\u0307"+
+		"\u02e2\3\2\2\2\u0307\u02f4\3\2\2\2\u0307\u0306\3\2\2\2\u0308S\3\2\2\2"+
+		"\u0309\u030c\7p\2\2\u030a\u030c\5V,\2\u030b\u0309\3\2\2\2\u030b\u030a"+
+		"\3\2\2\2\u030cU\3\2\2\2\u030d\u031d\7\u01be\2\2\u030e\u031d\7\u01bf\2"+
+		"\2\u030f\u0311\5X-\2\u0310\u030f\3\2\2\2\u0310\u0311\3\2\2\2\u0311\u0312"+
+		"\3\2\2\2\u0312\u031d\7\u01bc\2\2\u0313\u0315\5X-\2\u0314\u0313\3\2\2\2"+
+		"\u0314\u0315\3\2\2\2\u0315\u0316\3\2\2\2\u0316\u031d\t\b\2\2\u0317\u0319"+
+		"\5X-\2\u0318\u0317\3\2\2\2\u0318\u0319\3\2\2\2\u0319\u031a\3\2\2\2\u031a"+
+		"\u031b\7\u01d2\2\2\u031b\u031d\t\t\2\2\u031c\u030d\3\2\2\2\u031c\u030e"+
+		"\3\2\2\2\u031c\u0310\3\2\2\2\u031c\u0314\3\2\2\2\u031c\u0318\3\2\2\2\u031d"+
+		"W\3\2\2\2\u031e\u031f\t\n\2\2\u031fY\3\2\2\2\u0320\u0324\5\\/\2\u0321"+
+		"\u0324\7\u01b8\2\2\u0322\u0324\7\u01b9\2\2\u0323\u0320\3\2\2\2\u0323\u0321"+
+		"\3\2\2\2\u0323\u0322\3\2\2\2\u0324[\3\2\2\2\u0325\u0326\t\13\2\2\u0326"+
+		"]\3\2\2\2\u0327\u0337\7\u01c2\2\2\u0328\u0337\7\u01c3\2\2\u0329\u0337"+
+		"\7\u01c4\2\2\u032a\u032b\7\u01c4\2\2\u032b\u0337\7\u01c2\2\2\u032c\u032d"+
+		"\7\u01c3\2\2\u032d\u0337\7\u01c2\2\2\u032e\u032f\7\u01c4\2\2\u032f\u0337"+
+		"\7\u01c3\2\2\u0330\u0331\7\u01c5\2\2\u0331\u0337\7\u01c2\2\2\u0332\u0333"+
+		"\7\u01c5\2\2\u0333\u0337\7\u01c3\2\2\u0334\u0335\7\u01c5\2\2\u0335\u0337"+
+		"\7\u01c4\2\2\u0336\u0327\3\2\2\2\u0336\u0328\3\2\2\2\u0336\u0329\3\2\2"+
+		"\2\u0336\u032a\3\2\2\2\u0336\u032c\3\2\2\2\u0336\u032e\3\2\2\2\u0336\u0330"+
+		"\3\2\2\2\u0336\u0332\3\2\2\2\u0336\u0334\3\2\2\2\u0337_\3\2\2\2\u0338"+
+		"\u0339\t\f\2\2\u0339a\3\2\2\2\u033a\u033c\7\u01bc\2\2\u033b\u033d\t\r"+
+		"\2\2\u033c\u033b\3\2\2\2\u033c\u033d\3\2\2\2\u033dc\3\2\2\2\u008agsz~"+
+		"\u0081\u008a\u0097\u009c\u009f\u00a4\u00a7\u00ab\u00b3\u00c4\u00c9\u00cc"+
+		"\u00d2\u00d8\u00dd\u00e0\u00e3\u00e7\u00e9\u00ed\u00f2\u00f7\u0104\u0108"+
+		"\u010b\u0110\u0113\u0118\u011c\u0121\u0124\u012b\u012f\u0141\u0143\u014c"+
+		"\u0153\u015f\u0166\u016d\u0174\u017b\u0182\u0189\u018f\u0194\u019d\u01a2"+
+		"\u01a7\u01ab\u01b0\u01b7\u01c0\u01c4\u01ca\u01cd\u01d1\u01d7\u01da\u01dd"+
+		"\u01e3\u01e6\u01e9\u01ef\u01f2\u01f5\u01fb\u01fe\u0201\u0207\u020a\u020d"+
+		"\u0213\u0216\u0219\u0221\u0224\u0227\u022f\u0232\u0235\u023d\u0240\u0243"+
+		"\u024a\u024d\u0250\u0253\u025a\u025d\u0260\u0263\u026a\u0270\u0276\u027d"+
+		"\u0280\u0285\u0289\u028f\u0292\u0297\u029b\u02a1\u02a7\u02b0\u02b5\u02b9"+
+		"\u02bd\u02c2\u02c6\u02ca\u02cf\u02d3\u02d7\u02dc\u02e0\u02e7\u02ee\u02f2"+
+		"\u02f9\u0300\u0304\u0307\u030b\u0310\u0314\u0318\u031c\u0323\u0336\u033c";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -13,5 +13,6 @@ public class ExternalTableWriter {
 		table.create(out,true);
 		
 		out.printf("with(location='%s.%s',data_source=%s)",location,table.name,data_source);
+		table.createStatistics(out);
 	}
 }

@@ -11,7 +11,7 @@ public class Column {
 	 * @param out
 	 */
 	public void create(PrintStream out, boolean external ){
-		out.printf("  %s %s",name,datatype);
+		out.printf("  [%s] %s",name,datatype);
 		if(length != null){
 			out.printf("(%s",length);
 			if(precision != null)

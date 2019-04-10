@@ -268,6 +268,30 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx) { }
 	/**
 	 * {@inheritDoc}

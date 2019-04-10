@@ -218,6 +218,26 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 */
 	void exitTable_constraint(mysql_ddlParser.Table_constraintContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_unique_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_unique_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_index_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_index_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
 	 * @param ctx the parse tree
 	 */
