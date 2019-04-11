@@ -28,10 +28,10 @@ public class Table{
 		out.printf("CREATE %sTABLE %s (\n",external?"EXTERNAL ":"", Util.safeName(name));
 		boolean first = true;
 		for(Column c : columns){
-			if(!first) {
+			if(first) 
 				first = false;
+			else
 				out.print(",");
-			}
 			c.create(out,external);
 			out.print("\n");
 		}
