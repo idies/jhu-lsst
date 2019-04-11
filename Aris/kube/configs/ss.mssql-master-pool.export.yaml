@@ -6,6 +6,7 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: mssql-master-pool
+  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/mssql-master-pool
 spec:
   podManagementPolicy: Parallel

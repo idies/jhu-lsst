@@ -42,9 +42,9 @@ spec:
         - name: YARN_HEAPSIZE
           value: "2048"
         - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "65536"
+          value: "655360"
         - name: YARN_SCHEDULER_MAX_VCORES
-          value: "30"
+          value: "300"
         - name: YARN_NODEMANAGER_RESOURCE_MEMORY
           value: "65536"
         - name: YARN_NODEMANAGER_RESOURCE_VCORES
