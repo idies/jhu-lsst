@@ -268,6 +268,30 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTable_foreign_key_def(mysql_ddlParser.Table_foreign_key_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -287,6 +311,18 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -371,6 +407,18 @@ public class mysql_ddlBaseListener implements mysql_ddlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitColumn_name_list(mysql_ddlParser.Column_name_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

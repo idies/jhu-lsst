@@ -218,6 +218,26 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 */
 	void exitTable_constraint(mysql_ddlParser.Table_constraintContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_unique_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_unique_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_unique_constraint(mysql_ddlParser.Table_unique_constraintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#table_index_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#table_index_constraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_index_constraint(mysql_ddlParser.Table_index_constraintContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#table_foreign_key_def}.
 	 * @param ctx the parse tree
 	 */
@@ -237,6 +257,16 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFk_on_delete(mysql_ddlParser.Fk_on_deleteContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#fk_on_update}.
+	 * @param ctx the parse tree
+	 */
+	void enterFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#fk_on_update}.
+	 * @param ctx the parse tree
+	 */
+	void exitFk_on_update(mysql_ddlParser.Fk_on_updateContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#full_table_name}.
 	 * @param ctx the parse tree
@@ -307,6 +337,16 @@ public interface mysql_ddlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitColumn_name_list(mysql_ddlParser.Column_name_listContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link mysql_ddlParser#sorted_column_name_list}.
+	 * @param ctx the parse tree
+	 */
+	void enterSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link mysql_ddlParser#sorted_column_name_list}.
+	 * @param ctx the parse tree
+	 */
+	void exitSorted_column_name_list(mysql_ddlParser.Sorted_column_name_listContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link mysql_ddlParser#cursor_name}.
 	 * @param ctx the parse tree
