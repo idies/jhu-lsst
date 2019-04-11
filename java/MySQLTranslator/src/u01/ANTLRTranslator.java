@@ -26,8 +26,8 @@ public class ANTLRTranslator {
 			mysql_ddlParser.BatchContext ct = t.parse(new File(args[0]));
 			MySQLDDLVisitor v = new MySQLDDLVisitor();
 			DDLs ddls = v.visitDdl_clauses(ct.ddl_clauses());
-			
-			ExternalTableWriter etw = new ExternalTableWriter("pg64","manga.mangadapdb.binid");
+			// data_source=mydsp016 location=cbioportal.<tablename>
+			ExternalTableWriter etw = new ExternalTableWriter("mydsp016","cbioportal");
 			ddls.write(System.out, etw);
 			// print(ct);
 		} catch (Exception e) {

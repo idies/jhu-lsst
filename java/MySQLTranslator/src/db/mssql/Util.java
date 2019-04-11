@@ -11,7 +11,11 @@ public class Util {
 			}
 			name=n.substring(1,n.length()-1);
 		}
-		return "["+name+"]";
+		return name;
+	}
+	
+	public static String safeName(String name) {
+		return String.format("[%s]",name);
 	}
 	/**
 	 * Translate MySQL datatype into MS SQL version.<br/>
