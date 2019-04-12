@@ -41,7 +41,7 @@ public class MySQLDDLVisitor extends mysql_ddlBaseVisitor<DDLs> {
 				ddls.creates.add(t);
 			}
 			if (ddl.drop_table() != null)
-				ddls.drops.add(ddl.drop_table().table_name().getText());
+				ddls.drops.add(Util.normalize(ddl.drop_table().table_name().getText()));
 		}
 		return ddls;
 	}

@@ -10,7 +10,7 @@ public class DDLs {
 	
 	public void write(PrintStream out, ExternalTableWriter et){
 		for(String t : drops)
-			out.printf("DROP %sTABLE %s;\n", et==null?"":"EXTERNAL ",t);
+			out.printf("if OBJECT_ID('%s') IS NOT NULL DROP %sTABLE  %s;\n", t,et==null?"":"EXTERNAL ",t);
 		for(Table t : creates) {
 			if(et == null)
 				t.create(out,false);
