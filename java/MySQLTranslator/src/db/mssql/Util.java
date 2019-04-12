@@ -39,6 +39,8 @@ public class Util {
 			return "NVARCHAR";
 		if("CHAR".equals(dt))
 			return "NCHAR";
+		if("TEXT".equals(dt) || "MEDIUMTEXT".equals(dt) || "LONGTEXT".equals(dt))
+			return "NVARCHAR(4000)";
 		return dt;
 	}
 

@@ -18,5 +18,10 @@ public class DDLs {
 				et.create(t, out);
 			out.print(";\n\n");
 		}
+		if(et != null) {
+			for(Table t : creates) {
+				et.createStatistics(t, out);
+			}
+		}
 	}
 }

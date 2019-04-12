@@ -11,8 +11,10 @@ public class ExternalTableWriter {
 	}
 	public void create(Table table, PrintStream out) {
 		table.create(out,true);
-		
 		out.printf("with(location='%s.%s',data_source=%s)",location,table.name,data_source);
+	}
+	
+	public void createStatistics(Table table, PrintStream out) {
 		table.createStatistics(out);
 	}
 }
