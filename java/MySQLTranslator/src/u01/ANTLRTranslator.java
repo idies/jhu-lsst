@@ -18,16 +18,24 @@ import mysql.mysql_ddlParser;
 public class ANTLRTranslator {
 
 	File infile, outfile;
+	
 
 	public static void main(String[] args) throws Exception {
 
+		String DataSourceName, DBName;
+		
 		try {
+			
+			//TODO: make these command line args, or config file?
+			DataSourceName = "mydsp016";
+			DBName = "cbioportal";
+			
 			ANTLRTranslator t = new ANTLRTranslator();
 			mysql_ddlParser.BatchContext ct = t.parse(new File(args[0]));
 			MySQLDDLVisitor v = new MySQLDDLVisitor();
 			DDLs ddls = v.visitDdl_clauses(ct.ddl_clauses());
 			// data_source=mydsp016 location=cbioportal.<tablename>
-			ExternalTableWriter etw = new ExternalTableWriter("mydsp016","cbioportal");
+			ExternalTableWriter etw = new ExternalTableWriter(DataSourceName,DBName);
 			ddls.write(System.out, etw);
 			// print(ct);
 		} catch (Exception e) {
