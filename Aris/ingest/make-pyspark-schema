@@ -3,6 +3,7 @@
 $sqlschemafile = $ARGV[0];
 
 $mappings{"FLOAT"} = "DoubleType()";
+#$mappings{"BIT"} = "BooleanType()";
 $mappings{"BIT"} = "IntegerType()";
 $mappings{"INT"} = "IntegerType()";
 $mappings{"BIGINT"} = "LongType()";
