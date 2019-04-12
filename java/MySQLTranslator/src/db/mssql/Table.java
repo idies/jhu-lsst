@@ -44,6 +44,17 @@ public class Table{
 		}
 
 	}
+	
+	// test select top 10 * from external table
+	// surround with sql try/catch block
+	public void createTestQuery(PrintStream out) {
+		out.printf(
+				"set nocount on; begin try\n exec('select top 10 * from [%s]')\n end try\n begin catch\n "
+				+ "print 'Error in external table [%s]: '+ error_message();\nend catch\n\n",
+				name, name);
+
+	}
+	
 	public Constraint getPrimaryKey() {
 		return primaryKey;
 	}

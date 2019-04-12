@@ -17,4 +17,8 @@ public class ExternalTableWriter {
 	public void createStatistics(Table table, PrintStream out) {
 		table.createStatistics(out);
 	}
+	
+	public void createTestQuery(Table table, PrintStream out) {
+		table.createTestQuery(out);
+	}
 }

@@ -21,7 +21,15 @@ public class DDLs {
 		if(et != null) {
 			for(Table t : creates) {
 				et.createStatistics(t, out);
+				out.print(";\n\n");
+				
+			}
+			out.print("--------- TEST QUERIES --------\n");
+			for(Table t : creates) {				
+				et.createTestQuery(t, out);
 			}
 		}
+		
+		
 	}
 }
