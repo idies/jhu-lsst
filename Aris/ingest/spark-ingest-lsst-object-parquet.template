@@ -1,3 +1,16 @@
 #! /bin/sh
 
-/spark/bin/spark-submit '--deploy-mode' 'cluster' '--name' 'LSST object ingest' '--class' 'FileStreaming' --executor-cores 12 --num-executors 11 --executor-memory 12g '--conf' 'spark.yarn.submit.waitAppCompletion=false' '--conf' 'spark.submit.deployMode=cluster' '--conf' 'spark.master=yarn' 'hdfs:///jar/mssql-spark-lib-assembly-1.0.jar' '--server' 'mssql-master-pool-0.service-master-pool' '--port' '1433' '--user' 'sa' '--password' 'REDACTED' '--database' 'LSST' '--table' 'Object' '--source_dir' 'hdfs:///user/hive/warehouse/object' '--input_format' 'parquet' '--enable_checkpoint' 'false' '--timeout' '38000000'
+/spark/bin/spark-submit '--deploy-mode' 'cluster' \
+  '--name' 'LSST object ingest' '--class' 'FileStreaming' \
+  --executor-cores 30 \
+  --num-executors 4 \
+  --executor-memory 36g \
+  '--conf' 'spark.yarn.submit.waitAppCompletion=false' '--conf' 'spark.submit.deployMode=cluster' '--conf' 'spark.master=yarn' 'hdfs:///jar/mssql-spark-lib-assembly-1.0.jar' \
+  '--server' 'mssql-master-pool-0.service-master-pool' \
+  '--port' '1433' \
+  '--user' 'sa' \
+  '--password' 'REDACTED' \
+  '--database' 'LSST' \
+  '--table' 'Object' \
+  '--source_dir' 'hdfs:///user/hive/warehouse/object' \
+  '--input_format' 'parquet' '--enable_checkpoint' 'false' '--timeout' '1210000000'

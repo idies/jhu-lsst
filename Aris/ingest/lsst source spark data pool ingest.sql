@@ -5,7 +5,8 @@ USE LSST
 GO
 
 --drop external TABLE [dbo].[Source]
---DROP EXTERNAL TABLE [dbo].[Source]
+--DROP EXTERNAL TABLE [dbo].[SourceDP]
+--truncate TABLE [dbo].[SourceDP]
 
 --based on Sue's https://github.com/idies/jhu-lsst/blob/master/mysql/mssql-createTables.sql
 --BITs changed (temporarily?) to INTs since we're having trouble generating parquet bools from our csv's
@@ -105,12 +106,12 @@ CREATE external TABLE [SourceDP] (
     );
 GO
 
---select count(*) from Sourceint
+--select count(*) from SourceDP
 --select count(chunkID) from Sourceint
---select top 10 * from sourceint
+--select top 10 * from sourceDP
 --select top 10 * from sourceint order by coord_ra desc
---select avg(coord_ra) from sourceint
---select count(distinct id) from sourceint
+--select avg(coord_ra) from sourceDP
+--select count(distinct id) from sourceDP
 --select distinct flags_badcentroid from source
 
 --create STATISTICS foo on sourceint (id, chunkid) with fullscan

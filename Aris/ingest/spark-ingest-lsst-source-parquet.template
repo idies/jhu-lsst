@@ -3,8 +3,8 @@
 /spark/bin/spark-submit '--deploy-mode' 'cluster' \
   '--name' 'LSST source ingest' '--class' 'FileStreaming' \
   --executor-cores 30 \
-  --num-executors 4 \
-  --executor-memory 12g \
+  --num-executors 3 \
+  --executor-memory 36g \
   '--conf' 'spark.yarn.submit.waitAppCompletion=false' '--conf' 'spark.submit.deployMode=cluster' '--conf' 'spark.master=yarn' 'hdfs:///jar/mssql-spark-lib-assembly-1.0.jar' \
   '--server' 'mssql-master-pool-0.service-master-pool' \
   '--port' '1433' \
@@ -13,4 +13,4 @@
   '--database' 'LSST' \
   '--table' 'SourceDP' \
   '--source_dir' 'hdfs:///user/hive/warehouse/source' \
-  '--input_format' 'parquet' '--enable_checkpoint' 'false' '--timeout' '38000000'
+  '--input_format' 'parquet' '--enable_checkpoint' 'false' '--timeout' '1210000000'

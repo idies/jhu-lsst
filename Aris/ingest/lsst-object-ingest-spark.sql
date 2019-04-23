@@ -1,6 +1,6 @@
 --create database LSST
 
-USE LSST
+USE LSST_datapool
 GO
 
 -- Create the SqlDataPool data source:
@@ -19,6 +19,7 @@ BEGIN
      WITH (LOCATION = 'sqlhdfs://service-master-pool:50070');
 END
 
+--drop external table object
 --based on Sue's https://github.com/idies/jhu-lsst/blob/master/mysql/mssql-createTables.sql
 CREATE EXTERNAL TABLE Object (
 	[deepSourceId] BIGINT NOT NULL,
@@ -268,12 +269,16 @@ GO
 --CREATE INDEX [subChunkId] ON Object ([subChunkId]);
 
 --select count(*) from [Object]
+--78754603 lines of csv
+--78425664 rows last spark ingest attempt w/21 unfinished tasks
+--78260340 rows w/19 unfinished tasks using idies spark defaults
 --select top 800 * from Object
 --select top 10 * from [Object] order by ra desc
 --select count(chunkID) from [Object]
 --select avg(ra) from [Object]
 --select count(distinct deepSourceId) from [Object]
 --select distinct chunkID from [Object]
+--select * from object where deepSourceId = 2567518564647597
 --truncate table Object
 
 --create STATISTICS foo on OBJECT (deepSourceId, chunkId) with fullscan
