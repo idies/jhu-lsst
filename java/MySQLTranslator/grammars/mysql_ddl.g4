@@ -34,12 +34,12 @@ mysql_ddl_file
     ;
 
 batch
-    : ddl_clauses 
+    : SEMI* ddl_clauses  
     ;
 
 ddl_clauses
-    : (ddl_clause SEMI)+
-    ;
+    : (ddl_clause SEMI+)+
+    ; 
 
 // Data Definition Language: https://msdn.microsoft.com/en-us/library/ff848799.aspx)
 ddl_clause
@@ -50,8 +50,6 @@ ddl_clause
     | drop_index
     | drop_table
     ;
-
-
 // DDL
 
 // https://msdn.microsoft.com/en-us/library/ms188783.aspx
@@ -68,7 +66,7 @@ table_options: table_option (',' table_options)?
 	;
 
 table_option:
-    (DEFAULT)? CHARSET ('=')? char_set
+    (ENGINE '=' id)? (AUTO_INCREMENT '=' DECIMAL_LITERAL)? (DEFAULT)? CHARSET ('=')? char_set
   ;
 
 char_set: 'utf8' ;
@@ -144,7 +142,7 @@ table_index_constraint:
 ;
 
 table_foreign_key_def:
-	FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' (fk_on_delete | fk_on_update)*
+	(CONSTRAINT id )? FOREIGN KEY '(' column_name_list ')' REFERENCES id '(' column_name_list ')' (fk_on_delete | fk_on_update)*
 	;
 
 fk_on_delete:
@@ -528,6 +526,7 @@ DROP:                                  D R O P;
 DUMP:                                  D U M P;
 ELSE:                                  E L S E;
 END:                                   E N D;
+ENGINE:                                E N G I N E;
 ERRLVL:                                E R R L V L;
 ESCAPE:                                E S C A P E;
 EXCEPT:                                E X C E P T;

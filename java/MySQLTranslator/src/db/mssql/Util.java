@@ -35,6 +35,12 @@ public class Util {
 			return "FLOAT";
 		if("BOOLEAN".equals(dt))
 			return "BIT";
+		if("VARCHAR".equals(dt))
+			return "NVARCHAR";
+		if("CHAR".equals(dt))
+			return "NCHAR";
+		if("TEXT".equals(dt) || "MEDIUMTEXT".equals(dt) || "LONGTEXT".equals(dt))
+			return "NVARCHAR(4000)";
 		return dt;
 	}
 
@@ -42,6 +48,8 @@ public class Util {
 		dt = dt.toLowerCase();
 		return ("varchar".equals(dt)
 				|| "char".equals(dt)
+				|| "nvarchar".equals(dt)
+				|| "nchar".equals(dt)
 				|| "decimal".equals(dt));
 	}
 }

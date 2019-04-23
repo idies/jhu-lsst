@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.io.PrintStream;
+import java.io.FileOutputStream;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -18,17 +20,32 @@ import mysql.mysql_ddlParser;
 public class ANTLRTranslator {
 
 	File infile, outfile;
+	
 
 	public static void main(String[] args) throws Exception {
 
+		String DataSourceName, DBName;
+		
 		try {
+			
+			//TODO: make these command line args, or config file?
+			DataSourceName = "mydsp016";
+			DBName = "cbioportal";
+			
 			ANTLRTranslator t = new ANTLRTranslator();
 			mysql_ddlParser.BatchContext ct = t.parse(new File(args[0]));
 			MySQLDDLVisitor v = new MySQLDDLVisitor();
 			DDLs ddls = v.visitDdl_clauses(ct.ddl_clauses());
 			// data_source=mydsp016 location=cbioportal.<tablename>
-			ExternalTableWriter etw = new ExternalTableWriter("mydsp016","cbioportal");
+			ExternalTableWriter etw = new ExternalTableWriter(DataSourceName,DBName);
 			ddls.write(System.out, etw);
+			//test: write out to individual files
+			//set FileOutputStream to "false" to overwrite exisiting files
+			//TODO: maybe make this configurable?
+			ddls.writeDropStatements(new PrintStream(new FileOutputStream(DBName + "-drop.sql",false)), etw);
+			ddls.writeCreateStatements(new PrintStream(new FileOutputStream(DBName + "-create.sql",false)), etw);
+			ddls.writeStatisticsStatements(new PrintStream(new FileOutputStream(DBName + "-stats.sql",false)), etw);
+			ddls.writeTestQueries(new PrintStream(new FileOutputStream(DBName + "-testqueries.sql",false)), etw);
 			// print(ct);
 		} catch (Exception e) {
 			e.printStackTrace();
