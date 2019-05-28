@@ -121,7 +121,7 @@ spec:
           name: hadoop-logs
         - mountPath: /var/opt
           name: pvc-data1
-          subPath: Aris/mssql-storage-pool-default/var/opt
+          subPath: Aris/mssql-storage-pool-default/var.ctp2.4/opt
 #          subPath: Aris/varopt
         - mountPath: /root/hdfs
           name: pvc-data1
@@ -183,7 +183,7 @@ spec:
           name: storage-pool-java-storage
         - mountPath: /var/opt
           name: pvc-data1
-          subPath: Aris/mssql-storage-pool-default/var/opt
+          subPath: Aris/mssql-storage-pool-default/var.ctp2.4/opt
 #          subPath: Aris/varopt
         - mountPath: /pvcadmin
           name: pvc-data1
@@ -304,7 +304,7 @@ spec:
         volumeMounts:
         - mountPath: /var/opt
           name: pvc-data1
-          subPath: Aris/mssql-storage-pool-default/var/opt
+          subPath: Aris/mssql-storage-pool-default/var.ctp2.4/opt
 #          subPath: Aris/varopt
       dnsPolicy: ClusterFirst
       imagePullSecrets:

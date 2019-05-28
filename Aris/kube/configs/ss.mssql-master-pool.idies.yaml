@@ -128,7 +128,7 @@ spec:
           name: hadoop-logs
         - mountPath: /var/opt
           name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          subPath: Aris/mssql-master-pool/var.ctp2.4/opt
         - mountPath: /root/hdfs
           name: pvc-nvme1
           subPath: Aris/mssql-master-pool/hdfs
@@ -189,7 +189,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          subPath: Aris/mssql-master-pool/var.ctp2.4/opt
         - mountPath: /pvcadmin
           name: pvc-nvme1
           subPath: Aris
@@ -275,7 +275,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          subPath: Aris/mssql-master-pool/var.ctp2.4/opt
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: service-monitor-elasticsearch
@@ -316,7 +316,7 @@ spec:
         volumeMounts:
         - mountPath: /var/opt
           name: pvc-nvme1
-          subPath: Aris/mssql-master-pool/var/opt
+          subPath: Aris/mssql-master-pool/var.ctp2.4/opt
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry

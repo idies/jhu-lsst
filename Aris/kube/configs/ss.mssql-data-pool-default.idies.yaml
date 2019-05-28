@@ -83,7 +83,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: pvc-data2
-          subPath: Aris/mssql-data-pool-default/var/opt
+          subPath: Aris/mssql-data-pool-default/var.ctp2.4/opt
         - mountPath: /pvcadmin
           name: pvc-data2
           subPath: Aris
@@ -119,7 +119,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: pvc-data2
-          subPath: Aris/mssql-data-pool-default/var/opt
+          subPath: Aris/mssql-data-pool-default/var.ctp2.4/opt
         - mountPath: /sciserver
           name: autofs-sciserver
         - mountPath: /srv
@@ -166,7 +166,7 @@ spec:
         volumeMounts:
         - mountPath: /var/opt
           name: pvc-data2
-          subPath: Aris/mssql-data-pool-default/var/opt
+          subPath: Aris/mssql-data-pool-default/var.ctp2.4/opt
         - mountPath: /sciserver
           name: autofs-sciserver
         - mountPath: /srv
