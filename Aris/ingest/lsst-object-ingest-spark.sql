@@ -272,6 +272,8 @@ GO
 --78754603 lines of csv
 --78425664 rows last spark ingest attempt w/21 unfinished tasks
 --78260340 rows w/19 unfinished tasks using idies spark defaults
+--full completion - 78754603 rows - using wimpy Aris spark parallelism defaults
+
 --select top 800 * from Object
 --select top 10 * from [Object] order by ra desc
 --select count(chunkID) from [Object]
