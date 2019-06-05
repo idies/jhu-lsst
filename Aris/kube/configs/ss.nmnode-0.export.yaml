@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedb
+  name: nmnode-0
+  namespace: filedb
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/nmnode-0
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      MSSQL_CLUSTER: filedb
+      app: nmnode-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: namenode
+  serviceName: nmnode-0-svc
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: nmnode-0
+        plane: data
+        pool-name: default
+        pool-number: "0"
+        role: namenode
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - nmnode-0
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MY_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MSSQL_POD_TYPE
+          value: nmnode
+        - name: MSSQL_CONTAINER_TYPE
+          value: hadoop
+        - name: MSSQL_AGENT_PORT
+          value: "8300"
+        - name: HADOOP_HEAPSIZE
+          value: "2048"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:ctp3.0
+        imagePullPolicy: Always
+        name: hadoop
+        ports:
+        - containerPort: 9000
+          name: default-fs
+          protocol: TCP
+        - containerPort: 50070
+          name: name-node-http
+          protocol: TCP
+        - containerPort: 14000
+          name: http-fs
+          protocol: TCP
+        - containerPort: 8300
+          name: agent-port-8300
+          protocol: TCP
+        - containerPort: 50200
+          name: tiering-port
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: secrets
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: hadoop/var/opt
+        - mountPath: /root/hdfs/namenode
+          name: data
+          subPath: hadoop/namenode
+        - mountPath: /var/log
+          name: logs
+          subPath: hadoop
+      dnsPolicy: ClusterFirstWithHostNet
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: secrets
+        secret:
+          defaultMode: 420
+          secretName: mssql-master-pool-secret
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 15Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: logs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0

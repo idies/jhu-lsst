@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/bound-by-controller: "yes"
+    pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50
+  creationTimestamp: "2019-03-05T20:06:35Z"
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: local-pv-cf98ab10
+  resourceVersion: "68811859"
+  selfLink: /api/v1/persistentvolumes/local-pv-cf98ab10
+  uid: 2dc11e2d-3f82-11e9-a147-0cc47ad46d50
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1117Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: pvc-nvme1-mssql-master-pool-0
+    namespace: filedb
+  local:
+    path: /nvme/nvme02
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - filedb14
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage-nvme
+  volumeMode: Filesystem
+status:
+  phase: Available

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/bound-by-controller: "yes"
+    pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb02-7f15233c-2ef6-11e9-a147-0cc47ad46d50
+  creationTimestamp: "2019-06-01T16:24:44Z"
+  finalizers:
+  - kubernetes.io/pv-protection
+  name: local-pv-bd71db76
+  resourceVersion: "68860433"
+  selfLink: /api/v1/persistentvolumes/local-pv-bd71db76
+  uid: c40015b5-8489-11e9-a147-0cc47ad46d50
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 476Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: data-data-0-0
+    namespace: filedb
+    resourceVersion: "68860422"
+    uid: b75f2df4-8638-11e9-a147-0cc47ad46d50
+  local:
+    path: /nvme/nvme3
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - filedb02
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage-nvme
+  volumeMode: Filesystem
+status:
+  phase: Bound

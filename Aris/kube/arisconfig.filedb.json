@@ -1,0 +1,153 @@
+{
+    "apiVersion": "v1",
+    "metadata": {
+        "kind": "Cluster",
+        "name": "filedb"
+    },
+    "spec": {
+        "pools": [
+            {
+                "hadoop": {
+                    "yarn": {
+                        "nodeManager": {
+                            "memory": 65536,
+                            "vcores": 30
+                        },
+                        "schedulerMax": {
+                            "memory": 655360,
+                            "vcores": 300
+                        },
+                        "capacityScheduler": {
+                            "maxAmPercent": 0.3
+                        }
+                    },
+                    "spark": {
+                        "executorMemory": "12g",
+                        "driverMemory": "2g",
+                        "executorCores": 10,
+                        "driverCores": 1,
+                        "executorInstances": 11
+                    }
+                },
+                "metadata": {
+                    "kind": "Pool",
+                    "name": "default"
+                },
+                "spec": {
+                    "replicas": 1,
+                    "endpoints": [
+                        {
+                            "name": "Master",
+                            "port": 31433,
+                            "serviceType": "NodePort"
+                        }
+                    ],
+                    "type": "Master"
+                }
+            },
+            {
+                "metadata": {
+                    "kind": "Pool",
+                    "name": "default"
+                },
+                "spec": {
+                    "replicas": 1,
+                    "type": "Compute"
+                }
+            },
+            {
+                "metadata": {
+                    "kind": "Pool",
+                    "name": "default"
+                },
+                "spec": {
+                    "replicas": 4,
+                    "type": "Data"
+                }
+            },
+            {
+                "namenode": {
+                    "replicas": 1,
+                    "spec": {}
+                },
+                "hadoop": {
+                    "yarn": {
+                        "nodeManager": {
+                            "memory": 65536,
+                            "vcores": 30
+                        },
+                        "schedulerMax": {
+                            "memory": 655360,
+                            "vcores": 300
+                        },
+                        "capacityScheduler": {
+                            "maxAmPercent": 0.3
+                        }
+                    },
+                    "spark": {
+                        "executorMemory": "12g",
+                        "driverMemory": "2g",
+                        "executorCores": 10,
+                        "driverCores": 1,
+                        "executorInstances": 11
+                    }
+                },
+                "metadata": {
+                    "kind": "Pool",
+                    "name": "default"
+                },
+                "spec": {
+                    "replicas": 4,
+                    "type": "Storage"
+                }
+            }
+        ],
+        "controlPlane": {
+            "zookeeper": {
+                "replicas": 0
+            },
+            "spec": {
+                "docker": {
+                    "imagePullPolicy": "Always",
+                    "repository": "mssql-private-preview",
+                    "imageTag": "ctp3.0",
+                    "registry": "private-repo.microsoft.com"
+                },
+                "endpoints": [
+                    {
+                        "name": "Controller",
+                        "port": 30080,
+                        "serviceType": "NodePort"
+                    },
+                    {
+                        "name": "ServiceProxy",
+                        "port": 30777,
+                        "serviceType": "NodePort"
+                    },
+                    {
+                        "name": "AppServiceProxy",
+                        "port": 30778,
+                        "serviceType": "NodePort"
+                    },
+                    {
+                        "name": "Knox",
+                        "port": 30443,
+                        "serviceType": "NodePort"
+                    }
+                ],
+                "storage": {
+                    "logs": {
+                        "className": "managed-premium",
+                        "accessMode": "ReadWriteOnce",
+                        "size": "10Gi"
+                    },
+                    "data": {
+                        "className": "managed-premium",
+                        "accessMode": "ReadWriteOnce",
+                        "size": "15Gi"
+                    }
+                }
+            }
+        }
+    }
+}

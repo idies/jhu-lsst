@@ -1,0 +1,259 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedb
+  name: data-0
+  namespace: filedb
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/data-0
+spec:
+  podManagementPolicy: Parallel
+  replicas: 4
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      MSSQL_CLUSTER: filedb
+      app: data-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: data-pool
+  serviceName: data-0-svc
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: data-0
+        plane: data
+        pool-name: default
+        pool-number: "0"
+        role: data-pool
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - data-0
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: data
+        - name: MSSQL_CONTAINER_TYPE
+          value: mssql-server
+        - name: MSSQL_AGENT_PORT
+          value: "8300"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_RPC_PORT
+          value: "135"
+        - name: MSSQL_DTC_TCP_PORT
+          value: "51000"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:ctp3.0
+        imagePullPolicy: Always
+        name: mssql-server
+        ports:
+        - containerPort: 135
+          name: rpc-port-135
+          protocol: TCP
+        - containerPort: 1433
+          name: port-1433
+          protocol: TCP
+        - containerPort: 8300
+          name: agent-port-8300
+          protocol: TCP
+        - containerPort: 51000
+          name: dtc-port-51000
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /var/run/container.ready
+          failureThreshold: 210
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-data-pool-default-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: mssql-server
+        - mountPath: /var/log
+          name: logs
+          subPath: mssql-server
+      - env:
+        - name: MONITORING_HOSTNAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: INFLUX_DB_SERVER
+          value: metricsdb-svc
+        - name: INFLUX_DB_PORT
+          value: "25826"
+        - name: SQL_HOSTNAME
+          value: 127.0.0.1
+        - name: SQL_POLL_INTERVAL
+          value: "5"
+        - name: MSSQL_POD_TYPE
+          value: data
+        - name: MSSQL_CONTAINER_TYPE
+          value: collectd
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8310"
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-collectd:ctp3.0
+        imagePullPolicy: Always
+        name: collectd
+        ports:
+        - containerPort: 8310
+          name: agent-port-8310
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-data-pool-default-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: collectd
+        - mountPath: /var/log
+          name: logs
+          subPath: collectd
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: logsdb-svc
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-data-pool-default.conf
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MSSQL_POD_TYPE
+          value: data
+        - name: MSSQL_CONTAINER_TYPE
+          value: fluentbit
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8311"
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:ctp3.0
+        imagePullPolicy: Always
+        name: fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        - containerPort: 8311
+          name: agent-port-8311
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-data-pool-default-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+        - mountPath: /var/log
+          name: logs
+          subPath: fluentbit
+        - mountPath: /mnt/logs
+          name: logs
+          readOnly: true
+      dnsConfig:
+        searches:
+        - master-svc.filedb.svc.cluster.local
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: mssql-data-pool-default-secret
+        secret:
+          defaultMode: 420
+          secretName: mssql-data-pool-default-secret
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 15Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: logs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0
