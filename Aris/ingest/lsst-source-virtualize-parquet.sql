@@ -6,19 +6,21 @@ GO
 
 -- Create the SqlDataPool data source:
 IF NOT EXISTS(SELECT * FROM sys.external_data_sources WHERE name = 'SqlDataPool')
-   CREATE EXTERNAL DATA SOURCE SqlDataPool
-   WITH (LOCATION = 'sqldatapool://service-mssql-controller:8080/datapools/default');
+	IF SERVERPROPERTY('ProductLevel') = 'CTP2.5'
+		CREATE EXTERNAL DATA SOURCE SqlDataPool
+		WITH (LOCATION = 'sqldatapool://service-mssql-controller:8080/datapools/default');
+	ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
+		CREATE EXTERNAL DATA SOURCE SqlDataPool
+		WITH (LOCATION = 'sqldatapool://controller-svc:8080/datapools/default');
 
 -- Create the SqlStoragePool data source:
 IF NOT EXISTS(SELECT * FROM sys.external_data_sources WHERE name = 'SqlStoragePool')
-BEGIN
-   IF SERVERPROPERTY('ProductLevel') = 'CTP2.3'
-     CREATE EXTERNAL DATA SOURCE SqlStoragePool
-     WITH (LOCATION = 'sqlhdfs://service-mssql-controller:8080');
-   ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP2.4'
-     CREATE EXTERNAL DATA SOURCE SqlStoragePool
-     WITH (LOCATION = 'sqlhdfs://service-master-pool:50070');
-END
+	IF SERVERPROPERTY('ProductLevel') = 'CTP2.5'
+		CREATE EXTERNAL DATA SOURCE SqlStoragePool
+		WITH (LOCATION = 'sqlhdfs://nmnode-0-0.nmnode-0-svc:50070');
+	ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
+		CREATE EXTERNAL DATA SOURCE SqlStoragePool
+		WITH (LOCATION = 'sqlhdfs://controller-svc:8080/default');
 
 --drop EXTERNAL FILE FORMAT parquet_file
 IF NOT EXISTS(SELECT * FROM sys.external_file_formats WHERE name = 'parquet_file')

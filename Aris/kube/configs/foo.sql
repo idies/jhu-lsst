@@ -1,4 +1,7 @@
-use lsst_datapool
+use lsst
 
-exec sp_helpfile
-go
+--exec sp_helpfile
+--go
+
+--drop table SourceDP
+select @@version

@@ -104,13 +104,13 @@ spec:
           name: mssql-data-pool-default-secret
           readOnly: true
         - mountPath: /var/opt
-          name: data
+          name: idies-data
           subPath: Aris/mssql-data-pool-default/var.ctp3.0/mssql-server
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
         - mountPath: /pvcadmin
-          name: data
+          name: idies-data
           subPath: Aris
         - mountPath: /sciserver
           name: autofs-sciserver
@@ -155,7 +155,7 @@ spec:
           name: mssql-data-pool-default-secret
           readOnly: true
         - mountPath: /var/opt
-          name: data
+          name: idies-data
           subPath: Aris/mssql-data-pool-default/var.ctp3.0/collectd
         - mountPath: /var/log
           name: logs
@@ -211,7 +211,7 @@ spec:
           name: mssql-data-pool-default-secret
           readOnly: true
         - mountPath: /var/opt
-          name: data
+          name: idies-data
           subPath: Aris/mssql-data-pool-default/var.ctp3.0/fluentbit
         - mountPath: /var/log
           name: logs
@@ -248,7 +248,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: data
+      name: idies-data
     spec:
       accessModes:
       - ReadWriteOnce

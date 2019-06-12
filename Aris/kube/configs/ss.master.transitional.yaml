@@ -117,23 +117,26 @@ spec:
           name: mssql-master-pool-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/var.ctp3.0/hadoop
+          name: data
+          subPath: hadoop
         - mountPath: /root/hdfs/namenode
-          name: idies-data
-          subPath: Aris/master-0/hdfs/namenode
+          name: data
+          subPath: namenode
         - mountPath: /opt/mssql/mlservices
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/mlservices
+          name: data
+          subPath: shared/mlservices
         - mountPath: /opt/mssql/mssql-java
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/java
+          name: data
+          subPath: shared/java
         - mountPath: /usr/local/hadoop/logs
           name: logs
           subPath: hadoop/hadoop
         - mountPath: /var/log
           name: logs
           subPath: hadoop
+        - mountPath: /pvcadmin
+          name: idies-data
+          subPath: Aris
       - env:
         - name: MSSQL_NAMESPACE
           valueFrom:
@@ -198,17 +201,20 @@ spec:
           name: node-admin-login-secrets
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/mssql-server
+          name: data
+          subPath: mssql-server
         - mountPath: /opt/mssql/mlservices
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/mlservices
+          name: data
+          subPath: shared/mlservices
         - mountPath: /opt/mssql/java
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/java
+          name: data
+          subPath: shared/java
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
+        - mountPath: /pvcadmin
+          name: idies-data
+          subPath: Aris
       - env:
         - name: MSSQL_POD_TYPE
           value: master
@@ -226,8 +232,8 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/mlservices
+          name: data
+          subPath: shared/mlservices
       - env:
         - name: MSSQL_POD_TYPE
           value: master
@@ -245,8 +251,8 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/mlservices
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/mlservices
+          name: data
+          subPath: shared/mlservices
       - env:
         - name: MSSQL_POD_TYPE
           value: master
@@ -262,8 +268,8 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/opt/shared/java
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/shared/java
+          name: data
+          subPath: shared/java
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -303,8 +309,8 @@ spec:
           name: mssql-master-pool-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/ctp3.0/collectd
+          name: data
+          subPath: collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
@@ -359,7 +365,7 @@ spec:
           name: mssql-master-pool-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
+          name: data
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
@@ -385,29 +391,20 @@ spec:
         secret:
           defaultMode: 420
           secretName: node-admin-login-secret
-      - name: autofs-sciserver
-        hostPath:
-          path: /sciserver
-      - name: srv
-        hostPath:
-          path: /srv
-      - name: nvme
-        hostPath:
-          path: /nvme
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: idies-data
+      name: data
     spec:
       accessModes:
       - ReadWriteOnce
       dataSource: null
       resources:
         requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
+          storage: 15Gi
+      storageClassName: managed-premium
       volumeMode: Filesystem
     status:
       phase: Pending
@@ -422,6 +419,20 @@ spec:
         requests:
           storage: 10Gi
       storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
       volumeMode: Filesystem
     status:
       phase: Pending
