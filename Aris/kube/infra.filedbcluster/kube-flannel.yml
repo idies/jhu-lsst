@@ -177,10 +177,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
           limits:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
         securityContext:
           privileged: false
           capabilities:
@@ -209,6 +209,8 @@ spec:
         - name: flannel-cfg
           configMap:
             name: kube-flannel-cfg
+  updateStrategy:
+    type: RollingUpdate
 ---
 apiVersion: extensions/v1beta1
 kind: DaemonSet
@@ -257,10 +259,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
           limits:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
         securityContext:
           privileged: false
           capabilities:
@@ -337,10 +339,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
           limits:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
         securityContext:
           privileged: false
           capabilities:
@@ -417,10 +419,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
           limits:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
         securityContext:
           privileged: false
           capabilities:
@@ -497,10 +499,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
           limits:
             cpu: "100m"
-            memory: "50Mi"
+            memory: "200Mi"
         securityContext:
           privileged: false
           capabilities:
