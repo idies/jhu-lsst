@@ -1,0 +1,30 @@
+# prep to hack old Released PVs back to life
+kubectl get pv -o yaml `kubectl get pv | grep Releas | awk '{print $1}'` > pvs.released.yaml
+
+# then remind yourself what changes to make between dist and ".tweaked":
+filedb14:/<8>kube/configs:4638# cd ctp3.0/
+filedb14:/<9>configs/ctp3.0:4639# diff pvs.released.yaml pvs.released.tweaked.yaml|head
+26,27d25
+<       resourceVersion: "57514288"
+<       uid: c22df860-5b9c-11e9-a147-0cc47ad46d50
+66,67d63
+<       resourceVersion: "57514701"
+<       uid: f6dcce8e-5b9c-11e9-a147-0cc47ad46d50
+105,106d100
+<       resourceVersion: "57515894"
+<       uid: 9485bc6e-5b9d-11e9-a147-0cc47ad46d50
+145,146d138
+
+# then go:
+kubectl replace -f pvs.released.tweaked.yaml
+
+# scrape configs for "important" statefulsets in prep for "IDIESifying" storage claims
+kubectl get -n filedb statefulset.apps/nmnode-0 -o yaml --export > ss.nmnode-0.export.yaml
+kubectl get -n filedb statefulset.apps/data-0 -o yaml --export > ss.data-0.export.yaml
+kubectl get -n filedb statefulset.apps/storage-0 -o yaml --export > ss.storage-0.export.yaml
+kubectl get -n filedb statefulset.apps/master -o yaml --export > ss.master.export.yaml
+
+# copy "export" yamls to "idies" versions and bend to our will
+
+# replace important dist statefulsets with IDIESified ones:
+kubectl replace -n filedb -f ss.master.idies.yaml --force

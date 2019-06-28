@@ -10,7 +10,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-100483bd
-    resourceVersion: "75027422"
+    resourceVersion: "67639983"
     selfLink: /api/v1/persistentvolumes/local-pv-100483bd
     uid: 459a076c-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -21,7 +21,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: idies-data-master-0
+      name: pvc-nvme2-mssql-master-pool-0
       namespace: filedb
     local:
       path: /nvme/nvme01
@@ -48,7 +48,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-174f1e2a
-    resourceVersion: "75027409"
+    resourceVersion: "68810707"
     selfLink: /api/v1/persistentvolumes/local-pv-174f1e2a
     uid: 61941bb8-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -59,7 +59,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: data-storage-0-3
+      name: pvc-data1-mssql-storage-pool-default-3
       namespace: filedb
     local:
       path: /srv/data01
@@ -80,14 +80,12 @@ items:
   kind: PersistentVolume
   metadata:
     annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50"},"creationTimestamp":"2019-03-05T21:03:46Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-24566b13","resourceVersion":"69251446","selfLink":"/api/v1/persistentvolumes/local-pv-24566b13","uid":"2ace0518-3f8a-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-2","namespace":"filedb"},"local":{"path":"/srv/data02"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb01"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Available"}}
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50
     creationTimestamp: "2019-03-05T21:03:46Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-24566b13
-    resourceVersion: "75027418"
+    resourceVersion: "67639976"
     selfLink: /api/v1/persistentvolumes/local-pv-24566b13
     uid: 2ace0518-3f8a-11e9-a147-0cc47ad46d50
   spec:
@@ -98,7 +96,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: idies-data-data-0-2
+      name: pvc-data2-mssql-data-pool-default-2
       namespace: filedb
     local:
       path: /srv/data02
@@ -125,7 +123,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-4903b508
-    resourceVersion: "75027403"
+    resourceVersion: "68810703"
     selfLink: /api/v1/persistentvolumes/local-pv-4903b508
     uid: 63aadc4e-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -136,7 +134,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: data-storage-0-2
+      name: pvc-data1-mssql-storage-pool-default-2
       namespace: filedb
     local:
       path: /srv/data01
@@ -157,15 +155,13 @@ items:
   kind: PersistentVolume
   metadata:
     annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:08Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-740f1d60","resourceVersion":"69251450","selfLink":"/api/v1/persistentvolumes/local-pv-740f1d60","uid":"a970abd3-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-0","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb10"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Available"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:08Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-740f1d60
-    resourceVersion: "75027413"
+    resourceVersion: "67639972"
     selfLink: /api/v1/persistentvolumes/local-pv-740f1d60
     uid: a970abd3-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -176,7 +172,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: idies-data-data-0-0
+      name: pvc-data2-mssql-data-pool-default-0
       namespace: filedb
     local:
       path: /srv/data03
@@ -197,15 +193,13 @@ items:
   kind: PersistentVolume
   metadata:
     annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:07Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-8961a58c","resourceVersion":"69251452","selfLink":"/api/v1/persistentvolumes/local-pv-8961a58c","uid":"a934145b-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-3","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb12"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Available"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:07Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-8961a58c
-    resourceVersion: "75027420"
+    resourceVersion: "67639978"
     selfLink: /api/v1/persistentvolumes/local-pv-8961a58c
     uid: a934145b-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -216,7 +210,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: idies-data-data-0-3
+      name: pvc-data2-mssql-data-pool-default-3
       namespace: filedb
     local:
       path: /srv/data01
@@ -237,15 +231,13 @@ items:
   kind: PersistentVolume
   metadata:
     annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:09Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-9fe86233","resourceVersion":"69251454","selfLink":"/api/v1/persistentvolumes/local-pv-9fe86233","uid":"a9fd68ab-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-1","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb11"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Available"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:09Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-9fe86233
-    resourceVersion: "75027416"
+    resourceVersion: "67639975"
     selfLink: /api/v1/persistentvolumes/local-pv-9fe86233
     uid: a9fd68ab-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -256,7 +248,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: idies-data-data-0-1
+      name: pvc-data2-mssql-data-pool-default-1
       namespace: filedb
     local:
       path: /srv/data01
@@ -283,7 +275,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-a41e3121
-    resourceVersion: "75027399"
+    resourceVersion: "68810699"
     selfLink: /api/v1/persistentvolumes/local-pv-a41e3121
     uid: 62208630-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -294,7 +286,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: data-storage-0-1
+      name: pvc-data1-mssql-storage-pool-default-1
       namespace: filedb
     local:
       path: /srv/data03
@@ -321,7 +313,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-cf98ab10
-    resourceVersion: "75027534"
+    resourceVersion: "67639981"
     selfLink: /api/v1/persistentvolumes/local-pv-cf98ab10
     uid: 2dc11e2d-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -332,7 +324,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: data-nmnode-0-0
+      name: pvc-nvme1-mssql-master-pool-0
       namespace: filedb
     local:
       path: /nvme/nvme02
@@ -359,7 +351,7 @@ items:
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-e7eba29e
-    resourceVersion: "75027388"
+    resourceVersion: "68810693"
     selfLink: /api/v1/persistentvolumes/local-pv-e7eba29e
     uid: 6157c60a-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -370,7 +362,7 @@ items:
     claimRef:
       apiVersion: v1
       kind: PersistentVolumeClaim
-      name: data-storage-0-0
+      name: pvc-data1-mssql-storage-pool-default-0
       namespace: filedb
     local:
       path: /srv/data03

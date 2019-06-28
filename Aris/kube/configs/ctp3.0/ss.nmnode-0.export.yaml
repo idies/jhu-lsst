@@ -51,6 +51,11 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
+        - name: MY_POD
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
         - name: MSSQL_POD_TYPE
           value: nmnode
         - name: MSSQL_CONTAINER_TYPE
@@ -61,7 +66,7 @@ spec:
           value: "2048"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:ctp3.1
+        image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:ctp3.0
         imagePullPolicy: Always
         name: hadoop
         ports:
@@ -85,13 +90,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /root/secrets
-          name: mssql-master-pool-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/pool
-          name: mssql-master-pool-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
-          name: controller-internal-secret
+          name: secrets
           readOnly: true
         - mountPath: /var/opt
           name: data
@@ -99,16 +98,9 @@ spec:
         - mountPath: /root/hdfs/namenode
           name: data
           subPath: hadoop/namenode
-        - mountPath: /var/run/configmaps/cluster
-          name: cluster-config-volume
         - mountPath: /var/log
           name: logs
           subPath: hadoop
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-          readOnly: true
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
       dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
       - name: mssql-private-registry
@@ -117,29 +109,10 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: mssql-master-pool-secret
+      - name: secrets
         secret:
           defaultMode: 420
           secretName: mssql-master-pool-secret
-      - name: controller-internal-secret
-        secret:
-          defaultMode: 420
-          secretName: controller-internal-secret
-      - configMap:
-          defaultMode: 420
-          name: mssql-hadoop-configmap
-        name: hadoop-config-volume
-      - configMap:
-          defaultMode: 420
-          items:
-          - key: cluster-ca-certificate
-            path: cluster-ca-certificate.crt
-          name: ca-certificates
-        name: ca-certificates-volume
-      - configMap:
-          defaultMode: 420
-          name: mssql-cluster-configmap
-        name: cluster-config-volume
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
