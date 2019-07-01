@@ -136,7 +136,7 @@ spec:
         - mountPath: /usr/local/share/ca-certificates
           name: ca-certificates-volume
         - mountPath: /pvcadmin
-          name: data
+          name: idies-data
           subPath: Aris
         - mountPath: /sciserver
           name: autofs-sciserver
@@ -210,7 +210,7 @@ spec:
         - mountPath: /usr/local/share/ca-certificates
           name: ca-certificates-volume
         - mountPath: /pvcadmin
-          name: data
+          name: idies-data
           subPath: Aris
         - mountPath: /sciserver
           name: autofs-sciserver

@@ -28,3 +28,15 @@ kubectl get -n filedb statefulset.apps/master -o yaml --export > ss.master.expor
 
 # replace important dist statefulsets with IDIESified ones:
 kubectl replace -n filedb -f ss.master.idies.yaml --force
+
+# to goof off inside of a container
+kubectl exec -n filedb -it master-0 -c hadoop -- bash
+
+# HDFS:
+hdfs dfs -ls /
+hdfs dfs -du -s /\*
+hdfs dfsadmin -report
+
+# white-knuckle HDFS-preservation hail-mary switcheroo:
+kubectl delete -f ss.storage-0.export.yaml
+kubectl replace -f ss.nmnode-0.idies.yaml --force
