@@ -109,7 +109,7 @@ GO
 --select count(*) from SourceDP
 --select count(chunkID) from Sourceint
 --select top 10 * from sourceDP
---select top 10 * from sourceint order by coord_ra desc
+--select top 10 * from sourceDP order by coord_ra desc
 --select avg(coord_ra) from sourceDP
 --select count(distinct id) from sourceDP
 --select distinct flags_badcentroid from source

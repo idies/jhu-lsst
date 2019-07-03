@@ -40,3 +40,11 @@ hdfs dfsadmin -report
 # white-knuckle HDFS-preservation hail-mary switcheroo:
 kubectl delete -f ss.storage-0.export.yaml
 kubectl replace -f ss.nmnode-0.idies.yaml --force
+
+# stuff for Spark ingest
+kubectl cp -n filedb ~vincent/proj/sqllinux/aris/git/jhu-lsst/Aris/ingest/spark-ingest-ms-clickstream-example master-0:/tmp -c hadoop
+https://filedb14:30443/gateway/default/yarn/cluster/apps
+https://filedb14:30443/gateway/default/sparkhistory/
+
+# good shit:
+https://filedb14:30777/grafana

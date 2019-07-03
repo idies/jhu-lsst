@@ -6,21 +6,21 @@ GO
 
 -- Create the SqlDataPool data source:
 IF NOT EXISTS(SELECT * FROM sys.external_data_sources WHERE name = 'SqlDataPool')
-	IF SERVERPROPERTY('ProductLevel') = 'CTP2.5'
-		CREATE EXTERNAL DATA SOURCE SqlDataPool
-		WITH (LOCATION = 'sqldatapool://service-mssql-controller:8080/datapools/default');
-	ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
-		CREATE EXTERNAL DATA SOURCE SqlDataPool
-		WITH (LOCATION = 'sqldatapool://controller-svc:8080/datapools/default');
+		IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
+			CREATE EXTERNAL DATA SOURCE SqlDataPool
+			WITH (LOCATION = 'sqldatapool://controller-svc:8080/datapools/default');
+		ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.1'
+			CREATE EXTERNAL DATA SOURCE SqlDataPool
+			WITH (LOCATION = 'sqldatapool://controller-svc/default');
 
 -- Create the SqlStoragePool data source:
 IF NOT EXISTS(SELECT * FROM sys.external_data_sources WHERE name = 'SqlStoragePool')
-	IF SERVERPROPERTY('ProductLevel') = 'CTP2.5'
-		CREATE EXTERNAL DATA SOURCE SqlStoragePool
-		WITH (LOCATION = 'sqlhdfs://nmnode-0-0.nmnode-0-svc:50070');
-	ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
-		CREATE EXTERNAL DATA SOURCE SqlStoragePool
-		WITH (LOCATION = 'sqlhdfs://controller-svc:8080/default');
+    IF SERVERPROPERTY('ProductLevel') = 'CTP3.0'
+        CREATE EXTERNAL DATA SOURCE SqlStoragePool
+        WITH (LOCATION = 'sqlhdfs://controller-svc:8080/default');
+    ELSE IF SERVERPROPERTY('ProductLevel') = 'CTP3.1'
+        CREATE EXTERNAL DATA SOURCE SqlStoragePool
+        WITH (LOCATION = 'sqlhdfs://controller-svc/default');
 
 --drop EXTERNAL FILE FORMAT parquet_file
 IF NOT EXISTS(SELECT * FROM sys.external_file_formats WHERE name = 'parquet_file')
@@ -138,3 +138,4 @@ GO
 --select avg(coord_ra) from Source
 --select count(distinct id) from Source
 --select distinct chunkID from Source
+--select min(coord_ra) from Source
