@@ -37,6 +37,10 @@ hdfs dfs -ls /
 hdfs dfs -du -s /\*
 hdfs dfsadmin -report
 
+# copy from local node filesystem into HDFS:
+kubectl exec -n filedb -ti storage-0-3 -c hadoop -- bash
+hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdh1/Object/* /tmp/Objecttest
+
 # white-knuckle HDFS-preservation hail-mary switcheroo:
 kubectl delete -f ss.storage-0.export.yaml
 kubectl replace -f ss.nmnode-0.idies.yaml --force
@@ -48,3 +52,4 @@ https://filedb14:30443/gateway/default/sparkhistory/
 
 # good shit:
 https://filedb14:30777/grafana
+ls -l /sciserver/filedb01-02
