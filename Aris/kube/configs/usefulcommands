@@ -41,6 +41,11 @@ hdfs dfsadmin -report
 kubectl exec -n filedb -ti storage-0-3 -c hadoop -- bash
 hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdh1/Object/* /tmp/Objecttest
 
+# kubectl exec screws up your terminal and makes lines wrap around sometimes.
+# add this "env TERM=xterm LINES=$LINES COLUMNS=$COLUMNS" stuff, and it will not get messed up
+kubectl exec -n filedb -ti storage-0-3 -c hadoop -- env TERM=xterm LINES=$LINES COLUMNS=$COLUMNS /bin/bash
+
+
 # white-knuckle HDFS-preservation hail-mary switcheroo:
 kubectl delete -f ss.storage-0.export.yaml
 kubectl replace -f ss.nmnode-0.idies.yaml --force
