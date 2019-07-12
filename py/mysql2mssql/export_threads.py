@@ -217,7 +217,7 @@ def main():
     dbs = []
     # this is hacky, todo, get list of dbs from the actual db server
     filedb10dbs = ['vdh1', 'vdi1', 'vdj1', 'vdk1', 'vdl1', 'vdm1']  #filedb 10
-    filedb01dbs = ['vdb1', 'vdc1', 'vdd1', 'vde1', 'vdg1', 'vdg1']
+    filedb01dbs = ['vdb1', 'vdc1', 'vdd1', 'vde1', 'vdf1', 'vdg1']
     filedb11dbs = ['vdn1', 'vdo1', 'vdp1', 'vdq1', 'vdr1', 'vds1']
     filedb12dbs = ['vdt1', 'vdu1', 'vdv1', 'vdw1', 'vdx1', 'vdy1']
     

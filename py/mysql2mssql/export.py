@@ -35,9 +35,13 @@ def timeit(method):
 
 
 def executesql(cnx, sql, tablename=None):
-    cursor = cnx.cursor()
     tic = time.time()
-    nrows = cursor.execute(sql)
+    try:
+        cursor = cnx.cursor()       
+        nrows = cursor.execute(sql)
+    except mysql.connector.Error as err:
+        print("mysql error: {}".format(err)) 
+        return 1  
     toc = time.time()
     xtime = toc - tic
     return xtime
