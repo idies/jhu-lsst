@@ -56,5 +56,19 @@ https://filedb14:30443/gateway/default/yarn/cluster/apps
 https://filedb14:30443/gateway/default/sparkhistory/
 
 # good shit:
+# monitoring!
 https://filedb14:30777/grafana
+
+# access other filedb /srv/dataXX volumes from wherever!
+# note -- don't forget to zero pad stuff (filedb-01 not filedb-1 etc) 
 ls -l /sciserver/filedb01-02
+
+# view / control / kill  yarn applications (spark jobs)
+# 1. get onto master node
+kubectl exec -n filedb -ti master-0-0 -c hadoop -- env TERM=xterm LINES=$LINES COLUMNS=$COLUMNS /bin/bash
+# 2. list yarn apps
+yarn application -list
+# 3. kill apps with the app id you got from the list command, if you need to
+yarn application -kill <app_id>
+
+
