@@ -22,6 +22,17 @@ select * from sys.dm_exec_distributed_sql_requests order by start_time desc
 select * from sys.dm_exec_distributed_request_steps order by start_time desc
 
 
+select top 10 * from sys.external_tables
+
+select top 10 * from sys.external_data_sources
+
+select t1.name, t1.LOCATION, d1.name, d1.location, d1.resource_manager_location 
+from sys.external_tables t1
+join sys.external_data_sources d1
+on t1.data_source_id = d1.data_source_id
+
+
+
 select dr.execution_id, 
 dr.status, dr.start_time, dr.end_time,
 ds.compute_node_id, ds.command
