@@ -1,1 +1,0 @@
-java -cp ./bin;./lib/antlr-4.5.3-complete.jar org.antlr.v4.gui.TestRig mysql.mysql_ddl create_table -gui

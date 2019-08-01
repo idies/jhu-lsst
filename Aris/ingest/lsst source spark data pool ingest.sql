@@ -98,7 +98,8 @@ CREATE external TABLE [SourceDP] (
         [exposure_time_mid] FLOAT NULL ,
         [cluster_id] BIGINT NULL ,
         [cluster_coord_ra] FLOAT NULL ,
-        [cluster_coord_decl] FLOAT NULL)
+        [cluster_coord_decl] FLOAT NULL,
+        [batch_id] int null)
     WITH
     (
         DATA_SOURCE = SqlDataPool,

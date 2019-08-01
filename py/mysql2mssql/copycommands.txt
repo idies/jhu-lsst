@@ -1,0 +1,13 @@
+
+storage 0-0 filedb12
+ hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdt1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdu1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdv1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdw1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdx1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdy1/Source/* /LSST/csv/Source
+
+ storage 0-1 filedb11
+  hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdn1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdo1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdp1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdq1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdr1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vds1/Source/* /LSST/csv/Source
+
+storage 0-2 filedb01
+    hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdb1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdc1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdd1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vde1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdf1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdg1/Source/* /LSST/csv/Source
+
+
+storage 0-3 filedb10
+ hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdh1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdi1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdj1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdk1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdl1/Source/* /LSST/csv/Source ; hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdm1/Source/* /LSST/csv/Source
