@@ -106,8 +106,8 @@ CREATE external TABLE [SourceDP] (
     );
 GO
 
---select count(*) from SourceDP
---select count(chunkID) from Sourceint
+--select count_big(*) from SourceDP
+--select count(chunkID) from SourceDP
 --select top 10 * from sourceDP
 --select top 10 * from sourceDP order by coord_ra desc
 --select avg(coord_ra) from sourceDP
