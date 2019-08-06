@@ -5,14 +5,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50"},"creationTimestamp":"2019-03-05T20:07:15Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-100483bd","resourceVersion":"77032291","selfLink":"/api/v1/persistentvolumes/local-pv-100483bd","uid":"459a076c-3f82-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"1117Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-master-0","namespace":"filedb"},"local":{"path":"/nvme/nvme01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb14"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage-nvme","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50"},"creationTimestamp":"2019-03-05T20:07:15Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-100483bd","resourceVersion":"77037645","selfLink":"/api/v1/persistentvolumes/local-pv-100483bd","uid":"459a076c-3f82-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"1117Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-master-0","namespace":"filedb"},"local":{"path":"/nvme/nvme01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb14"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage-nvme","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50
     creationTimestamp: "2019-03-05T20:07:15Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-100483bd
-    resourceVersion: "77037645"
+    resourceVersion: "83190269"
     selfLink: /api/v1/persistentvolumes/local-pv-100483bd
     uid: 459a076c-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -25,8 +25,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-master-0
       namespace: filedb
-      resourceVersion: "75047615"
-      uid: 4f395e3b-991a-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77039660"
+      uid: ee502dcc-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /nvme/nvme01
     nodeAffinity:
@@ -47,14 +47,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:58Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-174f1e2a","resourceVersion":"77032303","selfLink":"/api/v1/persistentvolumes/local-pv-174f1e2a","uid":"61941bb8-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-3","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb10"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:58Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-174f1e2a","resourceVersion":"77037646","selfLink":"/api/v1/persistentvolumes/local-pv-174f1e2a","uid":"61941bb8-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-3","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb10"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:19:58Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-174f1e2a
-    resourceVersion: "77037646"
+    resourceVersion: "83190277"
     selfLink: /api/v1/persistentvolumes/local-pv-174f1e2a
     uid: 61941bb8-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -67,8 +67,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-storage-0-3
       namespace: filedb
-      resourceVersion: "76186701"
-      uid: d7b46fc6-9c30-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77038396"
+      uid: 5b706062-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data01
     nodeAffinity:
@@ -89,13 +89,13 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50"},"creationTimestamp":"2019-03-05T21:03:46Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-24566b13","resourceVersion":"77032186","selfLink":"/api/v1/persistentvolumes/local-pv-24566b13","uid":"2ace0518-3f8a-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-2","namespace":"filedb"},"local":{"path":"/srv/data02"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb01"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50"},"creationTimestamp":"2019-03-05T21:03:46Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-24566b13","resourceVersion":"77037647","selfLink":"/api/v1/persistentvolumes/local-pv-24566b13","uid":"2ace0518-3f8a-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-2","namespace":"filedb"},"local":{"path":"/srv/data02"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb01"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50
     creationTimestamp: "2019-03-05T21:03:46Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-24566b13
-    resourceVersion: "77037647"
+    resourceVersion: "83190266"
     selfLink: /api/v1/persistentvolumes/local-pv-24566b13
     uid: 2ace0518-3f8a-11e9-a147-0cc47ad46d50
   spec:
@@ -108,8 +108,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-data-0-2
       namespace: filedb
-      resourceVersion: "76194657"
-      uid: 1dfb901c-9c36-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77039816"
+      uid: fcb76c28-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data02
     nodeAffinity:
@@ -130,14 +130,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:20:01Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-4903b508","resourceVersion":"77032300","selfLink":"/api/v1/persistentvolumes/local-pv-4903b508","uid":"63aadc4e-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-2","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb01"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:20:01Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-4903b508","resourceVersion":"77037648","selfLink":"/api/v1/persistentvolumes/local-pv-4903b508","uid":"63aadc4e-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-2","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb01"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb01-4ae19aeb-0ecd-11e9-855b-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:20:01Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-4903b508
-    resourceVersion: "77037648"
+    resourceVersion: "83190276"
     selfLink: /api/v1/persistentvolumes/local-pv-4903b508
     uid: 63aadc4e-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -150,8 +150,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-storage-0-2
       namespace: filedb
-      resourceVersion: "76186692"
-      uid: d7b38e3f-9c30-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77038383"
+      uid: 5b6efead-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data01
     nodeAffinity:
@@ -172,14 +172,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:08Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-740f1d60","resourceVersion":"77032177","selfLink":"/api/v1/persistentvolumes/local-pv-740f1d60","uid":"a970abd3-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-0","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb10"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:08Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-740f1d60","resourceVersion":"77037649","selfLink":"/api/v1/persistentvolumes/local-pv-740f1d60","uid":"a970abd3-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-0","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb10"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb10-1da61278-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:08Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-740f1d60
-    resourceVersion: "77037649"
+    resourceVersion: "83190246"
     selfLink: /api/v1/persistentvolumes/local-pv-740f1d60
     uid: a970abd3-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -192,8 +192,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-data-0-0
       namespace: filedb
-      resourceVersion: "76194638"
-      uid: 1df9c102-9c36-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77039802"
+      uid: fcb5b18d-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data03
     nodeAffinity:
@@ -214,14 +214,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:07Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-8961a58c","resourceVersion":"77032256","selfLink":"/api/v1/persistentvolumes/local-pv-8961a58c","uid":"a934145b-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-3","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb12"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:07Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-8961a58c","resourceVersion":"77037650","selfLink":"/api/v1/persistentvolumes/local-pv-8961a58c","uid":"a934145b-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-3","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb12"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:07Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-8961a58c
-    resourceVersion: "77037650"
+    resourceVersion: "83190268"
     selfLink: /api/v1/persistentvolumes/local-pv-8961a58c
     uid: a934145b-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -234,8 +234,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-data-0-3
       namespace: filedb
-      resourceVersion: "76194668"
-      uid: 1dfd2b49-9c36-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77039825"
+      uid: fcb85af0-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data01
     nodeAffinity:
@@ -256,14 +256,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:09Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-9fe86233","resourceVersion":"77032182","selfLink":"/api/v1/persistentvolumes/local-pv-9fe86233","uid":"a9fd68ab-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-1","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb11"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:29:09Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-9fe86233","resourceVersion":"77037652","selfLink":"/api/v1/persistentvolumes/local-pv-9fe86233","uid":"a9fd68ab-1832-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-data-0-1","namespace":"filedb"},"local":{"path":"/srv/data01"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb11"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:29:09Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-9fe86233
-    resourceVersion: "77037652"
+    resourceVersion: "83190263"
     selfLink: /api/v1/persistentvolumes/local-pv-9fe86233
     uid: a9fd68ab-1832-11e9-a147-0cc47ad46d50
   spec:
@@ -276,8 +276,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-data-0-1
       namespace: filedb
-      resourceVersion: "76194645"
-      uid: 1dfaaf06-9c36-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77039812"
+      uid: fcb6adf6-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data01
     nodeAffinity:
@@ -298,14 +298,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:59Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-a41e3121","resourceVersion":"77032297","selfLink":"/api/v1/persistentvolumes/local-pv-a41e3121","uid":"62208630-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-1","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb11"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:59Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-a41e3121","resourceVersion":"77037653","selfLink":"/api/v1/persistentvolumes/local-pv-a41e3121","uid":"62208630-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-1","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb11"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb11-45107117-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:19:59Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-a41e3121
-    resourceVersion: "77037653"
+    resourceVersion: "83190274"
     selfLink: /api/v1/persistentvolumes/local-pv-a41e3121
     uid: 62208630-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -318,8 +318,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-storage-0-1
       namespace: filedb
-      resourceVersion: "76186685"
-      uid: d7b2a8ab-9c30-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77038373"
+      uid: 5b6dd0e4-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data03
     nodeAffinity:
@@ -340,14 +340,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50"},"creationTimestamp":"2019-03-05T20:06:35Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-cf98ab10","resourceVersion":"77032292","selfLink":"/api/v1/persistentvolumes/local-pv-cf98ab10","uid":"2dc11e2d-3f82-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"1117Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-nmnode-0-0","namespace":"filedb"},"local":{"path":"/nvme/nvme02"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb14"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage-nvme","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50"},"creationTimestamp":"2019-03-05T20:06:35Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-cf98ab10","resourceVersion":"77037654","selfLink":"/api/v1/persistentvolumes/local-pv-cf98ab10","uid":"2dc11e2d-3f82-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"1117Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-nmnode-0-0","namespace":"filedb"},"local":{"path":"/nvme/nvme02"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb14"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage-nvme","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb14-23f15f63-3745-11e8-bf20-0cc47ad46d50
     creationTimestamp: "2019-03-05T20:06:35Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-cf98ab10
-    resourceVersion: "77037654"
+    resourceVersion: "83190337"
     selfLink: /api/v1/persistentvolumes/local-pv-cf98ab10
     uid: 2dc11e2d-3f82-11e9-a147-0cc47ad46d50
   spec:
@@ -360,8 +360,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-nmnode-0-0
       namespace: filedb
-      resourceVersion: "76184291"
-      uid: 448962fa-9c2f-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77038242"
+      uid: 4c3730f9-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /nvme/nvme02
     nodeAffinity:
@@ -382,14 +382,14 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:57Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-e7eba29e","resourceVersion":"77032294","selfLink":"/api/v1/persistentvolumes/local-pv-e7eba29e","uid":"6157c60a-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-0","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb12"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"pv.kubernetes.io/bound-by-controller":"yes","pv.kubernetes.io/provisioned-by":"local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50"},"creationTimestamp":"2019-01-14T19:19:57Z","finalizers":["kubernetes.io/pv-protection"],"name":"local-pv-e7eba29e","resourceVersion":"77037655","selfLink":"/api/v1/persistentvolumes/local-pv-e7eba29e","uid":"6157c60a-1831-11e9-a147-0cc47ad46d50"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"55887Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"idies-data-storage-0-0","namespace":"filedb"},"local":{"path":"/srv/data03"},"nodeAffinity":{"required":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"kubernetes.io/hostname","operator":"In","values":["filedb12"]}]}]}},"persistentVolumeReclaimPolicy":"Retain","storageClassName":"local-storage","volumeMode":"Filesystem"},"status":{"phase":"Released"}}
       pv.kubernetes.io/bound-by-controller: "yes"
       pv.kubernetes.io/provisioned-by: local-volume-provisioner-filedb12-1e8eb8db-3385-11e8-9edf-0cc47ad46d50
     creationTimestamp: "2019-01-14T19:19:57Z"
     finalizers:
     - kubernetes.io/pv-protection
     name: local-pv-e7eba29e
-    resourceVersion: "77037655"
+    resourceVersion: "83190271"
     selfLink: /api/v1/persistentvolumes/local-pv-e7eba29e
     uid: 6157c60a-1831-11e9-a147-0cc47ad46d50
   spec:
@@ -402,8 +402,8 @@ items:
       kind: PersistentVolumeClaim
       name: idies-data-storage-0-0
       namespace: filedb
-      resourceVersion: "76185710"
-      uid: 36b3ec02-9c30-11e9-a2d7-0cc47ad46d50
+      resourceVersion: "77038366"
+      uid: 5b6ccb1b-9e91-11e9-a2d7-0cc47ad46d50
     local:
       path: /srv/data03
     nodeAffinity:
