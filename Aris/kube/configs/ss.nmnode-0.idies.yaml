@@ -61,7 +61,7 @@ spec:
           value: "2048"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:ctp3.1
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CTP3.2-ubuntu
         imagePullPolicy: Always
         name: hadoop
         ports:
@@ -70,6 +70,9 @@ spec:
           protocol: TCP
         - containerPort: 50070
           name: name-node-http
+          protocol: TCP
+        - containerPort: 50470
+          name: name-node-https
           protocol: TCP
         - containerPort: 14000
           name: http-fs
@@ -87,16 +90,16 @@ spec:
         - mountPath: /root/secrets
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/pool
+        - mountPath: /var/run/secrets/credentials/pool
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
+        - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/nmnode-0/var.ctp3.1/opt
-        - mountPath: /root/hdfs/namenode
+          subPath: Aris/nmnode-0/var.ctp3.2/opt
+        - mountPath: /var/opt/hdfs/namenode
           name: idies-data
           subPath: Aris/nmnode-0/hdfs/namenode
         - mountPath: /var/run/configmaps/cluster
@@ -104,11 +107,19 @@ spec:
         - mountPath: /var/log
           name: logs
           subPath: hadoop
+        - mountPath: /var/run
+          name: var-run
+          subPath: hadoop
         - mountPath: /var/run/configmaps/hadoop
           name: hadoop-config-volume
           readOnly: true
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
+        - mountPath: /var/run/secrets/certificates/agent
+          name: nmnode-0-agent-secret
+          readOnly: true
+      dnsConfig:
+        options:
+        - name: timeout
+          value: "30"
       dnsPolicy: ClusterFirstWithHostNet
       imagePullSecrets:
       - name: mssql-private-registry
@@ -125,20 +136,20 @@ spec:
         secret:
           defaultMode: 420
           secretName: controller-internal-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
       - configMap:
           defaultMode: 420
-          name: mssql-hadoop-configmap
+          name: mssql-hadoop-storage-0-configmap
         name: hadoop-config-volume
+      - name: nmnode-0-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: nmnode-0-agent-secret
       - configMap:
           defaultMode: 420
-          items:
-          - key: cluster-ca-certificate
-            path: cluster-ca-certificate.crt
-          name: ca-certificates
-        name: ca-certificates-volume
-      - configMap:
-          defaultMode: 420
-          name: mssql-cluster-configmap
+          name: cluster-configmap
         name: cluster-config-volume
   updateStrategy:
     type: OnDelete

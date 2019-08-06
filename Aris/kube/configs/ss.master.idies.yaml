@@ -16,8 +16,10 @@ spec:
     matchLabels:
       MSSQL_CLUSTER: filedb
       app: master
+      mssql.microsoft.com/sql-instance: master
       plane: data
       role: master-pool
+      type: sqlservr
   serviceName: master-svc
   template:
     metadata:
@@ -25,123 +27,12 @@ spec:
       labels:
         MSSQL_CLUSTER: filedb
         app: master
+        mssql.microsoft.com/sql-instance: master
         plane: data
         role: master-pool
+        type: sqlservr
     spec:
       containers:
-      - env:
-        - name: MSSQL_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: MSSQL_POD_TYPE
-          value: master
-        - name: MSSQL_CONTAINER_TYPE
-          value: hadoop
-        - name: MSSQL_AGENT_PORT
-          value: "8300"
-        - name: HADOOP_HEAPSIZE
-          value: "2048"
-        - name: YARN_HEAPSIZE
-          value: "2048"
-        - name: YARN_SCHEDULER_MAX_MEMORY
-          value: "655360"
-        - name: YARN_SCHEDULER_MAX_VCORES
-          value: "300"
-        - name: YARN_NODEMANAGER_RESOURCE_MEMORY
-          value: "65536"
-        - name: YARN_NODEMANAGER_RESOURCE_VCORES
-          value: "30"
-        - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
-          value: "0.3"
-        - name: SPARK_DRIVER_MEMORY
-          value: 2g
-        - name: SPARK_DRIVER_CORES
-          value: "1"
-        - name: SPARK_EXECUTOR_INSTANCES
-          value: "11"
-        - name: SPARK_EXECUTOR_MEMORY
-          value: 12g
-        - name: SPARK_EXECUTOR_CORES
-          value: "10"
-        - name: MSSQL_POD_KIND
-          value: StatefulSet
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-hadoop:ctp3.1
-        imagePullPolicy: Always
-        name: hadoop
-        ports:
-        - containerPort: 8088
-          name: port-8088
-          protocol: TCP
-        - containerPort: 50075
-          name: port-50075
-          protocol: TCP
-        - containerPort: 50020
-          name: port-50020
-          protocol: TCP
-        - containerPort: 50010
-          name: port-50010
-          protocol: TCP
-        - containerPort: 8030
-          name: port-8030
-          protocol: TCP
-        - containerPort: 8031
-          name: port-8031
-          protocol: TCP
-        - containerPort: 8032
-          name: port-8032
-          protocol: TCP
-        - containerPort: 8033
-          name: port-8033
-          protocol: TCP
-        - containerPort: 8040
-          name: port-8040
-          protocol: TCP
-        - containerPort: 8042
-          name: port-8042
-          protocol: TCP
-        - containerPort: 8998
-          name: port-8998
-          protocol: TCP
-        - containerPort: 8300
-          name: agent-port-8300
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-master-pool-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/pool
-          name: mssql-master-pool-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
-          name: controller-internal-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/agent
-          name: master-agent-secret
-          readOnly: true
-        - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/var.ctp3.1/hadoop
-        - mountPath: /root/hdfs/namenode
-          name: idies-data
-          subPath: Aris/master-0/hdfs/namenode
-        - mountPath: /usr/local/hadoop/logs
-          name: logs
-          subPath: hadoop/hadoop
-        - mountPath: /var/log
-          name: logs
-          subPath: hadoop
-        - mountPath: /var/run/configmaps/cluster
-          name: cluster-config-volume
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-          readOnly: true
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
       - env:
         - name: MSSQL_NAMESPACE
           valueFrom:
@@ -164,7 +55,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-server-data:ctp3.1
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CTP3.2-ubuntu
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -205,26 +96,29 @@ spec:
         - mountPath: /root/secrets/node-admin-login
           name: node-admin-login-secrets
           readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
+        - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
-        - mountPath: /var/run/secrets/pool
+        - mountPath: /var/run/secrets/credentials/pool
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/node-admin-login
+        - mountPath: /var/run/secrets/credentials/node-admin-login
           name: node-admin-login-secrets
           readOnly: true
-        - mountPath: /var/run/secrets/agent
+        - mountPath: /var/run/secrets/certificates/agent
           name: master-agent-secret
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/master-0/ctp3.1/mssql-server
+          subPath: Aris/master-0/ctp3.2/mssql-server
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
+        - mountPath: /var/run
+          name: var-run
+          subPath: mssql-server
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -235,10 +129,6 @@ spec:
           value: master
         - name: MSSQL_AGENT_PORT
           value: "8310"
-        - name: INFLUX_DB_SERVER
-          value: metricsdb-svc
-        - name: INFLUX_DB_PORT
-          value: "25826"
         - name: SQL_HOSTNAME
           value: 127.0.0.1
         - name: SQL_POLL_INTERVAL
@@ -249,7 +139,12 @@ spec:
           value: collectd
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-collectd:ctp3.1
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CTP3.2-ubuntu
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -263,23 +158,29 @@ spec:
         - mountPath: /root/secrets
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
+        - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
-        - mountPath: /var/run/secrets/pool
+        - mountPath: /var/run/secrets/credentials/pool
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/agent
+        - mountPath: /var/run/secrets/certificates/agent
           name: master-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/master-0/ctp3.1/collectd
+          subPath: Aris/master-0/ctp3.2/collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
+        - mountPath: /var/run
+          name: var-run
+          subPath: collectd
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
       - env:
         - name: FLUENT_ELASTICSEARCH_HOST
           value: logsdb-svc
@@ -287,7 +188,7 @@ spec:
           value: "9200"
         - name: FLUENTBIT_CONFIG
           value: fluentbit-master-pool.conf
-        - name: KUBERNETES_NAMESPACE
+        - name: MSSQL_NAMESPACE
           valueFrom:
             fieldRef:
               apiVersion: v1
@@ -310,7 +211,7 @@ spec:
           value: StatefulSet
         - name: MSSQL_AGENT_PORT
           value: "8311"
-        image: private-repo.microsoft.com/mssql-private-preview/mssql-monitor-fluentbit:ctp3.1
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -330,26 +231,33 @@ spec:
         - mountPath: /root/secrets
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/controller-internal
+        - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
-        - mountPath: /var/run/secrets/pool
+        - mountPath: /var/run/secrets/credentials/pool
           name: mssql-master-pool-secret
           readOnly: true
-        - mountPath: /var/run/secrets/agent
+        - mountPath: /var/run/secrets/certificates/agent
           name: master-agent-secret
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/master-0/var.ctp3.1/fluentbit
+          subPath: Aris/master-0/ctp3.2/fluentbit
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
         - mountPath: /mnt/logs
           name: logs
           readOnly: true
-        - mountPath: /usr/local/share/ca-certificates
-          name: ca-certificates-volume
+        - mountPath: /var/run
+          name: var-run
+          subPath: fluentbit
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      dnsConfig:
+        options:
+        - name: timeout
+          value: "30"
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: mssql-private-registry
@@ -374,23 +282,19 @@ spec:
         secret:
           defaultMode: 420
           secretName: master-agent-secret
+      - name: metricsdb-wo-secret
+        secret:
+          defaultMode: 420
+          secretName: metricsdb-wo-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
       - configMap:
           defaultMode: 420
-          items:
-          - key: cluster-ca-certificate
-            path: cluster-ca-certificate.crt
-          name: ca-certificates
-        name: ca-certificates-volume
-      - configMap:
-          defaultMode: 420
-          name: mssql-cluster-configmap
+          name: cluster-configmap
         name: cluster-config-volume
-      - configMap:
-          defaultMode: 420
-          name: mssql-hadoop-configmap
-        name: hadoop-config-volume
       - name: autofs-sciserver
-        hostPath:
+        hostPath: 
           path: /sciserver
       - name: srv
         hostPath:
