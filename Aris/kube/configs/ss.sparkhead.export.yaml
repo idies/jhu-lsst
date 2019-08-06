@@ -1,0 +1,420 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedb
+  name: sparkhead
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/sparkhead
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      MSSQL_CLUSTER: filedb
+      app: sparkhead
+      plane: data
+      role: sparkhead-pool
+  serviceName: sparkhead-svc
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: sparkhead
+        plane: data
+        role: sparkhead-pool
+    spec:
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: sparkhead
+        - name: MSSQL_CONTAINER_TYPE
+          value: hadoop-yarn-jobhistory
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8300"
+        - name: HADOOP_HEAPSIZE
+          value: "2048"
+        - name: YARN_HEAPSIZE
+          value: "2048"
+        - name: YARN_SCHEDULER_MAX_MEMORY
+          value: "655360"
+        - name: YARN_SCHEDULER_MAX_VCORES
+          value: "300"
+        - name: YARN_NODEMANAGER_RESOURCE_MEMORY
+          value: "65536"
+        - name: YARN_NODEMANAGER_RESOURCE_VCORES
+          value: "30"
+        - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
+          value: "0.3"
+        - name: SPARK_DRIVER_MEMORY
+          value: 2g
+        - name: SPARK_DRIVER_CORES
+          value: "1"
+        - name: SPARK_EXECUTOR_INSTANCES
+          value: "11"
+        - name: SPARK_EXECUTOR_MEMORY
+          value: 12g
+        - name: SPARK_EXECUTOR_CORES
+          value: "10"
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: hadoop-yarn-jobhistory
+        ports:
+        - containerPort: 8088
+          name: yarn-ui-8088
+          protocol: TCP
+        - containerPort: 8030
+          name: yarn-8030
+          protocol: TCP
+        - containerPort: 8031
+          name: yarn-8031
+          protocol: TCP
+        - containerPort: 8032
+          name: yarn-8032
+          protocol: TCP
+        - containerPort: 8033
+          name: yarn-8033
+          protocol: TCP
+        - containerPort: 19888
+          name: job-19888
+          protocol: TCP
+        - containerPort: 8300
+          name: agent-port-8300
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
+          readOnly: true
+        - mountPath: /var/log
+          name: logs
+          subPath: hadoop-yarn-jobhistory
+        - mountPath: /var/run
+          name: var-run
+          subPath: hadoop-yarn-jobhistory
+        - mountPath: /var/run/secrets/certificates/agent
+          name: sparkhead-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
+          readOnly: true
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: sparkhead
+        - name: MSSQL_CONTAINER_TYPE
+          value: hadoop-livy-sparkhistory
+        - name: MSSQL_AGENT_PORT
+          value: "8301"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: HADOOP_HEAPSIZE
+          value: "2048"
+        - name: YARN_HEAPSIZE
+          value: "2048"
+        - name: YARN_SCHEDULER_MAX_MEMORY
+          value: "655360"
+        - name: YARN_SCHEDULER_MAX_VCORES
+          value: "300"
+        - name: YARN_NODEMANAGER_RESOURCE_MEMORY
+          value: "65536"
+        - name: YARN_NODEMANAGER_RESOURCE_VCORES
+          value: "30"
+        - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
+          value: "0.3"
+        - name: SPARK_DRIVER_MEMORY
+          value: 2g
+        - name: SPARK_DRIVER_CORES
+          value: "1"
+        - name: SPARK_EXECUTOR_INSTANCES
+          value: "11"
+        - name: SPARK_EXECUTOR_MEMORY
+          value: 12g
+        - name: SPARK_EXECUTOR_CORES
+          value: "10"
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: hadoop-livy-sparkhistory
+        ports:
+        - containerPort: 18080
+          name: sparkhist-18080
+          protocol: TCP
+        - containerPort: 8998
+          name: livy-8998
+          protocol: TCP
+        - containerPort: 8301
+          name: agent-port-8301
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
+          readOnly: true
+        - mountPath: /var/log
+          name: logs
+          subPath: hadoop-livy-sparkhistory
+        - mountPath: /var/run
+          name: var-run
+          subPath: hadoop-livy-sparkhistory
+        - mountPath: /var/run/secrets/certificates/agent
+          name: sparkhead-agent-secret
+          readOnly: true
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: sparkhead
+        - name: MSSQL_CONTAINER_TYPE
+          value: hadoop-hivemetastore
+        - name: MSSQL_AGENT_PORT
+          value: "8302"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: HADOOP_HEAPSIZE
+          value: "2048"
+        - name: YARN_HEAPSIZE
+          value: "2048"
+        - name: YARN_SCHEDULER_MAX_MEMORY
+          value: "655360"
+        - name: YARN_SCHEDULER_MAX_VCORES
+          value: "300"
+        - name: YARN_NODEMANAGER_RESOURCE_MEMORY
+          value: "65536"
+        - name: YARN_NODEMANAGER_RESOURCE_VCORES
+          value: "30"
+        - name: YARN_SCHEDULER_CAPACITY_MAX_AM_PERCENT
+          value: "0.3"
+        - name: SPARK_DRIVER_MEMORY
+          value: 2g
+        - name: SPARK_DRIVER_CORES
+          value: "1"
+        - name: SPARK_EXECUTOR_INSTANCES
+          value: "11"
+        - name: SPARK_EXECUTOR_MEMORY
+          value: 12g
+        - name: SPARK_EXECUTOR_CORES
+          value: "10"
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: hadoop-hivemetastore
+        ports:
+        - containerPort: 9084
+          name: hive-9084
+          protocol: TCP
+        - containerPort: 8302
+          name: agent-port-8302
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
+          readOnly: true
+        - mountPath: /var/log
+          name: logs
+          subPath: hadoop-hivemetastore
+        - mountPath: /var/run
+          name: var-run
+          subPath: hadoop-hivemetastore
+        - mountPath: /var/run/secrets/certificates/agent
+          name: sparkhead-agent-secret
+          readOnly: true
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: logsdb-svc
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-sparkhead-pool.conf
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MSSQL_POD_TYPE
+          value: sparkhead
+        - name: MSSQL_CONTAINER_TYPE
+          value: fluentbit
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8311"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        - containerPort: 8311
+          name: agent-port-8311
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: sparkhead-agent-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+        - mountPath: /var/log
+          name: logs
+          subPath: fluentbit
+        - mountPath: /mnt/logs
+          name: logs
+          readOnly: true
+        - mountPath: /var/run
+          name: var-run
+          subPath: fluentbit
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: mssql-master-pool-secret
+        secret:
+          defaultMode: 420
+          secretName: mssql-master-pool-secret
+      - name: controller-internal-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-internal-secret
+      - name: node-admin-login-secrets
+        secret:
+          defaultMode: 420
+          secretName: node-admin-login-secret
+      - name: sparkhead-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: sparkhead-agent-secret
+      - name: metricsdb-wo-secret
+        secret:
+          defaultMode: 420
+          secretName: metricsdb-wo-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
+      - configMap:
+          defaultMode: 420
+          name: cluster-configmap
+        name: cluster-config-volume
+      - configMap:
+          defaultMode: 420
+          name: mssql-hadoop-sparkhead-configmap
+        name: hadoop-config-volume
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 15Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: logs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0

@@ -1,0 +1,72 @@
+# start out on filedb14.
+# first get on a container that can see the hdfs storage
+# one of the storage pool nodes is good
+
+kubectl -n filedb exec -ti storage-0-0 -c hadoop -- env LINES=$LINES COLUMNS=$COLUMNS TERM=xterm /bin/bash
+
+# then i moved those 2 directories into the ctp3.1 folder
+# because they will get overwritten by the new 3.2 stuff
+
+hdfs dfs -ls / # shows a directory listing
+hdfs dfs -mv /clickstream_data /ctp3.1/clickstream_data
+hdfs dfs -mv /product_review_data /ctp3.1/product_review_data
+
+hdfs dfs -ls / # just to check, shouldn't see those directories in / anymore
+
+# exit this container
+exit
+
+# now you're back on filedb14.
+
+# now get on the sparkhead-0 node and get into its hadoop-yarn-jobhistory container
+# jan somehow figured out that this is where the process we need to restart was running
+
+kubectl -n filedb exec -ti sparkhead-0 -c hadoop-yarn-jobhistory -- env LINES=$LINES COLUMNS=$COLUMNS TERM=xterm /bin/bash
+
+# check to see what is running...
+ps -efHw
+
+# check what pid the "setup-hadoop.sh" thing is using, and kill it!
+kill -9 <whatever the pid was>
+
+# it will start right back up again but you'll quickly see it copying some stuff if you check
+ps -efHw
+
+# now if you go back onto one of the storage nodes....
+kubectl -n filedb exec -ti storage-0-0 -c hadoop -- env LINES=$LINES COLUMNS=$COLUMNS TERM=xterm /bin/bash
+
+hdfs dfs -ls /
+
+# the stuff we moved is back! but with new timestamps...
+drwxr-xr-x   - root supergroup           0 2019-07-15 16:52 /LSST
+drwxr-xr-x   - root supergroup           0 2019-01-30 14:13 /LSST.old
+-rwxr-xr-x   3 root supergroup  1526337536 2019-01-24 17:54 /LSST_04_20181004.33.bak
+-rwxr-xr-x   3 root supergroup        2071 2019-07-22 18:26 /copycommands.txt
+drwxr-xr-x   - root supergroup           0 2019-03-06 19:50 /ctp2.2
+drwxr-xr-x   - root supergroup           0 2019-04-08 15:26 /ctp2.3
+drwxr-xr-x   - root supergroup           0 2019-06-04 00:45 /ctp2.4
+drwxr-xr-x   - root supergroup           0 2019-07-01 19:02 /ctp3.0
+drwxr-xr-x   - root supergroup           0 2019-07-31 20:31 /ctp3.1
+-rw-r--r--   3 root supergroup 38474350592 2018-07-30 19:33 /eagle_release_log.ldf
+drwxr-xr-x   - root supergroup           0 2019-07-31 20:37 /jar
+drwxr-xr-x   - root supergroup           0 2019-07-31 20:37 /livy
+drwxr-xr-x   - root supergroup           0 2018-07-30 19:20 /lost+found
+drwxr-xr-x   - root supergroup           0 2018-09-16 21:21 /millimil
+drwxr-xr-x   - root supergroup           0 2018-09-15 20:26 /millimil-csv
+drwxr-xr-x   - root supergroup           0 2018-09-15 20:52 /millimil-csv-8
+drwxr-xr-x   - root supergroup           0 2019-07-31 20:36 /spark
+drwxrwxrwt   - root supergroup           0 2019-07-10 16:38 /tmp
+drwxr-xr-x   - root supergroup           0 2019-06-05 14:39 /user
+
+# well the /jar /livy and /spark ones are back.  not /spark-history or the test data, but that's probaby ok
+
+# finally, lets bounce the master pod because sometimes it caches stuff like DNS info, IP addresses or whatnot
+exit  # exit the container and get back to filedb14
+kubectl -n filedb delete pod/master-0
+
+# the pod will delete and then start right back up again
+# check on it with 
+kubectl -n filedb describe po master
+kubectl -n filedb get po # you should see the master-0 one come back to life 
+
+# and that's it!
