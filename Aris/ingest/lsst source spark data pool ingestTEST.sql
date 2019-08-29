@@ -10,7 +10,7 @@ GO
 
 --based on Sue's https://github.com/idies/jhu-lsst/blob/master/mysql/mssql-createTables.sql
 --BITs changed (temporarily?) to INTs since we're having trouble generating parquet bools from our csv's
-CREATE external TABLE [Source_test] (
+CREATE external TABLE [SourceDP_test_batchid] (
         [id] BIGINT NOT NULL,
         [chunkid] int not null, --added this as per gerard's suggestion
         [coord_ra] FLOAT NULL ,
