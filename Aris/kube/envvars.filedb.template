@@ -12,7 +12,7 @@ setenv DOCKER_REPOSITORY mssql-private-preview
 setenv DOCKER_USERNAME jvv@jhu.edu
 setenv DOCKER_PASSWORD REDACTED
 setenv DOCKER_EMAIL jvv@jhu.edu
-setenv DOCKER_IMAGE_TAG "ctp2.4"
+setenv DOCKER_IMAGE_TAG "ctp3.2"
 #setenv DOCKER_IMAGE_POLICY "Always"
 setenv DOCKER_PRIVATE_REGISTRY "1"
 setenv KNOX_PASSWORD "REDACTED"
