@@ -1,0 +1,37 @@
+# (leaving non-required commented out with default settings)
+export ACCEPT_EULA=yes
+export CLUSTER_NAME=filedb
+export CLUSTER_PLATFORM=kubernetes
+#export CLUSTER_COMPUTE_POOL_REPLICAS=1
+export CLUSTER_DATA_POOL_REPLICAS=4
+export CLUSTER_STORAGE_POOL_REPLICAS=4
+export CONTROLLER_USERNAME=admin
+#export CONTROLLER_USERNAME=filedb_controller_admin
+export CONTROLLER_PASSWORD=REDACTED
+
+#export CONTROLLER_PASSWORD="fooRiuzg54"
+#export DOCKER_REGISTRY=private-repo.microsoft.com
+#export DOCKER_REPOSITORY=mssql-private-preview
+#export DOCKER_USERNAME=jvv@jhu.edu
+#export DOCKER_PASSWORD=6y9s96gs9gh8
+#export DOCKER_EMAIL=jvv@jhu.edu
+#export DOCKER_IMAGE_TAG=ctp3.2
+#export DOCKER_IMAGE_POLICY=Always
+#export DOCKER_PRIVATE_REGISTRY=1
+export KNOX_PASSWORD=REDACTED
+export MSSQL_SA_PASSWORD=REDACTED
+export USE_PERSISTENT_VOLUME=true
+export STORAGE_CLASS_NAME=managed-premium
+
+#export MASTER_SQL_PORT 31433
+#export KNOX_PORT 30443
+
+#export GRAFANA_PORT "30888"
+
+#export DATA_POOL_USE_PERSISTENT_VOLUME "true"
+#export DATA_POOL_STORAGE_CLASS_NAME "local-storage"
+#export DATA_POOL_STORAGE_SIZE "5000Gi"
+
+#export STORAGE_POOL_USE_PERSISTENT_VOLUME "true"
+#export STORAGE_POOL_STORAGE_CLASS_NAME "local-storage"
+#export STORAGE_POOL_STORAGE_SIZE "5000Gi"
