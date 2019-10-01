@@ -22,6 +22,7 @@ py/mysql2mssql/env
 py/mysql2mssql/env3
 
 py/mysql2mssql/__pycache__/export.cpython-36.pyc
+.venv/
 __suetest.txt
 _suetest/__suetest.txt
 
