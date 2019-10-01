@@ -24,6 +24,11 @@ def timeit(method):
 
 
 
+hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdi1/Source/* /LSST/csv/Source ;  hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdj1/Source/* /LSST/csv/Source ;  hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdk1/Source/* /LSST/csv/Source ;  hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdl1/Source/* /LSST/csv/Source ;  hdfs dfs -put /srv/data02/sql_db/sue/csv_exports/vdm1/Source/*
+ /LSST/csv/Source 
+
+
+
 def stringtests():
     s = 'Source_10030'
     o = 'Object_10030'
