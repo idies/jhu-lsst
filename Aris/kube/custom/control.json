@@ -1,9 +1,14 @@
 {
+    "apiVersion": "v1",
+    "metadata": {
+        "kind": "Cluster",
+        "name": "filedb"
+    },
     "spec": {
         "docker": {
             "registry": "mcr.microsoft.com",
             "repository": "mssql/bdc",
-            "imageTag": "2019-CTP3.2-ubuntu",
+            "imageTag": "2019-RC1-ubuntu",
             "imagePullPolicy": "Always"
         },
         "storage": {

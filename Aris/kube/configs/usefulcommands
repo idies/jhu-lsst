@@ -19,8 +19,7 @@ filedb14:/<9>configs/ctp3.0:4639# diff pvs.released.yaml pvs.released.tweaked.ya
 145,146d138kubectl
 
 # then go:
-kubectl replace -f pvs.released.tweaked.yaml
-
+>
 # scrape configs for "important" statefulsets in prep for "IDIESifying" storage claims
 kubectl get -n filedb statefulset.apps/nmnode-0 -o yaml --export > ss.nmnode-0.export.yaml
 kubectl get -n filedb statefulset.apps/data-0 -o yaml --export > ss.data-0.export.yaml
@@ -30,7 +29,9 @@ kubectl get -n filedb statefulset.apps/master -o yaml --export > ss.master.expor
 # copy "export" yamls to "idies" versions and bend to our will
 
 # replace important dist statefulsets with IDIESified ones:
+# ONLY DO THIS WITH THE MASTER DONT DO IT WITH NMNODE OR STORAGE!!
 kubectl replace -n filedb -f ss.master.idies.yaml --force
+
 
 # to goof off inside of a container
 # this doesn't work because master doesn't have a hadoop container
