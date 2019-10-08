@@ -1,0 +1,410 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedb
+  name: storage-0
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/storage-0
+spec:
+  podManagementPolicy: Parallel
+  replicas: 4
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      MSSQL_CLUSTER: filedb
+      app: storage-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: storage-pool
+  serviceName: storage-0-svc
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: storage-0
+        plane: data
+        pool-name: default
+        pool-number: "0"
+        role: storage-pool
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - storage-0
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: storage
+        - name: MSSQL_CONTAINER_TYPE
+          value: hadoop
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8300"
+        - name: INCLUDE_SPARK
+          value: "true"
+        - name: HADOOP_HEAPSIZE
+          value: "2048"
+        - name: YARN_HEAPSIZE
+          value: "2048"
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: hadoop
+        ports:
+        - containerPort: 50070
+          name: port-50070
+          protocol: TCP
+        - containerPort: 50470
+          name: port-50470
+          protocol: TCP
+        - containerPort: 50075
+          name: port-50075
+          protocol: TCP
+        - containerPort: 50475
+          name: port-50475
+          protocol: TCP
+        - containerPort: 50020
+          name: port-50020
+          protocol: TCP
+        - containerPort: 50200
+          name: tiering-port
+          protocol: TCP
+        - containerPort: 9000
+          name: port-9000
+          protocol: TCP
+        - containerPort: 50010
+          name: port-50010
+          protocol: TCP
+        - containerPort: 8443
+          name: knox-port-8443
+          protocol: TCP
+        - containerPort: 8300
+          name: agent-port-8300
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: storage-0-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: hadoop
+        - mountPath: /var/opt/hdfs/datanode
+          name: data
+          subPath: datanode
+        - mountPath: /usr/local/hadoop/logs
+          name: logs
+          subPath: hadoop/hadoop
+        - mountPath: /var/log
+          name: logs
+          subPath: hadoop
+        - mountPath: /var/run
+          name: var-run
+          subPath: hadoop
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: storage
+        - name: MSSQL_CONTAINER_TYPE
+          value: mssql-server
+        - name: MSSQL_AGENT_PORT
+          value: "8301"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: mssql-server
+        ports:
+        - containerPort: 1433
+          name: port-1433
+          protocol: TCP
+        - containerPort: 8301
+          name: agent-port-8301
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /var/run/container.ready
+          failureThreshold: 210
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: storage-0-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: mssql-server
+        - mountPath: /var/log
+          name: logs
+          subPath: mssql-server
+        - mountPath: /var/run
+          name: var-run
+          subPath: mssql-server
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      - env:
+        - name: MONITORING_HOSTNAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: SQL_HOSTNAME
+          value: 127.0.0.1
+        - name: SQL_POLL_INTERVAL
+          value: "5"
+        - name: MSSQL_POD_TYPE
+          value: storage
+        - name: MSSQL_CONTAINER_TYPE
+          value: collectd
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8310"
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: collectd
+        ports:
+        - containerPort: 8310
+          name: agent-port-8310
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: storage-0-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: collectd
+        - mountPath: /var/log
+          name: logs
+          subPath: collectd
+        - mountPath: /var/run
+          name: var-run
+          subPath: collectd
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: logsdb-svc
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-storage-pool-default.conf
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MSSQL_POD_TYPE
+          value: storage
+        - name: MSSQL_CONTAINER_TYPE
+          value: fluentbit
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8311"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        - containerPort: 8311
+          name: agent-port-8311
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-storage-pool-default-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: storage-0-agent-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+        - mountPath: /var/log
+          name: logs
+          subPath: fluentbit
+        - mountPath: /mnt/logs
+          name: logs
+          readOnly: true
+        - mountPath: /var/run
+          name: var-run
+          subPath: fluentbit
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      dnsConfig:
+        options:
+        - name: timeout
+          value: "30"
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: mssql-storage-pool-default-secret
+        secret:
+          defaultMode: 420
+          secretName: mssql-storage-pool-default-secret
+      - name: controller-internal-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-internal-secret
+      - name: storage-0-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: storage-0-agent-secret
+      - name: metricsdb-wo-secret
+        secret:
+          defaultMode: 420
+          secretName: metricsdb-wo-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
+      - configMap:
+          defaultMode: 420
+          name: cluster-configmap
+        name: cluster-config-volume
+      - configMap:
+          defaultMode: 420
+          name: mssql-hadoop-storage-0-configmap
+        name: hadoop-config-volume
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 15Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: logs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0

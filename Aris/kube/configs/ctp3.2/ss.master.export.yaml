@@ -1,0 +1,326 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: null
+  generation: 1
+  labels:
+    MSSQL_CLUSTER: filedb
+  name: master
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/master
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      MSSQL_CLUSTER: filedb
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+  serviceName: master-svc
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        MSSQL_CLUSTER: filedb
+        app: master
+        mssql.microsoft.com/sql-instance: master
+        plane: data
+        role: master-pool
+        type: sqlservr
+    spec:
+      containers:
+      - env:
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MSSQL_POD_TYPE
+          value: master
+        - name: MSSQL_CONTAINER_TYPE
+          value: mssql-server
+        - name: MSSQL_AGENT_PORT
+          value: "8301"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: ACCEPT_EULA_ML
+          value: "Y"
+        - name: MSSQL_RPC_PORT
+          value: "135"
+        - name: MSSQL_DTC_TCP_PORT
+          value: "51000"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: mssql-server
+        ports:
+        - containerPort: 135
+          name: rpc-port-135
+          protocol: TCP
+        - containerPort: 1433
+          name: port-1433
+          protocol: TCP
+        - containerPort: 8301
+          name: agent-port-8301
+          protocol: TCP
+        - containerPort: 51000
+          name: dtc-port-51000
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /var/run/container.ready
+          failureThreshold: 210
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          capabilities:
+            add:
+            - SYS_PTRACE
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /root/secrets/node-admin-login
+          name: node-admin-login-secrets
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/node-admin-login
+          name: node-admin-login-secrets
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: master-agent-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: mssql-server
+        - mountPath: /var/log
+          name: logs
+          subPath: mssql-server
+        - mountPath: /var/run
+          name: var-run
+          subPath: mssql-server
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      - env:
+        - name: MONITORING_HOSTNAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: MSSQL_POD_TYPE
+          value: master
+        - name: MSSQL_AGENT_PORT
+          value: "8310"
+        - name: SQL_HOSTNAME
+          value: 127.0.0.1
+        - name: SQL_POLL_INTERVAL
+          value: "5"
+        - name: MSSQL_POD_TYPE
+          value: master
+        - name: MSSQL_CONTAINER_TYPE
+          value: collectd
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: collectd
+        ports:
+        - containerPort: 8310
+          name: agent-port-8310
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: master-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+          subPath: collectd
+        - mountPath: /var/log
+          name: logs
+          subPath: collectd
+        - mountPath: /var/run
+          name: var-run
+          subPath: collectd
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      - env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          value: logsdb-svc
+        - name: FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        - name: FLUENTBIT_CONFIG
+          value: fluentbit-master-pool.conf
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: KUBERNETES_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: MSSQL_POD_TYPE
+          value: master
+        - name: MSSQL_CONTAINER_TYPE
+          value: fluentbit
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        - name: MSSQL_AGENT_PORT
+          value: "8311"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
+        imagePullPolicy: Always
+        name: fluentbit
+        ports:
+        - containerPort: 2020
+          name: fluentb-2020
+          protocol: TCP
+        - containerPort: 8311
+          name: agent-port-8311
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /root/secrets
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/controller-internal
+          name: controller-internal-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: master-agent-secret
+          readOnly: true
+        - mountPath: /var/opt
+          name: data
+        - mountPath: /var/log
+          name: logs
+          subPath: fluentbit
+        - mountPath: /mnt/logs
+          name: logs
+          readOnly: true
+        - mountPath: /var/run
+          name: var-run
+          subPath: fluentbit
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
+      dnsConfig:
+        options:
+        - name: timeout
+          value: "30"
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: mssql-private-registry
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: mssql-master-pool-secret
+        secret:
+          defaultMode: 420
+          secretName: mssql-master-pool-secret
+      - name: controller-internal-secret
+        secret:
+          defaultMode: 420
+          secretName: controller-internal-secret
+      - name: node-admin-login-secrets
+        secret:
+          defaultMode: 420
+          secretName: node-admin-login-secret
+      - name: master-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: master-agent-secret
+      - name: metricsdb-wo-secret
+        secret:
+          defaultMode: 420
+          secretName: metricsdb-wo-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
+      - configMap:
+          defaultMode: 420
+          name: cluster-configmap
+        name: cluster-config-volume
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 15Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: logs
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: managed-premium
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  replicas: 0

@@ -1,0 +1,50 @@
+{
+    "apiVersion": "v1",
+    "metadata": {
+        "kind": "Cluster",
+        "name": "mssql-cluster"
+    },
+    "spec": {
+        "docker": {
+            "registry": "mcr.microsoft.com",
+            "repository": "mssql/bdc",
+            "imageTag": "2019-RC1-ubuntu",
+            "imagePullPolicy": "Always"
+        },
+        "storage": {
+            "data": {
+                "className": "",
+                "accessMode": "ReadWriteOnce",
+                "size": "15Gi"
+            },
+            "logs": {
+                "className": "",
+                "accessMode": "ReadWriteOnce",
+                "size": "10Gi"
+            }
+        },
+        "endpoints": [
+            {
+                "name": "Controller",
+                "dnsName": "",
+                "serviceType": "NodePort",
+                "port": 30080
+            },
+            {
+                "name": "ServiceProxy",
+                "dnsName": "",
+                "serviceType": "NodePort",
+                "port": 30777
+            }
+        ]
+    },
+    "security": {
+        "ouDistinguishedName": "",
+        "dnsIpAddresses": [],
+        "domainControllerFullyQualifiedDns": [],
+        "realm": "",
+        "domainDnsName": "",
+        "bdcAdminPrincipals": [],
+        "bdcUserPrincipals": []
+    }
+}

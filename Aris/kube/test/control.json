@@ -1,0 +1,34 @@
+{
+    "spec": {
+        "docker": {
+            "registry": "mcr.microsoft.com",
+            "repository": "mssql/bdc",
+            "imageTag": "2019-CTP3.2-ubuntu",
+            "imagePullPolicy": "Always"
+        },
+        "storage": {
+            "data": {
+                "className": "",
+                "accessMode": "ReadWriteOnce",
+                "size": "15Gi"
+            },
+            "logs": {
+                "className": "",
+                "accessMode": "ReadWriteOnce",
+                "size": "10Gi"
+            }
+        },
+        "endpoints": [
+            {
+                "name": "Controller",
+                "serviceType": "NodePort",
+                "port": 30080
+            },
+            {
+                "name": "ServiceProxy",
+                "serviceType": "NodePort",
+                "port": 30777
+            }
+        ]
+    }
+}
