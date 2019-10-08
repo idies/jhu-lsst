@@ -64,7 +64,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -95,13 +95,9 @@ spec:
           capabilities:
             add:
             - SYS_PTRACE
-          procMount: Default
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-data-pool-default-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/pool
           name: mssql-data-pool-default-secret
           readOnly: true
@@ -114,6 +110,9 @@ spec:
         - mountPath: /var/opt
           name: data
           subPath: mssql-server
+        - mountPath: /var/opt/stripe-shared
+          name: data
+          subPath: stripe-shared
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -140,7 +139,7 @@ spec:
           value: StatefulSet
         - name: MSSQL_AGENT_PORT
           value: "8310"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -151,9 +150,6 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-data-pool-default-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/pool
           name: mssql-data-pool-default-secret
           readOnly: true
@@ -211,7 +207,7 @@ spec:
           value: StatefulSet
         - name: MSSQL_AGENT_PORT
           value: "8311"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -228,9 +224,6 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-data-pool-default-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/pool
           name: mssql-data-pool-default-secret
           readOnly: true

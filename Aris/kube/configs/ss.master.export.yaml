@@ -54,7 +54,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -85,16 +85,9 @@ spec:
           capabilities:
             add:
             - SYS_PTRACE
-          procMount: Default
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-master-pool-secret
-          readOnly: true
-        - mountPath: /root/secrets/node-admin-login
-          name: node-admin-login-secrets
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
@@ -143,7 +136,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -154,9 +147,6 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-master-pool-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
@@ -210,7 +200,7 @@ spec:
           value: StatefulSet
         - name: MSSQL_AGENT_PORT
           value: "8311"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CTP3.2-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -227,9 +217,6 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /root/secrets
-          name: mssql-master-pool-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
