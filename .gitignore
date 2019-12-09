@@ -47,3 +47,5 @@ spark-ingest-ms-clickstream-example
 # hope "*.key" isn't too broad; meant for certificate keys like Aris/kube/pki.filedbcluster/ca.key
 *.key
 /.project
+/bin/
+*.classpath
