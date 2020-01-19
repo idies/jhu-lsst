@@ -49,3 +49,7 @@ spark-ingest-ms-clickstream-example
 /.project
 /bin/
 *.classpath
+
+#gl ignore all
+.ipynb_checkpoints
+
