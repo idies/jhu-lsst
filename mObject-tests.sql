@@ -514,7 +514,15 @@ create nonclustered index ix_object_cli_htmid_radec on m_object_cli(htmid) inclu
 with (sort_in_tempdb=on)
 on stripefg
 
-create nonclustered index ix_object_page_htmid_radec on m_object_page(htmid) include (ra, decl)  --1hr 48min
+create nonclustered index ix_object_page_htmid_radec on m_object_page(htmid) include (ra, decl)  --2h 14m
+with (sort_in_tempdb=on)
+on stripefg
+
+
+set statistics time on
+set statistics io on
+
+create nonclustered index ix_object_cci_htmid_radec on m_object_cci(htmid) include (ra, decl)  --2h 14m
 with (sort_in_tempdb=on)
 on stripefg
 
