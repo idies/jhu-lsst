@@ -119,7 +119,13 @@
                     "storage-0",
                     "sparkhead"
                 ],
-                "settings": {}
+                "settings": {
+                    "hadoop.yarn.nodeManager.memory": "65536",
+                    "hadoop.yarn.nodeManager.vcores": "30",
+                    "hadoop.yarn.schedulerMax.memory": "655360",
+                    "hadoop.yarn.schedulerMax.vcores": "300",
+                    "hadoop.yarn.capacityScheduler.maxAmPercent": "0.3"
+                }
             },
             "spark": {
                 "resources": [
@@ -127,16 +133,11 @@
                     "storage-0"
                 ],
                 "settings": {
-                    "spark-defaults-conf.spark.driver.memory": "2g",
-                    "spark-defaults-conf.spark.driver.cores": "1",
-                    "spark-defaults-conf.spark.executor.instances": "11",
-                    "spark-defaults-conf.spark.executor.memory": "12g",
-                    "spark-defaults-conf.spark.executor.cores": "10",
-                    "yarn-site.yarn.nodemanager.resource.memory-mb": "65536",
-                    "yarn-site.yarn.nodemanager.resource.cpu-vcores": "30",
-                    "yarn-site.yarn.scheduler.maximum-allocation-mb": "655360",
-                    "yarn-site.yarn.scheduler.maximum-allocation-vcores": "300",
-                    "yarn-site.yarn.scheduler.capacity.maximum-am-resource-percent": "0.3"
+                    "driverMemory": "2g",
+                    "driverCores": "1",
+                    "executorInstances": "11",
+                    "executorMemory": "12g",
+                    "executorCores": "10"
                 }
             }
         }

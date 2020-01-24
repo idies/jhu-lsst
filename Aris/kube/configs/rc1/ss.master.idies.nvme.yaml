@@ -5,45 +5,33 @@ metadata:
   generation: 1
   labels:
     MSSQL_CLUSTER: filedb
-  name: storage-0
+  name: master
   namespace: filedb
-  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/storage-0
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/master
 spec:
   podManagementPolicy: Parallel
-  replicas: 4
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       MSSQL_CLUSTER: filedb
-      app: storage-0
+      app: master
+      mssql.microsoft.com/sql-instance: master
       plane: data
-      pool-name: default
-      pool-number: "0"
-      role: storage-pool
-  serviceName: storage-0-svc
+      role: master-pool
+      type: sqlservr
+  serviceName: master-svc
   template:
     metadata:
       creationTimestamp: null
       labels:
         MSSQL_CLUSTER: filedb
-        app: storage-0
+        app: master
+        mssql.microsoft.com/sql-instance: master
         plane: data
-        pool-name: default
-        pool-number: "0"
-        role: storage-pool
+        role: master-pool
+        type: sqlservr
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - storage-0
-              topologyKey: kubernetes.io/hostname
-            weight: 100
       containers:
       - env:
         - name: MSSQL_NAMESPACE
@@ -52,122 +40,36 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         - name: MSSQL_POD_TYPE
-          value: storage
-        - name: MSSQL_CONTAINER_TYPE
-          value: hadoop
-        - name: MSSQL_POD_KIND
-          value: StatefulSet
-        - name: MSSQL_AGENT_GRPC_PORT
-          value: "8300"
-        - name: MSSQL_AGENT_HTTPS_PORT
-          value: "8400"
-        - name: INCLUDE_SPARK
-          value: "true"
-        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU1-ubuntu-16.04
-        imagePullPolicy: Always
-        name: hadoop
-        ports:
-        - containerPort: 50470
-          name: port-50470
-          protocol: TCP
-        - containerPort: 50075
-          name: port-50075
-          protocol: TCP
-        - containerPort: 50475
-          name: port-50475
-          protocol: TCP
-        - containerPort: 50020
-          name: port-50020
-          protocol: TCP
-        - containerPort: 50200
-          name: tiering-port
-          protocol: TCP
-        - containerPort: 9000
-          name: port-9000
-          protocol: TCP
-        - containerPort: 50010
-          name: port-50010
-          protocol: TCP
-        - containerPort: 8300
-          name: agent-grpc-8300
-          protocol: TCP
-        - containerPort: 8304
-          name: nm-8304
-          protocol: TCP
-        - containerPort: 8400
-          name: agent-srv-8400
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/credentials/controller-internal
-          name: controller-internal-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
-          name: metricsdb-wo-secret
-          readOnly: true
-        - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu1/hadoop
-        - mountPath: /var/opt/hdfs/datanode
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/hdfs/datanode
-        - mountPath: /var/log
-          name: logs
-          subPath: hadoop
-        - mountPath: /var/run
-          name: var-run
-          subPath: hadoop
-        - mountPath: /var/run/configmaps/cluster
-          name: cluster-config-volume
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-        - mountPath: /pvcadmin
-          name: idies-data
-          subPath: Aris
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
-      - env:
-        - name: MSSQL_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: MSSQL_POD_TYPE
-          value: storage
+          value: master
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-server
-        - name: MSSQL_AGENT_GRPC_PORT
+        - name: MSSQL_AGENT_PORT
           value: "8301"
-        - name: MSSQL_AGENT_HTTPS_PORT
-          value: "8401"
         - name: ACCEPT_EULA
           value: "Y"
+        - name: ACCEPT_EULA_ML
+          value: "Y"
+        - name: MSSQL_RPC_PORT
+          value: "135"
+        - name: MSSQL_DTC_TCP_PORT
+          value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: mssql-server
         ports:
+        - containerPort: 135
+          name: rpc-port-135
+          protocol: TCP
         - containerPort: 1433
           name: port-1433
           protocol: TCP
         - containerPort: 8301
-          name: agent-grpc-8301
+          name: agent-port-8301
           protocol: TCP
-        - containerPort: 8401
-          name: agent-srv-8401
+        - containerPort: 51000
+          name: dtc-port-51000
           protocol: TCP
         readinessProbe:
           exec:
@@ -187,18 +89,42 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/node-admin-login
+          name: node-admin-login-secrets
+          readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: master-agent-secret
+          readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu1/mssql-server
+          subPath: Aris/master-0/rc1/mssql-server
+        - mountPath: /var/opt/mssql/data2
+          name: idies-data2
+          subPath: Aris/master-0/rc1/mssql-server/data2
+        - mountPath: /var/opt/mssql/data3
+          name: idies-data3
+          subPath: Aris/master-0/rc1/mssql-server/data3
+        - mountPath: /var/opt/mssql/data4
+          name: idies-data4
+          subPath: Aris/master-0/rc1/mssql-server/data4
+        - mountPath: /var/opt/mssql/data5
+          name: idies-data5
+          subPath: Aris/master-0/rc1/mssql-server/data5
+        - mountPath: /var/opt/mssql/data6
+          name: idies-data6
+          subPath: Aris/master-0/rc1/mssql-server/data6
+        - mountPath: /var/opt/mssql/data7
+          name: idies-data7
+          subPath: Aris/master-0/rc1/mssql-server/data7
+        - mountPath: /var/opt/mssql/data8
+          name: idies-data8
+          subPath: Aris/master-0/rc1/mssql-server/data8
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -207,51 +133,37 @@ spec:
           subPath: mssql-server
         - mountPath: /var/run/configmaps/cluster
           name: cluster-config-volume
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-        - mountPath: /pvcadmin
-          name: idies-data
-          subPath: Aris
-        - mountPath: /sciserver
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
+        - name: MSSQL_POD_TYPE
+          value: master
+        - name: MSSQL_AGENT_PORT
+          value: "8310"
         - name: SQL_HOSTNAME
           value: 127.0.0.1
         - name: SQL_POLL_INTERVAL
           value: "5"
         - name: MSSQL_POD_TYPE
-          value: storage
+          value: master
         - name: MSSQL_CONTAINER_TYPE
           value: collectd
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_GRPC_PORT
-          value: "8310"
-        - name: MSSQL_AGENT_HTTPS_PORT
-          value: "8410"
         - name: MSSQL_NAMESPACE
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: collectd
         ports:
         - containerPort: 8310
-          name: agent-grpc-8310
-          protocol: TCP
-        - containerPort: 8410
-          name: agent-srv-8410
+          name: agent-port-8310
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -260,15 +172,18 @@ spec:
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
         - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
+          name: master-agent-secret
           readOnly: true
         - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
           name: metricsdb-wo-secret
           readOnly: true
         - mountPath: /var/opt
-          name: data
-          subPath: Aris/mssql-storage-pool-default/cu1/collectd
+          name: idies-data
+          subPath: Aris/master-0/rc1/collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
@@ -283,7 +198,7 @@ spec:
         - name: FLUENT_ELASTICSEARCH_PORT
           value: "9200"
         - name: FLUENTBIT_CONFIG
-          value: fluentbit-storage-pool-default.conf
+          value: fluentbit-master-pool.conf
         - name: MSSQL_NAMESPACE
           valueFrom:
             fieldRef:
@@ -300,16 +215,14 @@ spec:
               apiVersion: v1
               fieldPath: metadata.name
         - name: MSSQL_POD_TYPE
-          value: storage
+          value: master
         - name: MSSQL_CONTAINER_TYPE
           value: fluentbit
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_GRPC_PORT
+        - name: MSSQL_AGENT_PORT
           value: "8311"
-        - name: MSSQL_AGENT_HTTPS_PORT
-          value: "8411"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -317,10 +230,7 @@ spec:
           name: fluentb-2020
           protocol: TCP
         - containerPort: 8311
-          name: agent-grpc-8311
-          protocol: TCP
-        - containerPort: 8411
-          name: agent-srv-8411
+          name: agent-port-8311
           protocol: TCP
         resources:
           requests:
@@ -329,18 +239,18 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
+        - mountPath: /var/run/secrets/credentials/pool
+          name: mssql-master-pool-secret
+          readOnly: true
         - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
+          name: master-agent-secret
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu1/fluentbit
+          subPath: Aris/master-0/rc1/fluentbit
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
@@ -364,18 +274,22 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 0
       volumes:
-      - name: mssql-storage-pool-default-secret
+      - name: mssql-master-pool-secret
         secret:
           defaultMode: 420
-          secretName: mssql-storage-pool-default-secret
+          secretName: mssql-master-pool-secret
       - name: controller-internal-secret
         secret:
           defaultMode: 420
           secretName: controller-internal-secret
-      - name: storage-0-agent-secret
+      - name: node-admin-login-secrets
         secret:
           defaultMode: 420
-          secretName: storage-0-agent-secret
+          secretName: node-admin-login-secret
+      - name: master-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: master-agent-secret
       - name: metricsdb-wo-secret
         secret:
           defaultMode: 420
@@ -387,10 +301,6 @@ spec:
           defaultMode: 420
           name: cluster-configmap
         name: cluster-config-volume
-      - configMap:
-          defaultMode: 420
-          name: mssql-hadoop-storage-0-configmap
-        name: hadoop-config-volume
       - name: autofs-sciserver
         hostPath: 
           path: /sciserver
@@ -401,7 +311,7 @@ spec:
         hostPath:
           path: /nvme
   updateStrategy:
-    type: RollingUpdate
+    type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
@@ -412,11 +322,109 @@ spec:
       dataSource: null
       resources:
         requests:
-          storage: 5000Gi
-      storageClassName: local-storage
+          storage: 800Gi
+      storageClassName: local-storage-nvme
       volumeMode: Filesystem
     status:
       phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data2
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data3
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data4
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data5
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data6
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending  
+  - metadata:
+      creationTimestamp: null
+      name: idies-data7
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending  
+  - metadata:
+      creationTimestamp: null
+      name: idies-data8
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending  
   - metadata:
       creationTimestamp: null
       name: logs

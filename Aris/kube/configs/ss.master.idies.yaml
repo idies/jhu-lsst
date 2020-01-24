@@ -43,8 +43,10 @@ spec:
           value: master
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-server
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8301"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8401"
         - name: ACCEPT_EULA
           value: "Y"
         - name: ACCEPT_EULA_ML
@@ -55,7 +57,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -66,7 +68,10 @@ spec:
           name: port-1433
           protocol: TCP
         - containerPort: 8301
-          name: agent-port-8301
+          name: agent-grpc-8301
+          protocol: TCP
+        - containerPort: 8401
+          name: agent-srv-8401
           protocol: TCP
         - containerPort: 51000
           name: dtc-port-51000
@@ -103,7 +108,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/master-0/rc1/mssql-server
+          subPath: Aris/master-0/cu1/mssql-server
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -112,6 +117,8 @@ spec:
           subPath: mssql-server
         - mountPath: /var/run/configmaps/cluster
           name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
@@ -120,8 +127,10 @@ spec:
               fieldPath: spec.nodeName
         - name: MSSQL_POD_TYPE
           value: master
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8310"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8410"
         - name: SQL_HOSTNAME
           value: 127.0.0.1
         - name: SQL_POLL_INTERVAL
@@ -137,12 +146,15 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: collectd
         ports:
         - containerPort: 8310
-          name: agent-port-8310
+          name: agent-grpc-8310
+          protocol: TCP
+        - containerPort: 8410
+          name: agent-srv-8410
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -150,9 +162,6 @@ spec:
         volumeMounts:
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-master-pool-secret
           readOnly: true
         - mountPath: /var/run/secrets/certificates/agent
           name: master-agent-secret
@@ -199,9 +208,11 @@ spec:
           value: fluentbit
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8311"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8411"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -209,7 +220,10 @@ spec:
           name: fluentb-2020
           protocol: TCP
         - containerPort: 8311
-          name: agent-port-8311
+          name: agent-grpc-8311
+          protocol: TCP
+        - containerPort: 8411
+          name: agent-srv-8411
           protocol: TCP
         resources:
           requests:
@@ -280,6 +294,10 @@ spec:
           defaultMode: 420
           name: cluster-configmap
         name: cluster-config-volume
+      - configMap:
+          defaultMode: 420
+          name: mssql-hadoop-storage-0-configmap
+        name: hadoop-config-volume
       - name: autofs-sciserver
         hostPath: 
           path: /sciserver

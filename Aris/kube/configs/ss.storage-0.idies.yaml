@@ -57,15 +57,13 @@ spec:
           value: hadoop
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8300"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8400"
         - name: INCLUDE_SPARK
           value: "true"
-        - name: HADOOP_HEAPSIZE
-          value: "2048"
-        - name: YARN_HEAPSIZE
-          value: "2048"
-        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: hadoop
         ports:
@@ -90,11 +88,14 @@ spec:
         - containerPort: 50010
           name: port-50010
           protocol: TCP
-        - containerPort: 8443
-          name: knox-port-8443
-          protocol: TCP
         - containerPort: 8300
-          name: agent-port-8300
+          name: agent-grpc-8300
+          protocol: TCP
+        - containerPort: 8304
+          name: nm-8304
+          protocol: TCP
+        - containerPort: 8400
+          name: agent-srv-8400
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -114,7 +115,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/rc1/hadoop
+          subPath: Aris/mssql-storage-pool-default/cu1/hadoop
         - mountPath: /var/opt/hdfs/datanode
           name: idies-data
           subPath: Aris/mssql-storage-pool-default/hdfs/datanode
@@ -147,13 +148,15 @@ spec:
           value: storage
         - name: MSSQL_CONTAINER_TYPE
           value: mssql-server
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8301"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8401"
         - name: ACCEPT_EULA
           value: "Y"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -161,7 +164,10 @@ spec:
           name: port-1433
           protocol: TCP
         - containerPort: 8301
-          name: agent-port-8301
+          name: agent-grpc-8301
+          protocol: TCP
+        - containerPort: 8401
+          name: agent-srv-8401
           protocol: TCP
         readinessProbe:
           exec:
@@ -192,7 +198,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/rc1/mssql-server
+          subPath: Aris/mssql-storage-pool-default/cu1/mssql-server
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -201,6 +207,8 @@ spec:
           subPath: mssql-server
         - mountPath: /var/run/configmaps/cluster
           name: cluster-config-volume
+        - mountPath: /var/run/configmaps/hadoop
+          name: hadoop-config-volume
         - mountPath: /pvcadmin
           name: idies-data
           subPath: Aris
@@ -226,27 +234,29 @@ spec:
           value: collectd
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8310"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8410"
         - name: MSSQL_NAMESPACE
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: collectd
         ports:
         - containerPort: 8310
-          name: agent-port-8310
+          name: agent-grpc-8310
+          protocol: TCP
+        - containerPort: 8410
+          name: agent-srv-8410
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
@@ -258,7 +268,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/rc1/collectd
+          subPath: Aris/mssql-storage-pool-default/cu1/collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
@@ -295,9 +305,11 @@ spec:
           value: fluentbit
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8311"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8411"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -305,7 +317,10 @@ spec:
           name: fluentb-2020
           protocol: TCP
         - containerPort: 8311
-          name: agent-port-8311
+          name: agent-grpc-8311
+          protocol: TCP
+        - containerPort: 8411
+          name: agent-srv-8411
           protocol: TCP
         resources:
           requests:
@@ -325,7 +340,7 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/mssql-storage-pool-default/rc1/fluentbit
+          subPath: Aris/mssql-storage-pool-default/cu1/fluentbit
         - mountPath: /var/log
           name: logs
           subPath: fluentbit

@@ -55,13 +55,13 @@ spec:
           value: nmnode
         - name: MSSQL_CONTAINER_TYPE
           value: hadoop
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8300"
-        - name: HADOOP_HEAPSIZE
-          value: "2048"
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8400"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-RC1-ubuntu
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: hadoop
         ports:
@@ -75,7 +75,10 @@ spec:
           name: http-fs
           protocol: TCP
         - containerPort: 8300
-          name: agent-port-8300
+          name: agent-grpc-8300
+          protocol: TCP
+        - containerPort: 8400
+          name: agent-srv-8400
           protocol: TCP
         - containerPort: 50200
           name: tiering-port
@@ -92,18 +95,18 @@ spec:
           readOnly: true
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/nmnode-0/var.rc1/opt
+          subPath: Aris/nmnode-0/var.cu1/opt
         - mountPath: /var/opt/hdfs/namenode
           name: idies-data
           subPath: Aris/nmnode-0/hdfs/namenode
-        - mountPath: /var/run/configmaps/cluster
-          name: cluster-config-volume
         - mountPath: /var/log
           name: logs
           subPath: hadoop
         - mountPath: /var/run
           name: var-run
           subPath: hadoop
+        - mountPath: /var/run/configmaps/cluster
+          name: cluster-config-volume
         - mountPath: /var/run/configmaps/hadoop
           name: hadoop-config-volume
           readOnly: true
@@ -138,9 +141,11 @@ spec:
           value: fluentbit
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        - name: MSSQL_AGENT_PORT
+        - name: MSSQL_AGENT_GRPC_PORT
           value: "8311"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-RC1-ubuntu
+        - name: MSSQL_AGENT_HTTPS_PORT
+          value: "8411"
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -148,7 +153,10 @@ spec:
           name: fluentb-2020
           protocol: TCP
         - containerPort: 8311
-          name: agent-port-8311
+          name: agent-grpc-8311
+          protocol: TCP
+        - containerPort: 8411
+          name: agent-srv-8411
           protocol: TCP
         resources:
           requests:
@@ -164,7 +172,7 @@ spec:
           name: cluster-config-volume
         - mountPath: /var/opt
           name: idies-data
-          subPath: Aris/nmnode-0/rc1/fluentbit
+          subPath: Aris/nmnode-0/cu1/fluentbit
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
