@@ -7,15 +7,15 @@ export CLUSTER_DATA_POOL_REPLICAS=4
 export CLUSTER_STORAGE_POOL_REPLICAS=4
 #export CONTROLLER_USERNAME=admin
 #export CONTROLLER_USERNAME=filedb_controller_admin
-#export CONTROLLER_PASSWORD=fooRiuzg54
+#export CONTROLLER_PASSWORD=REDACTED
 
 
 export AZDATA_USERNAME=admin
-export AZDATA_PASSWORD=fooRiuzg54
+export AZDATA_PASSWORD=REDACTED
 
 
 
-#export CONTROLLER_PASSWORD="fooRiuzg54"
+#export CONTROLLER_PASSWORD="REDACTED"
 #export DOCKER_REGISTRY=private-repo.microsoft.com
 #export DOCKER_REPOSITORY=mssql-private-preview
 #export DOCKER_USERNAME=jvv@jhu.edu
@@ -24,8 +24,8 @@ export AZDATA_PASSWORD=fooRiuzg54
 #export DOCKER_IMAGE_TAG=ctp3.2
 #export DOCKER_IMAGE_POLICY=Always
 #export DOCKER_PRIVATE_REGISTRY=1
-export KNOX_PASSWORD=fooRiuzg54
-export MSSQL_SA_PASSWORD=fooRiuzg54
+export KNOX_PASSWORD=REDACTED
+export MSSQL_SA_PASSWORD=REDACTED
 export USE_PERSISTENT_VOLUME=true
 export STORAGE_CLASS_NAME=managed-premium
 
