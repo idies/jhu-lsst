@@ -81,4 +81,8 @@ yarn application -list
 # 3. kill apps with the app id you got from the list command, if you need to
 yarn application -kill <app_id>
 
+# to look at errors or logs from statefulsets
+kubectl -n filedb describe statefulset nmnode-0
+
+
 
