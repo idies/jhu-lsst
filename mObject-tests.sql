@@ -501,7 +501,8 @@ CREATE TABLE [dbo].[m_Object_cci](
 	[y_flagBadInstFlux] [int] NULL,
 	[y_flagBadCentroid] [int] NULL,
 	[y_flagBadShape] [int] NULL,
-	[htmid] [bigint] NULL)
+	[htmid] [bigint] NULL,
+	[healpixid] [bigint] NULL)
   ON [STRIPEFG]
 GO
 
