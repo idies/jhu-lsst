@@ -2,6 +2,10 @@
 
 create database LSST;
 
+alter database LSST set recovery SIMPLE;
+GO
+
+
 use LSST
 go
 
@@ -82,16 +86,12 @@ EXECUTE('Use LSST; grant create  table to spark_user;grant alter any schema to s
 EXECUTE( '  CREATE LOGIN admin  WITH PASSWORD = ''fooRiuzg54'' ;') AT  DATA_SOURCE SqlDataPool;
 EXECUTE ('ALTER SERVER ROLE [sysadmin] ADD MEMBER [admin];') at DATA_SOURCE SqlDataPool;
 
-EXECUTE('Use LSST; CREATE USER spark_user; ALTER ROLE [db_datareader] ADD MEMBER spark_user;  ALTER ROLE [db_datawriter] ADD MEMBER spark_user; alter role [db_ddladmin] add member spark_user;') AT DATA_SOURCE SqlDataPool;
 
-EXECUTE('Use LSST; grant create  table to spark_user;grant alter any schema to spark_user;') AT DATA_SOURCE SqlDataPool;
 
 
 execute ('sp_configure "show advanced options", 1; RECONFIGURE;') at data_source SqlDataPool
 execute ('sp_configure "max server memory", 65536; RECONFIGURE;') at data_source SqlDataPool
 
-exec sp_configure "show advanced options", 1; RECONFIGURE;
-exec  sp_configure "max server memory", 65536; RECONFIGURE;
 
 GO
 create schema storage;
