@@ -509,7 +509,7 @@ GO
 create clustered columnstore index Object_cci on m_Object_cci
 on stripefg
 
-
+checkpoint
 
 create nonclustered index ix_object_cli_htmid_radec on m_object_cli(htmid) include (ra, decl)  --1hr 48min
 with (sort_in_tempdb=on)
