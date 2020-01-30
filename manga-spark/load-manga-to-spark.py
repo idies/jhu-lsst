@@ -60,7 +60,7 @@ def tableToRows(f_tuple):
     return [dict(zip(columns, [typeconv(i) for i in r])+[('ORIGIN_FILE', filename)]) for r in table]
 
 # Do the table conversion and create a DataFrame from it
-table_rdd = fits_rdd.map(lambda x: tableToRows(x))
+table_rdd = fits_rdd.flatMap(lambda x: tableToRows(x))
 df = spark.createDataFrame(table_rdd)
 
 # Create a table identifier in the sql context for queries
