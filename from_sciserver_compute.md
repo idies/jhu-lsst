@@ -32,6 +32,12 @@ sparkmagic/config.json
   "url": "https://172.23.25.61:30443/gateway/default/livy/v1",
   "auth": "Basic_Access"
  },
+ "kernel_scala_credentials": {
+  "username": "root",
+  "password": "*********",
+  "url": "https://172.23.25.61:30443/gateway/default/livy/v1",
+  "auth": "Basic_Access"
+ },
  "ignore_ssl_errors": true,
  "cleanup_all_sessions_on_exit": true
 }
@@ -40,7 +46,8 @@ EOF
 
 Replace the password with the password you know and love
 * Reload page, select a new notebook with "pyspark" kernel and enjoy.
-Try something like this as the first cell:
+Try something like this as the first cell (change the name to
+whatever, perhaps including your name):
 
 ```
 %%configure -f
@@ -49,4 +56,4 @@ Try something like this as the first cell:
 ```
 
 This sets python3 and a small number of executors and memory. Size up
-as needed. Simlarly for scala shells just without the python conf
+as needed. Simlarly for scala shells just without the python conf.
