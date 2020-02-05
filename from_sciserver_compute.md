@@ -21,10 +21,14 @@ requirement either.
 ```
 jupyter nbextension enable --py --sys-prefix widgetsnbextension
 ```
+
 * Add config
 ```
+mkdir -p ~/.sparkmagic
+```
+
+```
 cat <<EOF> ~/.sparkmagic/config.json
-sparkmagic/config.json
 {
  "kernel_python_credentials": {
   "username": "root",
