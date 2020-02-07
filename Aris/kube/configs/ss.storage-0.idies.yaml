@@ -133,6 +133,7 @@ spec:
           name: idies-data
           subPath: Aris
         - mountPath: /sciserver
+          mountPropagation: HostToContainer
           name: autofs-sciserver
         - mountPath: /srv
           name: srv
@@ -213,6 +214,7 @@ spec:
           name: idies-data
           subPath: Aris
         - mountPath: /sciserver
+          mountPropagation: HostToContainer
           name: autofs-sciserver
         - mountPath: /srv
           name: srv
