@@ -15,7 +15,7 @@
 3. make sure you can see directories mounted under `/sciserver`  
 	`ls /sciserver`
 	
-4. if neccessary, create your directory on the hdfs
+4. if neccessary, create your directory on the hdfs - the put command will fail if the full dir structure doesn't exist already
 
 	`hdfs dfs -mkdir /myhdfsdir`
     
