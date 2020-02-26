@@ -11,7 +11,7 @@ GO
 --go
 
 
-CREATE TABLE [dbo].[m_Object_page](
+CREATE TABLE [dbo].[m_Object_cli](
 	[deepSourceId] [bigint]  NULL,
 	[ra] [float] NULL,
 	[decl] [float] NULL,
@@ -248,17 +248,24 @@ CREATE TABLE [dbo].[m_Object_page](
 	[y_flagBadInstFlux] [int] NULL,
 	[y_flagBadCentroid] [int] NULL,
 	[y_flagBadShape] [int] NULL,
-	[htmid] [bigint] NULL)
+	[htmid] [bigint] NULL,
+	[healpixid] [bigint] NULL)
   ON [STRIPEFG]
 GO
 
 --create clustered columnstore index cci_object_test_spark on m_Object_test_spark_cci
 --on stripefg
 
+create clustered index cli_obj_deepsourceid on m_object_cli(deepsourceid)
+on stripefg
+
+
+
+/*
 create clustered index cli_Object_deepsourceid on m_Object_page(deepsourceid)
 with (data_compression = page)
 on stripefg
-
+*/
 
 --drop table m_Object_page
 
@@ -510,12 +517,13 @@ create clustered columnstore index Object_cci on m_Object_cci
 on stripefg
 
 checkpoint
-
+set statistics time on
+set statistics io on
 create nonclustered index ix_object_cli_htmid_radec on m_object_cli(htmid) include (ra, decl)  --1hr 48min
 with (sort_in_tempdb=on)
 on stripefg
 
-create nonclustered index ix_object_page_htmid_radec on m_object_page(htmid) include (ra, decl)  --2h 14m
+create nonclustered index ix_object_cli_healpix_radec on m_object_cli(healpixid) include (ra, decl)  --2h 14m
 with (sort_in_tempdb=on)
 on stripefg
 
@@ -527,6 +535,23 @@ create nonclustered index ix_object_cci_htmid_radec on m_object_cci(htmid) inclu
 with (sort_in_tempdb=on)
 on stripefg
 
+
+create nonclustered index ix_object_cci_healpix_radec on m_object_cci(healpixid) include (ra, decl)  --2h 14m
+with (sort_in_tempdb=on)
+on stripefg
+
 create statistics st_obj_htmid on m_object_cli(htmid)
 
+
+create statistics st_obj_healpixid on m_object_cli(healpixid)
+
 --alter table m_object_cli create index ix_object_cli_htmid_ra_dec include ra
+
+
+create statistics st_dpObjecttest_deepsourceid on dp.Object_test(deepsourceid) with fullscan
+
+
+create statistics st_dpObject_deepsourceid on dp.Object(deepsourceid) with fullscan  --19m
+
+create statistics st_dpSource_id on dp.Source(id) with fullscan --6h 11m
+

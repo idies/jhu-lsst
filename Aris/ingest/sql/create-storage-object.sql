@@ -2,7 +2,13 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
 GO
-CREATE EXTERNAL TABLE [storage].[Object]
+
+/*
+drop EXTERNAL table  [storage].[Object_test]
+go
+*/
+
+CREATE EXTERNAL TABLE [storage].[Object_test]
 (
 	[deepSourceId] [bigint] NULL,
 	[ra] [float] NULL,
@@ -239,14 +245,15 @@ CREATE EXTERNAL TABLE [storage].[Object]
 	[y_flagBadModelFlux] [int] NULL,
 	[y_flagBadInstFlux] [int] NULL,
 	[y_flagBadCentroid] [int] NULL,
-	[y_flagBadShape] [int] NULL
---	[htmid] [bigint] NULL,
---	[healpixid] [bigint] NULL
+	[y_flagBadShape] [int] NULL,
+	[htmid] [bigint] NULL,
+	[healpixid] [bigint] NULL
 )
 WITH
 
 (
     DATA_SOURCE = SqlStoragePool,
-    LOCATION = '/user/hive/warehouse/object',
-    FILE_FORMAT = parquet_file
+    --LOCATION = '/user/hive/warehouse/object_newcols1400',
+    LOCATION = '/user/hive/warehouse/object_test_newcols',
+	FILE_FORMAT = parquet_file
 )
