@@ -66,7 +66,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -151,7 +151,7 @@ spec:
           value: "8310"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8410"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -221,7 +221,7 @@ spec:
           value: "8311"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8411"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -280,11 +280,11 @@ spec:
       volumes:
       - name: mssql-data-pool-default-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: mssql-data-pool-default-secret
       - name: controller-internal-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: controller-internal-secret
       - name: data-0-agent-secret
         secret:
@@ -296,7 +296,7 @@ spec:
         name: cluster-config-volume
       - name: metricsdb-wo-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: metricsdb-wo-secret
       - emptyDir:
           medium: Memory
@@ -306,15 +306,15 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: data
+      name: idies-data
     spec:
       accessModes:
       - ReadWriteOnce
       dataSource: null
       resources:
         requests:
-          storage: 15Gi
-      storageClassName: managed-premium
+          storage: 5000Gi
+      storageClassName: local-storage
       volumeMode: Filesystem
     status:
       phase: Pending

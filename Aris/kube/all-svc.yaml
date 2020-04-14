@@ -1,0 +1,2115 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:30:35Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: controldb
+      plane: control
+      role: controldb
+    name: controldb-svc
+    namespace: adtest
+    resourceVersion: "159957008"
+    selfLink: /api/v1/namespaces/adtest/services/controldb-svc
+    uid: e299486b-7e64-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.195
+    ports:
+    - name: database-port
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: controldb
+      plane: control
+      role: controldb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:30:35Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: controller
+      plane: control
+      role: controller
+    name: controller-svc
+    namespace: adtest
+    resourceVersion: "159957003"
+    selfLink: /api/v1/namespaces/adtest/services/controller-svc
+    uid: e297a977-7e64-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.126
+    ports:
+    - name: controller-https-port
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-grpc-8301
+      port: 8301
+      protocol: TCP
+      targetPort: 8301
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: agent-srv-8401
+      port: 8401
+      protocol: TCP
+      targetPort: 8401
+    selector:
+      app: controller
+      plane: control
+      role: controller
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:14Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: dns
+      plane: control
+      role: security
+    name: dns-svc
+    namespace: adtest
+    resourceVersion: "159957641"
+    selfLink: /api/v1/namespaces/adtest/services/dns-svc
+    uid: 1dbbe716-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.178
+    ports:
+    - name: dns-port-53
+      port: 53
+      protocol: UDP
+      targetPort: 53
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: dns
+      plane: control
+      role: security
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:14Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: logsdb
+      plane: control
+      role: monitoring
+    name: logsdb-svc
+    namespace: adtest
+    resourceVersion: "159957694"
+    selfLink: /api/v1/namespaces/adtest/services/logsdb-svc
+    uid: 1e14dd7d-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.71
+    ports:
+    - name: es-http
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: logsdb
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:12Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: logsui
+      plane: control
+      role: monitoring
+    name: logsui-svc
+    namespace: adtest
+    resourceVersion: "159957471"
+    selfLink: /api/v1/namespaces/adtest/services/logsui-svc
+    uid: 1cccf49d-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.149
+    ports:
+    - name: kibana-5601
+      port: 5601
+      protocol: TCP
+      targetPort: 5601
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: logsui
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:12Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: metricsdb
+      plane: control
+      role: monitoring
+    name: metricsdb-svc
+    namespace: adtest
+    resourceVersion: "159957469"
+    selfLink: /api/v1/namespaces/adtest/services/metricsdb-svc
+    uid: 1cccb3cc-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.20
+    ports:
+    - name: influxdb-8086
+      port: 8086
+      protocol: TCP
+      targetPort: 8086
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: metricsdb
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:13Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: metricsdc
+      plane: control
+      role: monitoring
+    name: metricsdc-svc
+    namespace: adtest
+    resourceVersion: "159957516"
+    selfLink: /api/v1/namespaces/adtest/services/metricsdc-svc
+    uid: 1d3fd568-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.72
+    ports:
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: metricsdc
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:14Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: metricsui
+      plane: control
+      role: monitoring
+    name: metricsui-svc
+    namespace: adtest
+    resourceVersion: "159957627"
+    selfLink: /api/v1/namespaces/adtest/services/metricsui-svc
+    uid: 1db5025c-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.40
+    ports:
+    - name: grafana-3000
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: metricsui
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-04-14T15:32:14Z"
+    labels:
+      MSSQL_CLUSTER: adtest
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    name: mgmtproxy-svc
+    namespace: adtest
+    resourceVersion: "159957655"
+    selfLink: /api/v1/namespaces/adtest/services/mgmtproxy-svc
+    uid: 1dcfb22a-7e65-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.137
+    ports:
+    - name: port-serviceproxy
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"cheddar","namespace":"default"},"spec":{"ports":[{"name":"http","port":80,"targetPort":80}],"selector":{"app":"cheese","task":"cheddar"}}}
+    creationTimestamp: "2019-05-31T20:45:36Z"
+    name: cheddar
+    namespace: default
+    resourceVersion: "68232611"
+    selfLink: /api/v1/namespaces/default/services/cheddar
+    uid: 0ae714f8-83e5-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.46
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: cheese
+      task: cheddar
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"dask-dashboard","namespace":"default"},"spec":{"ports":[{"port":8787,"protocol":"TCP","targetPort":8787}],"selector":{"app":"dask-scheduler"},"type":"ClusterIP"}}
+    creationTimestamp: "2019-08-09T00:47:37Z"
+    name: dask-dashboard
+    namespace: default
+    resourceVersion: "87367232"
+    selfLink: /api/v1/namespaces/default/services/dask-dashboard
+    uid: 48a2e495-ba3f-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.70
+    ports:
+    - port: 8787
+      protocol: TCP
+      targetPort: 8787
+    selector:
+      app: dask-scheduler
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"dask-scheduler","namespace":"default"},"spec":{"ports":[{"port":8786,"protocol":"TCP","targetPort":8786}],"selector":{"app":"dask-scheduler"},"type":"NodePort"}}
+    creationTimestamp: "2019-06-18T20:43:52Z"
+    name: dask-scheduler
+    namespace: default
+    resourceVersion: "72440803"
+    selfLink: /api/v1/namespaces/default/services/dask-scheduler
+    uid: c82f73d3-9209-11e9-8505-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.36
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 31131
+      port: 8786
+      protocol: TCP
+      targetPort: 8786
+    selector:
+      app: dask-scheduler
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-01-02T19:52:13Z"
+    name: hostnames
+    namespace: default
+    resourceVersion: "37781658"
+    selfLink: /api/v1/namespaces/default/services/hostnames
+    uid: e5fef391-0ec7-11e9-855b-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.100
+    ports:
+    - name: default
+      port: 80
+      protocol: TCP
+      targetPort: 9376
+    selector:
+      app: hostnames
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2018-04-03T16:26:53Z"
+    labels:
+      component: apiserver
+      provider: kubernetes
+    name: kubernetes
+    namespace: default
+    resourceVersion: "1342451"
+    selfLink: /api/v1/namespaces/default/services/kubernetes
+    uid: d1ef98fb-375b-11e8-bf20-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.1
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 6443
+    sessionAffinity: ClientIP
+    sessionAffinityConfig:
+      clientIP:
+        timeoutSeconds: 10800
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: compute
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-compute
+    namespace: default
+    resourceVersion: "79428189"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-compute
+    uid: 07f84c91-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.54
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: compute
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: compute-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-compute-db
+    namespace: default
+    resourceVersion: "79428182"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-compute-db
+    uid: 07f7814f-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.202
+    ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: mysql
+    selector:
+      app.kubernetes.io/component: compute-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: dashboard
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-dashboard
+    namespace: default
+    resourceVersion: "79428196"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-dashboard
+    uid: 07f988f5-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.86
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: dashboard
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: fileservice
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-fileservice
+    namespace: default
+    resourceVersion: "79428202"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-fileservice
+    uid: 07fa778d-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.34
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: fileservice
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: keystone
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-keystone
+    namespace: default
+    resourceVersion: "79428208"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-keystone
+    uid: 07fbb16c-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.115
+    ports:
+    - name: public
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app.kubernetes.io/component: keystone
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: keystone-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-keystone-db
+    namespace: default
+    resourceVersion: "79428205"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-keystone-db
+    uid: 07fb1e2d-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.170
+    ports:
+    - port: 3306
+      protocol: TCP
+      targetPort: mysql
+    selector:
+      app.kubernetes.io/component: keystone-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: logging-api
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-logging-api
+    namespace: default
+    resourceVersion: "79428219"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-logging-api
+    uid: 07fdfd30-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.45
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: logging-api
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: logging-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-logging-db
+    namespace: default
+    resourceVersion: "79428211"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-logging-db
+    uid: 07fc4ab5-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.87
+    ports:
+    - port: 1433
+      protocol: TCP
+      targetPort: mssql
+    selector:
+      app.kubernetes.io/component: logging-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: logging-rabbitmq
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-logging-rabbitmq
+    namespace: default
+    resourceVersion: "79428216"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-logging-rabbitmq
+    uid: 07fd6b89-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.151
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      nodePort: 31664
+      port: 15672
+      protocol: TCP
+      targetPort: 15672
+    - name: amqp
+      nodePort: 30936
+      port: 5672
+      protocol: TCP
+      targetPort: 5672
+    selector:
+      app.kubernetes.io/component: logging-rabbitmq
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: login-portal
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-login-portal
+    namespace: default
+    resourceVersion: "79428222"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-login-portal
+    uid: 07feb155-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.237
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: login-portal
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: racm
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-racm
+    namespace: default
+    resourceVersion: "79428228"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-racm
+    uid: 07ffcb38-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.148
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/component: racm
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-07-12T22:33:11Z"
+    labels:
+      app.kubernetes.io/component: racm-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/managed-by: Tiller
+      app.kubernetes.io/name: sciserver
+      helm.sh/chart: sciserver-0.0.1
+    name: lovely-skunk-sciserver-racm-db
+    namespace: default
+    resourceVersion: "79428225"
+    selfLink: /api/v1/namespaces/default/services/lovely-skunk-sciserver-racm-db
+    uid: 07ff44c4-a4f5-11e9-a2d7-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.111
+    ports:
+    - port: 1433
+      protocol: TCP
+      targetPort: mssql
+    selector:
+      app.kubernetes.io/component: racm-db
+      app.kubernetes.io/instance: lovely-skunk
+      app.kubernetes.io/name: sciserver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"stilton","namespace":"default"},"spec":{"ports":[{"name":"http","port":80,"targetPort":80}],"selector":{"app":"cheese","task":"stilton"}}}
+    creationTimestamp: "2019-05-31T20:45:36Z"
+    name: stilton
+    namespace: default
+    resourceVersion: "68232608"
+    selfLink: /api/v1/namespaces/default/services/stilton
+    uid: 0ae5d2c8-83e5-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.11
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: cheese
+      task: stilton
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"wensleydale","namespace":"default"},"spec":{"ports":[{"name":"http","port":80,"targetPort":80}],"selector":{"app":"cheese","task":"wensleydale"}}}
+    creationTimestamp: "2019-05-31T20:45:36Z"
+    name: wensleydale
+    namespace: default
+    resourceVersion: "68232614"
+    selfLink: /api/v1/namespaces/default/services/wensleydale
+    uid: 0ae838f2-83e5-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.91
+    ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: cheese
+      task: wensleydale
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-29T22:28:18Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: app-reduce-abc-123
+      plane: data
+      role: application
+    name: app-reduce-abc-123
+    namespace: filedb
+    resourceVersion: "137938260"
+    selfLink: /api/v1/namespaces/filedb/services/app-reduce-abc-123
+    uid: a6023462-42e6-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.10
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http
+    selector:
+      app: app-reduce-abc-123
+      plane: data
+      role: application
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:46Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: appproxy
+      plane: data
+      role: proxy
+    name: appproxy-svc
+    namespace: filedb
+    resourceVersion: "136130847"
+    selfLink: /api/v1/namespaces/filedb/services/appproxy-svc
+    uid: 1c997aa6-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: port-app-service-proxy
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: appproxy
+      plane: data
+      role: proxy
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:46Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: appproxy
+      plane: data
+      role: proxy
+    name: appproxy-svc-external
+    namespace: filedb
+    resourceVersion: "136130850"
+    selfLink: /api/v1/namespaces/filedb/services/appproxy-svc-external
+    uid: 1c99f3b0-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.194
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-app-service-proxy
+      nodePort: 30778
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: appproxy
+      plane: data
+      role: proxy
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:44Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: compute-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: compute-pool
+    name: compute-0-svc
+    namespace: filedb
+    resourceVersion: "136130826"
+    selfLink: /api/v1/namespaces/filedb/services/compute-0-svc
+    uid: 1b86396c-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: port-1433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8310
+      port: 8310
+      protocol: TCP
+      targetPort: 8310
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8410
+      port: 8410
+      protocol: TCP
+      targetPort: 8410
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: shuffle-5502
+      port: 5502
+      protocol: TCP
+      targetPort: 5502
+    publishNotReadyAddresses: true
+    selector:
+      app: compute-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: compute-pool
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:18:55Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: controldb
+      plane: control
+      role: controldb
+    name: controldb-svc
+    namespace: filedb
+    resourceVersion: "136129130"
+    selfLink: /api/v1/namespaces/filedb/services/controldb-svc
+    uid: 6f6d8310-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.206
+    ports:
+    - name: database-port
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: controldb
+      plane: control
+      role: controldb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:18:55Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: controller
+      plane: control
+      role: controller
+    name: controller-svc
+    namespace: filedb
+    resourceVersion: "136129124"
+    selfLink: /api/v1/namespaces/filedb/services/controller-svc
+    uid: 6f6b8f4d-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: controller-https-port
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-grpc-8301
+      port: 8301
+      protocol: TCP
+      targetPort: 8301
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: agent-srv-8401
+      port: 8401
+      protocol: TCP
+      targetPort: 8401
+    selector:
+      app: controller
+      plane: control
+      role: controller
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:18:55Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: controller
+      plane: control
+      role: controller
+    name: controller-svc-external
+    namespace: filedb
+    resourceVersion: "136129136"
+    selfLink: /api/v1/namespaces/filedb/services/controller-svc-external
+    uid: 6f6f87fb-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.199
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-1
+      nodePort: 30080
+      port: 443
+      protocol: TCP
+      targetPort: controller-port
+    selector:
+      app: controller
+      plane: control
+      role: controller
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:50Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: data-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: data-pool
+    name: data-0-svc
+    namespace: filedb
+    resourceVersion: "136130929"
+    selfLink: /api/v1/namespaces/filedb/services/data-0-svc
+    uid: 1f410edb-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: rpc-port-135
+      port: 135
+      protocol: TCP
+      targetPort: 135
+    - name: port-1433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8310
+      port: 8310
+      protocol: TCP
+      targetPort: 8310
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-grpc-8312
+      port: 8312
+      protocol: TCP
+      targetPort: 8312
+    - name: agent-grpc-8313
+      port: 8313
+      protocol: TCP
+      targetPort: 8313
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8410
+      port: 8410
+      protocol: TCP
+      targetPort: 8410
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: agent-srv-8412
+      port: 8412
+      protocol: TCP
+      targetPort: 8412
+    - name: agent-srv-8413
+      port: 8413
+      protocol: TCP
+      targetPort: 8413
+    - name: dtc-port-51000
+      port: 51000
+      protocol: TCP
+      targetPort: 51000
+    selector:
+      app: data-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: data-pool
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:51Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: gateway
+      plane: control
+      role: gateway
+    name: gateway-svc
+    namespace: filedb
+    resourceVersion: "136131063"
+    selfLink: /api/v1/namespaces/filedb/services/gateway-svc
+    uid: 1fe4477d-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: knox-port-8443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: gateway
+      plane: control
+      role: gateway
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:51Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: gateway
+      plane: control
+      role: gateway
+    name: gateway-svc-external
+    namespace: filedb
+    resourceVersion: "136131062"
+    selfLink: /api/v1/namespaces/filedb/services/gateway-svc-external
+    uid: 1fe3f232-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.4
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-knox
+      nodePort: 30443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      app: gateway
+      plane: control
+      role: gateway
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:36Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: logsdb
+      plane: control
+      role: monitoring
+    name: logsdb-svc
+    namespace: filedb
+    resourceVersion: "136129825"
+    selfLink: /api/v1/namespaces/filedb/services/logsdb-svc
+    uid: abaec674-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: es-http
+      port: 9200
+      protocol: TCP
+      targetPort: 9200
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: logsdb
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:34Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: logsui
+      plane: control
+      role: monitoring
+    name: logsui-svc
+    namespace: filedb
+    resourceVersion: "136129739"
+    selfLink: /api/v1/namespaces/filedb/services/logsui-svc
+    uid: aa7e447c-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: kibana-5601
+      port: 5601
+      protocol: TCP
+      targetPort: 5601
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: logsui
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:49Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    name: master-p-svc
+    namespace: filedb
+    resourceVersion: "136130887"
+    selfLink: /api/v1/namespaces/filedb/services/master-p-svc
+    uid: 1e968efc-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.152
+    ports:
+    - name: tds
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:49Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    name: master-svc
+    namespace: filedb
+    resourceVersion: "136130883"
+    selfLink: /api/v1/namespaces/filedb/services/master-svc
+    uid: 1e962355-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: rpc-port-135
+      port: 135
+      protocol: TCP
+      targetPort: 135
+    - name: port-8088
+      port: 8088
+      protocol: TCP
+      targetPort: 8088
+    - name: port-50075
+      port: 50075
+      protocol: TCP
+      targetPort: 50075
+    - name: port-50020
+      port: 50020
+      protocol: TCP
+      targetPort: 50020
+    - name: port-50010
+      port: 50010
+      protocol: TCP
+      targetPort: 50010
+    - name: port-8031
+      port: 8031
+      protocol: TCP
+      targetPort: 8031
+    - name: port-8032
+      port: 8032
+      protocol: TCP
+      targetPort: 8032
+    - name: port-8033
+      port: 8033
+      protocol: TCP
+      targetPort: 8033
+    - name: port-8040
+      port: 8040
+      protocol: TCP
+      targetPort: 8040
+    - name: port-8042
+      port: 8042
+      protocol: TCP
+      targetPort: 8042
+    - name: port-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: port-1433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: port-1533
+      port: 1533
+      protocol: TCP
+      targetPort: 1533
+    - name: port-9995
+      port: 9995
+      protocol: TCP
+      targetPort: 9995
+    - name: port-8998
+      port: 8998
+      protocol: TCP
+      targetPort: 8998
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8301
+      port: 8301
+      protocol: TCP
+      targetPort: 8301
+    - name: agent-grpc-8302
+      port: 8302
+      protocol: TCP
+      targetPort: 8302
+    - name: agent-grpc-8310
+      port: 8310
+      protocol: TCP
+      targetPort: 8310
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8401
+      port: 8401
+      protocol: TCP
+      targetPort: 8401
+    - name: agent-srv-8402
+      port: 8402
+      protocol: TCP
+      targetPort: 8402
+    - name: agent-srv-8410
+      port: 8410
+      protocol: TCP
+      targetPort: 8410
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: agent-port-8312
+      port: 8312
+      protocol: TCP
+      targetPort: 8312
+    - name: dtc-port-51000
+      port: 51000
+      protocol: TCP
+      targetPort: 51000
+    publishNotReadyAddresses: true
+    selector:
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:49Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    name: master-svc-external
+    namespace: filedb
+    resourceVersion: "136130882"
+    selfLink: /api/v1/namespaces/filedb/services/master-svc-external
+    uid: 1e95fb49-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.25
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-sql
+      nodePort: 31433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: master
+      mssql.microsoft.com/sql-instance: master
+      plane: data
+      role: master-pool
+      type: sqlservr
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:34Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: metricsdb
+      plane: control
+      role: monitoring
+    name: metricsdb-svc
+    namespace: filedb
+    resourceVersion: "136129734"
+    selfLink: /api/v1/namespaces/filedb/services/metricsdb-svc
+    uid: aa7c97d5-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: influxdb-8086
+      port: 8086
+      protocol: TCP
+      targetPort: 8086
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: metricsdb
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:34Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: metricsui
+      plane: control
+      role: monitoring
+    name: metricsui-svc
+    namespace: filedb
+    resourceVersion: "136129736"
+    selfLink: /api/v1/namespaces/filedb/services/metricsui-svc
+    uid: aa7d6a52-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: grafana-3000
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    selector:
+      app: metricsui
+      plane: control
+      role: monitoring
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:36Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    name: mgmtproxy-svc
+    namespace: filedb
+    resourceVersion: "136129817"
+    selfLink: /api/v1/namespaces/filedb/services/mgmtproxy-svc
+    uid: abab3150-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: port-serviceproxy
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:20:36Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    name: mgmtproxy-svc-external
+    namespace: filedb
+    resourceVersion: "136129819"
+    selfLink: /api/v1/namespaces/filedb/services/mgmtproxy-svc-external
+    uid: ababa4d7-3e04-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.251
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-serviceproxy
+      nodePort: 30777
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    selector:
+      app: mgmtproxy
+      plane: control
+      role: proxy
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:23:42Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: nmnode-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: namenode
+    name: nmnode-0-svc
+    namespace: filedb
+    resourceVersion: "136130773"
+    selfLink: /api/v1/namespaces/filedb/services/nmnode-0-svc
+    uid: 1a79cfce-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: default-fs
+      port: 9000
+      protocol: TCP
+      targetPort: 9000
+    - name: name-node-https
+      port: 50470
+      protocol: TCP
+      targetPort: 50470
+    - name: http-fs
+      port: 14000
+      protocol: TCP
+      targetPort: 14000
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    - name: fluentb-2020
+      port: 2020
+      protocol: TCP
+      targetPort: 2020
+    - name: tiering-port
+      port: 50200
+      protocol: TCP
+      targetPort: 50200
+    selector:
+      app: nmnode-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: namenode
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:24:22Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: sparkhead
+      plane: data
+      role: sparkhead-pool
+    name: sparkhead-svc
+    namespace: filedb
+    resourceVersion: "136131407"
+    selfLink: /api/v1/namespaces/filedb/services/sparkhead-svc
+    uid: 323b51f0-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: rpc-port-135
+      port: 135
+      protocol: TCP
+      targetPort: 135
+    - name: rm-webui-8088
+      port: 8088
+      protocol: TCP
+      targetPort: 8088
+    - name: rm-8031
+      port: 8031
+      protocol: TCP
+      targetPort: 8031
+    - name: rm-8032
+      port: 8032
+      protocol: TCP
+      targetPort: 8032
+    - name: rm-8033
+      port: 8033
+      protocol: TCP
+      targetPort: 8033
+    - name: hbase-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: sql-1433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: hostmonitor
+      port: 9995
+      protocol: TCP
+      targetPort: 9995
+    - name: livy-8998
+      port: 8998
+      protocol: TCP
+      targetPort: 8998
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8301
+      port: 8301
+      protocol: TCP
+      targetPort: 8301
+    - name: agent-grpc-8302
+      port: 8302
+      protocol: TCP
+      targetPort: 8302
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8401
+      port: 8401
+      protocol: TCP
+      targetPort: 8401
+    - name: agent-srv-8402
+      port: 8402
+      protocol: TCP
+      targetPort: 8402
+    - name: dtc-port-51000
+      port: 51000
+      protocol: TCP
+      targetPort: 51000
+    selector:
+      app: sparkhead
+      plane: data
+      role: sparkhead-pool
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-01-23T17:24:23Z"
+    labels:
+      MSSQL_CLUSTER: filedb
+      app: storage-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: storage-pool
+    name: storage-0-svc
+    namespace: filedb
+    resourceVersion: "136131438"
+    selfLink: /api/v1/namespaces/filedb/services/storage-0-svc
+    uid: 32903bd9-3e05-11ea-a8b0-0cc47ad46d50
+  spec:
+    clusterIP: None
+    ports:
+    - name: port-50470
+      port: 50470
+      protocol: TCP
+      targetPort: 50470
+    - name: port-50075
+      port: 50075
+      protocol: TCP
+      targetPort: 50075
+    - name: tiering-port
+      port: 50200
+      protocol: TCP
+      targetPort: 50200
+    - name: port-50020
+      port: 50020
+      protocol: TCP
+      targetPort: 50020
+    - name: port-9000
+      port: 9000
+      protocol: TCP
+      targetPort: 9000
+    - name: port-50010
+      port: 50010
+      protocol: TCP
+      targetPort: 50010
+    - name: port-8040
+      port: 8040
+      protocol: TCP
+      targetPort: 8040
+    - name: port-8042
+      port: 8042
+      protocol: TCP
+      targetPort: 8042
+    - name: port-1433
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    - name: knox-port-8443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+    - name: agent-grpc-8300
+      port: 8300
+      protocol: TCP
+      targetPort: 8300
+    - name: agent-grpc-8301
+      port: 8301
+      protocol: TCP
+      targetPort: 8301
+    - name: agent-grpc-8310
+      port: 8310
+      protocol: TCP
+      targetPort: 8310
+    - name: agent-grpc-8311
+      port: 8311
+      protocol: TCP
+      targetPort: 8311
+    - name: agent-srv-8400
+      port: 8400
+      protocol: TCP
+      targetPort: 8400
+    - name: agent-srv-8401
+      port: 8401
+      protocol: TCP
+      targetPort: 8401
+    - name: agent-srv-8410
+      port: 8410
+      protocol: TCP
+      targetPort: 8410
+    - name: agent-srv-8411
+      port: 8411
+      protocol: TCP
+      targetPort: 8411
+    selector:
+      app: storage-0
+      plane: data
+      pool-name: default
+      pool-number: "0"
+      role: storage-pool
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-01-02T16:32:17Z"
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      k8s-app: kube-dns
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: KubeDNS
+    name: kube-dns
+    namespace: kube-system
+    resourceVersion: "37761259"
+    selfLink: /api/v1/namespaces/kube-system/services/kube-dns
+    uid: f80a4d05-0eab-11e9-85c3-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.2
+    ports:
+    - name: dns
+      port: 53
+      protocol: UDP
+      targetPort: 53
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
+    selector:
+      k8s-app: kube-dns
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2019-05-31T16:19:46Z"
+    labels:
+      app: helm
+      name: tiller
+    name: tiller-deploy
+    namespace: kube-system
+    resourceVersion: "68194524"
+    selfLink: /api/v1/namespaces/kube-system/services/tiller-deploy
+    uid: e7fa2053-83bf-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.98
+    ports:
+    - name: tiller
+      port: 44134
+      protocol: TCP
+      targetPort: tiller
+    selector:
+      app: helm
+      name: tiller
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"traefik-ingress-service","namespace":"kube-system"},"spec":{"ports":[{"name":"web","port":8000,"protocol":"TCP"},{"name":"admin","port":8001,"protocol":"TCP"}],"selector":{"k8s-app":"traefik-ingress-lb"}}}
+    creationTimestamp: "2019-05-31T17:40:36Z"
+    name: traefik-ingress-service
+    namespace: kube-system
+    resourceVersion: "70729339"
+    selfLink: /api/v1/namespaces/kube-system/services/traefik-ingress-service
+    uid: 32d99011-83cb-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.3
+    ports:
+    - name: web
+      port: 8000
+      protocol: TCP
+      targetPort: 8000
+    - name: admin
+      port: 8001
+      protocol: TCP
+      targetPort: 8001
+    selector:
+      k8s-app: traefik-ingress-lb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"traefik-web-ui","namespace":"kube-system"},"spec":{"ports":[{"name":"web","port":80,"targetPort":8080}],"selector":{"k8s-app":"traefik-ingress-lb"}}}
+    creationTimestamp: "2019-05-31T17:46:24Z"
+    name: traefik-web-ui
+    namespace: kube-system
+    resourceVersion: "68206955"
+    selfLink: /api/v1/namespaces/kube-system/services/traefik-web-ui
+    uid: 02642128-83cc-11e9-a147-0cc47ad46d50
+  spec:
+    clusterIP: 172.24.0.167
+    ports:
+    - name: web
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      k8s-app: traefik-ingress-lb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

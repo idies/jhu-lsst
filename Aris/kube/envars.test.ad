@@ -1,0 +1,15 @@
+# (leaving non-required commented out with default settings)
+export ACCEPT_EULA=yes
+export CLUSTER_NAME=adtest
+export CLUSTER_PLATFORM=kubernetes
+
+
+export AZDATA_USERNAME=admin
+export AZDATA_PASSWORD=fooRiuzg54
+
+export DOMAIN_SERVICE_ACCOUNT_USERNAME=mssqlbdc
+export DOMAIN_SERVICE_ACCOUNT_PASSWORD=Riuzg54chiPs
+
+
+
+

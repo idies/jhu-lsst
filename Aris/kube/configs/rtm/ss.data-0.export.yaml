@@ -5,8 +5,8 @@ metadata:
   generation: 1
   labels:
     MSSQL_CLUSTER: filedb
-  name: storage-0
-  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/storage-0
+  name: data-0
+  selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/data-0
 spec:
   podManagementPolicy: Parallel
   replicas: 4
@@ -14,22 +14,22 @@ spec:
   selector:
     matchLabels:
       MSSQL_CLUSTER: filedb
-      app: storage-0
+      app: data-0
       plane: data
       pool-name: default
       pool-number: "0"
-      role: storage-pool
-  serviceName: storage-0-svc
+      role: data-pool
+  serviceName: data-0-svc
   template:
     metadata:
       creationTimestamp: null
       labels:
         MSSQL_CLUSTER: filedb
-        app: storage-0
+        app: data-0
         plane: data
         pool-name: default
         pool-number: "0"
-        role: storage-pool
+        role: data-pool
     spec:
       affinity:
         podAntiAffinity:
@@ -40,7 +40,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - storage-0
+                  - data-0
               topologyKey: kubernetes.io/hostname
             weight: 100
       containers:
@@ -51,123 +51,39 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         - name: MSSQL_POD_TYPE
-          value: storage
+          value: data
         - name: MSSQL_CONTAINER_TYPE
-          value: hadoop
-        - name: MSSQL_POD_KIND
-          value: StatefulSet
+          value: mssql-server
         - name: MSSQL_AGENT_GRPC_PORT
           value: "8300"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8400"
-        - name: INCLUDE_SPARK
-          value: "true"
-        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU4-ubuntu-16.04
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_RPC_PORT
+          value: "135"
+        - name: MSSQL_DTC_TCP_PORT
+          value: "51000"
+        - name: MSSQL_POD_KIND
+          value: StatefulSet
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
-        name: hadoop
+        name: mssql-server
         ports:
-        - containerPort: 50470
-          name: port-50470
+        - containerPort: 135
+          name: rpc-port-135
           protocol: TCP
-        - containerPort: 50075
-          name: port-50075
-          protocol: TCP
-        - containerPort: 50475
-          name: port-50475
-          protocol: TCP
-        - containerPort: 50020
-          name: port-50020
-          protocol: TCP
-        - containerPort: 50200
-          name: tiering-port
-          protocol: TCP
-        - containerPort: 9000
-          name: port-9000
-          protocol: TCP
-        - containerPort: 50010
-          name: port-50010
+        - containerPort: 1433
+          name: port-1433
           protocol: TCP
         - containerPort: 8300
           name: agent-grpc-8300
           protocol: TCP
-        - containerPort: 8304
-          name: nm-8304
-          protocol: TCP
         - containerPort: 8400
           name: agent-srv-8400
           protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/credentials/controller-internal
-          name: controller-internal-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
-          name: metricsdb-wo-secret
-          readOnly: true
-        - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu4/hadoop
-        - mountPath: /var/opt/hdfs/datanode
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/hdfs/datanode
-        - mountPath: /var/log
-          name: logs
-          subPath: hadoop
-        - mountPath: /var/run
-          name: var-run
-          subPath: hadoop
-        - mountPath: /var/run/configmaps/cluster
-          name: cluster-config-volume
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-        - mountPath: /pvcadmin
-          name: idies-data
-          subPath: Aris
-        - mountPath: /sciserver
-          mountPropagation: HostToContainer
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
-      - env:
-        - name: MSSQL_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: MSSQL_POD_TYPE
-          value: storage
-        - name: MSSQL_CONTAINER_TYPE
-          value: mssql-server
-        - name: MSSQL_AGENT_GRPC_PORT
-          value: "8301"
-        - name: MSSQL_AGENT_HTTPS_PORT
-          value: "8401"
-        - name: ACCEPT_EULA
-          value: "Y"
-        - name: MSSQL_POD_KIND
-          value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU4-ubuntu-16.04
-        imagePullPolicy: Always
-        name: mssql-server
-        ports:
-        - containerPort: 1433
-          name: port-1433
-          protocol: TCP
-        - containerPort: 8301
-          name: agent-grpc-8301
-          protocol: TCP
-        - containerPort: 8401
-          name: agent-srv-8401
+        - containerPort: 51000
+          name: dtc-port-51000
           protocol: TCP
         readinessProbe:
           exec:
@@ -188,17 +104,20 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
-          readOnly: true
-        - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
+          name: mssql-data-pool-default-secret
           readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
+        - mountPath: /var/run/secrets/certificates/agent
+          name: data-0-agent-secret
+          readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu1/mssql-server
+          name: data
+          subPath: mssql-server
+        - mountPath: /mnt/stripe-shared
+          name: data
+          subPath: stripe-shared
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -207,30 +126,23 @@ spec:
           subPath: mssql-server
         - mountPath: /var/run/configmaps/cluster
           name: cluster-config-volume
-        - mountPath: /var/run/configmaps/hadoop
-          name: hadoop-config-volume
-        - mountPath: /pvcadmin
-          name: idies-data
-          subPath: Aris
-        - mountPath: /sciserver
-          mountPropagation: HostToContainer
-          name: autofs-sciserver
-        - mountPath: /srv
-          name: srv
-        - mountPath: /nvme
-          name: nvme
       - env:
         - name: MONITORING_HOSTNAME
           valueFrom:
             fieldRef:
               apiVersion: v1
               fieldPath: spec.nodeName
+        - name: MSSQL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
         - name: SQL_HOSTNAME
           value: 127.0.0.1
         - name: SQL_POLL_INTERVAL
           value: "5"
         - name: MSSQL_POD_TYPE
-          value: storage
+          value: data
         - name: MSSQL_CONTAINER_TYPE
           value: collectd
         - name: MSSQL_POD_KIND
@@ -239,12 +151,7 @@ spec:
           value: "8310"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8410"
-        - name: MSSQL_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU4-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -262,14 +169,14 @@ spec:
           name: controller-internal-secret
           readOnly: true
         - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
+          name: data-0-agent-secret
           readOnly: true
         - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
           name: metricsdb-wo-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu4/collectd
+          name: data
+          subPath: collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
@@ -283,8 +190,12 @@ spec:
           value: logsdb-svc
         - name: FLUENT_ELASTICSEARCH_PORT
           value: "9200"
+        - name: FLUENT_INFLUXDB_HOST
+          value: metricsdb-svc
+        - name: FLUENT_INFLUXDB_PORT
+          value: "8086"
         - name: FLUENTBIT_CONFIG
-          value: fluentbit-storage-pool-default.conf
+          value: fluentbit-data-pool-default.conf
         - name: MSSQL_NAMESPACE
           valueFrom:
             fieldRef:
@@ -301,7 +212,7 @@ spec:
               apiVersion: v1
               fieldPath: metadata.name
         - name: MSSQL_POD_TYPE
-          value: storage
+          value: data
         - name: MSSQL_CONTAINER_TYPE
           value: fluentbit
         - name: MSSQL_POD_KIND
@@ -310,7 +221,7 @@ spec:
           value: "8311"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8411"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU4-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -331,17 +242,19 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
         - mountPath: /var/run/secrets/credentials/pool
-          name: mssql-storage-pool-default-secret
+          name: mssql-data-pool-default-secret
           readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
         - mountPath: /var/run/secrets/certificates/agent
-          name: storage-0-agent-secret
+          name: data-0-agent-secret
+          readOnly: true
+        - mountPath: /var/run/secrets/credentials/metricsdb-wo-secret
+          name: metricsdb-wo-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/mssql-storage-pool-default/cu4/fluentbit
+          name: data
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
@@ -365,56 +278,43 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 0
       volumes:
-      - name: mssql-storage-pool-default-secret
-        secret:
-          defaultMode: 360
-          secretName: mssql-storage-pool-default-secret
-      - name: controller-internal-secret
-        secret:
-          defaultMode: 360
-          secretName: controller-internal-secret
-      - name: storage-0-agent-secret
+      - name: mssql-data-pool-default-secret
         secret:
           defaultMode: 420
-          secretName: storage-0-agent-secret
-      - name: metricsdb-wo-secret
+          secretName: mssql-data-pool-default-secret
+      - name: controller-internal-secret
         secret:
-          defaultMode: 360
-          secretName: metricsdb-wo-secret
-      - emptyDir:
-          medium: Memory
-        name: var-run
+          defaultMode: 420
+          secretName: controller-internal-secret
+      - name: data-0-agent-secret
+        secret:
+          defaultMode: 420
+          secretName: data-0-agent-secret
       - configMap:
           defaultMode: 420
           name: cluster-configmap
         name: cluster-config-volume
-      - configMap:
-          defaultMode: 292
-          name: mssql-hadoop-storage-0-configmap
-        name: hadoop-config-volume
-      - name: autofs-sciserver
-        hostPath: 
-          path: /sciserver
-      - name: srv
-        hostPath:
-          path: /srv
-      - name: nvme
-        hostPath:
-          path: /nvme
+      - name: metricsdb-wo-secret
+        secret:
+          defaultMode: 420
+          secretName: metricsdb-wo-secret
+      - emptyDir:
+          medium: Memory
+        name: var-run
   updateStrategy:
-    type: RollingUpdate
+    type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: idies-data
+      name: data
     spec:
       accessModes:
       - ReadWriteOnce
       dataSource: null
       resources:
         requests:
-          storage: 5000Gi
-      storageClassName: local-storage
+          storage: 15Gi
+      storageClassName: managed-premium
       volumeMode: Filesystem
     status:
       phase: Pending

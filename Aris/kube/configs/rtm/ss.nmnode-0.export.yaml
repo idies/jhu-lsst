@@ -6,7 +6,6 @@ metadata:
   labels:
     MSSQL_CLUSTER: filedb
   name: nmnode-0
-  namespace: filedb
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/nmnode-0
 spec:
   podManagementPolicy: Parallel
@@ -61,7 +60,7 @@ spec:
           value: "8400"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU4-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-hadoop:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: hadoop
         ports:
@@ -94,11 +93,8 @@ spec:
           name: controller-internal-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/nmnode-0/var.cu4/opt
-        - mountPath: /var/opt/hdfs/namenode
-          name: idies-data
-          subPath: Aris/nmnode-0/hdfs/namenode        
+          name: data
+          subPath: hadoop
         - mountPath: /var/log
           name: logs
           subPath: hadoop
@@ -145,7 +141,7 @@ spec:
           value: "8311"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8411"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU4-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -171,8 +167,7 @@ spec:
         - mountPath: /var/run/configmaps/cluster
           name: cluster-config-volume
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/nmnode-0/cu4/fluentbit
+          name: data
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
@@ -203,13 +198,13 @@ spec:
           secretName: mssql-master-pool-secret
       - name: controller-internal-secret
         secret:
-          defaultMode: 360
+          defaultMode: 420
           secretName: controller-internal-secret
       - emptyDir:
           medium: Memory
         name: var-run
       - configMap:
-          defaultMode: 292
+          defaultMode: 420
           name: mssql-hadoop-storage-0-configmap
         name: hadoop-config-volume
       - name: nmnode-0-agent-secret
@@ -225,15 +220,15 @@ spec:
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
-      name: idies-data
+      name: data
     spec:
       accessModes:
       - ReadWriteOnce
       dataSource: null
       resources:
         requests:
-          storage: 800Gi
-      storageClassName: local-storage-nvme
+          storage: 15Gi
+      storageClassName: managed-premium
       volumeMode: Filesystem
     status:
       phase: Pending

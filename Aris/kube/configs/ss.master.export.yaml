@@ -1,13 +1,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  creationTimestamp: null
-  generation: 1
+  creationTimestamp: "2020-01-27T22:54:52Z"
+  generation: 2
   labels:
     MSSQL_CLUSTER: filedb
   name: master
   namespace: filedb
+  resourceVersion: "160008008"
   selfLink: /apis/apps/v1/namespaces/filedb/statefulsets/master
+  uid: 07983705-4158-11ea-a8b0-0cc47ad46d50
 spec:
   podManagementPolicy: Parallel
   replicas: 1
@@ -57,7 +59,7 @@ spec:
           value: "51000"
         - name: MSSQL_POD_KIND
           value: StatefulSet
-        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-server-data:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: mssql-server
         ports:
@@ -94,6 +96,9 @@ spec:
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
+        - mountPath: /var/run/secrets/credentials/controller-login
+          name: controller-login-secret
+          readOnly: true
         - mountPath: /var/run/secrets/credentials/controller-internal
           name: controller-internal-secret
           readOnly: true
@@ -107,8 +112,8 @@ spec:
           name: master-agent-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/cu1/mssql-server
+          name: data
+          subPath: mssql-server
         - mountPath: /var/log
           name: logs
           subPath: mssql-server
@@ -146,7 +151,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-collectd:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: collectd
         ports:
@@ -170,8 +175,8 @@ spec:
           name: metricsdb-wo-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/rc1/collectd
+          name: data
+          subPath: collectd
         - mountPath: /var/log
           name: logs
           subPath: collectd
@@ -212,7 +217,7 @@ spec:
           value: "8311"
         - name: MSSQL_AGENT_HTTPS_PORT
           value: "8411"
-        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU1-ubuntu-16.04
+        image: mcr.microsoft.com/mssql/bdc/mssql-monitor-fluentbit:2019-CU4-ubuntu-16.04
         imagePullPolicy: Always
         name: fluentbit
         ports:
@@ -242,8 +247,7 @@ spec:
           name: master-agent-secret
           readOnly: true
         - mountPath: /var/opt
-          name: idies-data
-          subPath: Aris/master-0/rc1/fluentbit
+          name: data
         - mountPath: /var/log
           name: logs
           subPath: fluentbit
@@ -269,23 +273,27 @@ spec:
       volumes:
       - name: mssql-master-pool-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: mssql-master-pool-secret
       - name: controller-internal-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: controller-internal-secret
+      - name: controller-login-secret
+        secret:
+          defaultMode: 360
+          secretName: controller-login-secret
       - name: node-admin-login-secrets
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: node-admin-login-secret
       - name: master-agent-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: master-agent-secret
       - name: metricsdb-wo-secret
         secret:
-          defaultMode: 420
+          defaultMode: 360
           secretName: metricsdb-wo-secret
       - emptyDir:
           medium: Memory
@@ -295,24 +303,113 @@ spec:
           name: cluster-configmap
         name: cluster-config-volume
       - configMap:
-          defaultMode: 420
+          defaultMode: 292
           name: mssql-hadoop-storage-0-configmap
         name: hadoop-config-volume
-      - name: autofs-sciserver
-        hostPath: 
-          path: /sciserver
-      - name: srv
-        hostPath:
-          path: /srv
-      - name: nvme
-        hostPath:
-          path: /nvme
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
   - metadata:
       creationTimestamp: null
       name: idies-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data2
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data3
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data4
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data5
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data6
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data7
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      dataSource: null
+      resources:
+        requests:
+          storage: 800Gi
+      storageClassName: local-storage-nvme
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+  - metadata:
+      creationTimestamp: null
+      name: idies-data8
     spec:
       accessModes:
       - ReadWriteOnce
@@ -339,4 +436,9 @@ spec:
     status:
       phase: Pending
 status:
-  replicas: 0
+  collisionCount: 0
+  currentRevision: master-8544fcfcdd
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  updateRevision: master-656ff4ccf5

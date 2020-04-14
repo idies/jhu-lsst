@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    MSSQL_CLUSTER: filedb
+    app: controller
+    plane: control
+    role: controller
+  name: controller-svc
+  selfLink: /api/v1/namespaces/filedb/services/controller-svc
+spec:
+  clusterIP: None
+  ports:
+  - name: controller-https-port
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  - name: agent-grpc-8311
+    port: 8311
+    protocol: TCP
+    targetPort: 8311
+  - name: agent-grpc-8301
+    port: 8301
+    protocol: TCP
+    targetPort: 8301
+  - name: agent-srv-8411
+    port: 8411
+    protocol: TCP
+    targetPort: 8411
+  - name: agent-srv-8401
+    port: 8401
+    protocol: TCP
+    targetPort: 8401
+  selector:
+    app: controller
+    plane: control
+    role: controller
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
