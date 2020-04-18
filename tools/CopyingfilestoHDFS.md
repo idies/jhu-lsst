@@ -3,7 +3,7 @@
 ### it's a good idea to run this in a `screen` if you're copying lots of files in case you lose your connection
 
 ----
-
+0. ssh to filedb14
 
 1. make sure you have added bash-aliases.sh to your .bashrc and either `source .bashrc` or open a new shell (or just type `bash`)
 
