@@ -53,3 +53,5 @@ spark-ingest-ms-clickstream-example
 #gl ignore all
 .ipynb_checkpoints
 
+.gradle/
+.settings/
