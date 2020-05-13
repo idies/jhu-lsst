@@ -1,0 +1,67 @@
+{
+    "apiVersion": "v1",
+    "metadata": {
+        "kind": "Cluster",
+        "name": "dracula"
+    },
+    "spec": {
+        "docker": {
+            "registry": "mcr.microsoft.com",
+            "repository": "mssql/bdc",
+            "imageTag": "2019-CU4-ubuntu-16.04",
+            "imagePullPolicy": "Always"
+        },
+        "storage": {
+            "data": {
+                "className": "local-path-hdd1",
+                "accessMode": "ReadWriteOnce",
+                "size": "15Gi"
+            },
+            "logs": {
+                "className": "local-path-hdd1",
+                "accessMode": "ReadWriteOnce",
+                "size": "10Gi"
+            }
+        },
+        "endpoints": [
+            {
+                "name": "Controller",
+                "dnsName": "dracula-controller.sdss.pha.jhu.edu",
+                "serviceType": "NodePort",
+                "port": 30080
+            },
+            {
+                "name": "ServiceProxy",
+                "dnsName": "dracula-monitor.sdss.pha.jhu.edu",
+                "serviceType": "NodePort",
+                "port": 30777
+            }
+        ],
+        "settings": {
+            "controller": {
+                "logs.rotation.size": "5000",
+                "logs.rotation.days": "7"
+            }
+        }
+    },
+    "security": {
+        "activeDirectory": {
+            "ouDistinguishedName": "OU=filedb,DC=sdss,DC=pha,DC=jhu,DC=edu",
+            "dnsIpAddresses": [
+                "172.23.38.117",
+                "172.23.251.123"
+            ],
+            "domainControllerFullyQualifiedDns": [
+                "sdssdc5.sdss.pha.jhu.edu",
+                "sdssdc2.sdss.pha.jhu.edu"
+            ],
+            "domainDnsName": "sdss.pha.jhu.edu",
+            "clusterAdmins": [
+                "filedb-sysadmins"
+            ],
+            "clusterUsers": [
+                "filedb-dbas"
+            ]
+        }
+    }
+}
