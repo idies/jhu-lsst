@@ -67,7 +67,8 @@
                         "sql": {
                             "hadr.enabled": "false"
                         }
-                    }
+                    },
+                    "nodeLabel": "bdc-master"
                 }
             },
             "compute-0": {
