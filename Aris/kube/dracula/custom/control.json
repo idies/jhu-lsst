@@ -43,6 +43,7 @@
                 "logs.rotation.days": "7"
             }
         }
+
     },
     "security": {
         "activeDirectory": {
