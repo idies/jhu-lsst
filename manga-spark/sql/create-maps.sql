@@ -1,12 +1,15 @@
 use manga_bdc
 
+drop external table st_maps
+GO
+
 CREATE EXTERNAL TABLE [dbo].[st_maps]
 (
-	[plateifu] [nvarchar](max) NULL,
-	[mangaid] [nvarchar](max) NULL,
+	[plateifu] varchar(100) NULL,
+	[mangaid] varchar(100) NULL,
 	[ra] [float] NULL,
 	[dec] [float] NULL,
-	[daptype] [nvarchar](max) NULL,
+	[daptype] varchar(100) NULL,
 	[spaxel_idx] [bigint] NULL,
 	[x] [bigint] NULL,
 	[y] [bigint] NULL,
