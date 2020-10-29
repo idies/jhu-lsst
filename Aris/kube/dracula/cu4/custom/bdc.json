@@ -18,7 +18,7 @@
             },
             "zookeeper": {
                 "spec": {
-                    "replicas": 3
+                    "replicas": 0
                 }
             },
             "gateway": {
@@ -27,7 +27,6 @@
                     "endpoints": [
                         {
                             "name": "Knox",
-                            "dnsName": "dracula-gateway.sdss.pha.jhu.edu",
                             "serviceType": "NodePort",
                             "port": 30443
                         }
@@ -40,7 +39,6 @@
                     "endpoints": [
                         {
                             "name": "AppServiceProxy",
-                            "dnsName": "dracula-appproxy.sdss.pha.jhu.edu",
                             "serviceType": "NodePort",
                             "port": 30778
                         }
@@ -58,7 +56,6 @@
                     "endpoints": [
                         {
                             "name": "Master",
-                            "dnsName": "dracula-master.sdss.pha.jhu.edu",
                             "serviceType": "NodePort",
                             "port": 31433
                         }
@@ -98,7 +95,7 @@
                 },
                 "spec": {
                     "type": "Storage",
-                    "replicas": 4,
+                    "replicas": 10,
                     "settings": {
                         "spark": {
                             "includeSpark": "true"
@@ -123,9 +120,7 @@
                     "storage-0",
                     "sparkhead"
                 ],
-                "settings": {
-                    "hdfs-site.dfs.replication": "3"
-                }
+                "settings": {}
             },
             "spark": {
                 "resources": [
@@ -137,13 +132,13 @@
                     "spark-defaults-conf.spark.driver.memory": "1664m",
                     "spark-defaults-conf.spark.driver.memoryOverhead": "384",
                     "spark-defaults-conf.spark.executor.instances": "1",
-                    "spark-defaults-conf.spark.executor.cores": "2",
+                    "spark-defaults-conf.spark.executor.cores": "4",
                     "spark-defaults-conf.spark.executor.memory": "3712m",
                     "spark-defaults-conf.spark.executor.memoryOverhead": "384",
-                    "yarn-site.yarn.nodemanager.resource.memory-mb": "12288",
-                    "yarn-site.yarn.nodemanager.resource.cpu-vcores": "6",
-                    "yarn-site.yarn.scheduler.maximum-allocation-mb": "12288",
-                    "yarn-site.yarn.scheduler.maximum-allocation-vcores": "6",
+                    "yarn-site.yarn.nodemanager.resource.memory-mb": "40000",
+                    "yarn-site.yarn.nodemanager.resource.cpu-vcores": "24",
+                    "yarn-site.yarn.scheduler.maximum-allocation-mb": "40000",
+                    "yarn-site.yarn.scheduler.maximum-allocation-vcores": "24",
                     "yarn-site.yarn.scheduler.capacity.maximum-am-resource-percent": "0.34"
                 }
             }

@@ -47,7 +47,7 @@
     },
     "security": {
         "activeDirectory": {
-            "ouDistinguishedName": "OU=filedb,DC=sdss,DC=pha,DC=jhu,DC=edu",
+            "ouDistinguishedName": "OU=dracula,DC=sdss,DC=pha,DC=jhu,DC=edu",
             "dnsIpAddresses": [
                 "172.23.38.117",
                 "172.23.251.123"

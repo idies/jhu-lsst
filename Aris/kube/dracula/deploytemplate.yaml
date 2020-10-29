@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: SERVICENAME
+spec:
+ selector:
+  matchLabels:
+   app: SERVICENAME
+ containers:
+ replicas: 1
+ template:
+  metadata:
+   labels:
+    app: SERVICENAME
+  spec:
+   containers:
+    - name: SERVICENAME
+      image: containers.repo.sciserver.org/IMAGENAME
+      env:
+       - name: WEBHDFS_FILEDB
+         value: "https://172.23.25.61:30443/gateway/default/webhdfs/v1/"
+       - name: WEBHDFS_DRACULA
+         value: "https://172.23.250.22:30443/gateway/default/webhdfs/v1/"
+       - name: webhdfs_user
+         value: admin
+       - name: webhdfs_password
+         value: REDACTED
+       - name: SWIFTLY_API_KEY      
+         value: "e6c3156850ece799033be8a177b43095"
+       - name: VEHICLES_URL
+         value: "/real-time/mta-maryland/vehicles?verbose=true"
+       - name: TRIP_UPDATES_URL
+         value: "/real-time/mta-maryland/gtfs-rt-trip-updates"
+       - name: SWIFTLY_HOST
+         value: "http://api.goswift.ly"
+       - name: VEHICLES_JSON_PATH
+         value: "/user/transit/vehicles/json/"
+       - name: TRIP_UPDATES_JSON_PATH
+         value: "/user/transit/trip_updates/json/"
+       - name: VEHICLES_API_SECONDS
+         value: "7"
+       - name: TRIP_UPDATES_API_SECONDS
+         value: "7"
+       
+        
