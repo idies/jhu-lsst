@@ -1,0 +1,109 @@
+
+MAGIC COMMAND
+hdfs dfs -du -h /user/hive/warehouse/ | awk -v OFS='\t' '{print $1$2,$3$4,$5}' | sort -hr
+
+
+
+filedb cluster summary
+
+root@storage-0-0:~# hdfs dfsadmin -report
+Configured Capacity: 240033087356928 (218.31 TB)
+Present Capacity: 204030771299217 (185.56 TB)
+DFS Remaining: 24075962946560 (21.90 TB)
+DFS Used: 179954808352657 (163.67 TB)
+DFS Used%: 88.20%
+
+2 underreplicated blocks (is that a problem?)
+
+can probably recover at least 40TB of space
+
+29.9T   89.8T   /LSST
+13.8T   38.7T   /user
+3.7T    7.4T    /manga
+459.0G  1.3T    /ctp2.2
+449.5G  1.3T    /ctp2.4
+204.5G  612.8G  /tmp
+146.7G  293.5G  /cosmos_3dhst
+102.9G  205.7G  /kepler
+2.0G    4.0G    /ctp3.2
+1.2G    3.7G    /millimil-csv-8
+1.2G    3.7G    /millimil-csv
+1005.6M 2.2G    /ctp3.1
+638.9M  1.2G    /ztf
+600.8M  1.8G    /millimil
+582.8M  1.1G    /system
+467.1M  1.4G    /ctp3.0
+437.5M  1.3G    /ctp2.3
+273.8M  547.7M  /system.aside
+230.8M  461.6M  /rc1
+3.1M    6.1M    /{t_todaypath}
+3.3K    6.7K    /clickstream_data_parquet
+2.0K    6.1K    /copycommands.txt
+1.1K    2.3K    /clickstream_data
+
+
+4.0 T   12.0 T   /LSST/csv/Object
+25.9 T  77.6 T   /LSST/csv/Source
+35.5 G  106.5 G  /LSST/csv/test
+
+215.9 G  431.9 G  /user/sue/floc/rawdata
+
+
+root@storage-0-0:~# hdfs dfs -du -h /user/hive/warehouse/ | awk -v OFS='\t' '{print $1$2,$3$4,$5}' | sort -hr
+
+
+9.2T    27.7T   /user/hive/warehouse/source
+1.4T    2.7T    /user/hive/warehouse/object_newcols1400
+1.3T    4.0T    /user/hive/warehouse/object
+411.1G  1.2T    /user/hive/warehouse/source_bak
+313.0G  626.1G  /user/hive/warehouse/object_mini
+298.2G  596.4G  /user/hive/warehouse/object_mini_chunkid
+111.0G  333.1G  /user/hive/warehouse/forcedsource
+56.6G   169.7G  /user/hive/warehouse/object_bak
+10.9G   32.7G   /user/hive/warehouse/sourcesue2
+10.9G   32.6G   /user/hive/warehouse/sourcesue
+10.9G   32.6G   /user/hive/warehouse/source_test_parquet
+1.6G    4.7G    /user/hive/warehouse/object_test_parquet
+1.5G    4.5G    /user/hive/warehouse/object_test
+1.5G    3.1G    /user/hive/warehouse/object_test_parquet2
+885.3M  1.7G    /user/hive/warehouse/object_test_newcols5
+862.6M  1.7G    /user/hive/warehouse/obj_test_chunkid
+856.6M  1.7G    /user/hive/warehouse/object_test_newcols
+425.6M  851.2M  /user/hive/warehouse/transit_hive.db
+53.4M   160.1M  /user/hive/warehouse/web_clickstreams
+45.6M   136.8M  /user/hive/warehouse/web_clickstreams_orc
+32.0M   95.9M   /user/hive/warehouse/product_reviews
+31.6M   94.8M   /user/hive/warehouse/product_reviews_orc
+00      /user/hive/warehouse/ariktesttable
+00      /user/hive/warehouse/app.db
+root@storage-0-0:~#
+
+
+
+
+
+
+=========================================================================
+dracula cluster
+
+swerner@dsp022:[~]: kdc storage-0-0 hadoop
+root@storage-0-0:/# hdfs dfsadmin -report
+Configured Capacity: 219993940951040 (200.08 TB)
+Present Capacity: 219839327453184 (199.94 TB)
+DFS Remaining: 183915030884352 (167.27 TB)
+DFS Used: 35924296568832 (32.67 TB)
+DFS Used%: 16.34%
+
+
+
+
+
+
+root@storage-0-0:/# hdfs dfs -du -h /user | awk -v OFS='\t' '{print $1$2,$3$4,$5}' | sort -hr
+8.6T    17.2T   /user/gerard
+6.8T    13.7T   /user/sue
+386.7G  773.4G  /user/hive
+379.8G  759.7G  /user/arik
+2.7G    5.3G    /user/transit
+612.6M  1.2G    /user/root
+8.4M    16.8M   /user/suetest
