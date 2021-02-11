@@ -1,0 +1,274 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-26T19:47:53Z"
+    labels:
+      MSSQL_CLUSTER: dracula
+      app: data-0
+      plane: data
+      role: data-pool
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:MSSQL_CLUSTER: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":1433,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:nodePort: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: FxVersion
+      operation: Update
+      time: "2020-06-26T19:47:53Z"
+    name: data-0-0-svc-external
+    namespace: dracula
+    resourceVersion: "18438539"
+    selfLink: /api/v1/namespaces/dracula/services/data-0-0-svc-external
+    uid: 838a2cc4-5590-4126-8a2d-3e1291a585e2
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-sql
+      nodePort: 32000
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: data-0
+      plane: data
+      role: data-pool
+      statefulset.kubernetes.io/pod-name: data-0-0
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-26T19:47:53Z"
+    labels:
+      MSSQL_CLUSTER: dracula
+      app: data-0
+      plane: data
+      role: data-pool
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:MSSQL_CLUSTER: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":1433,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:nodePort: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: FxVersion
+      operation: Update
+      time: "2020-06-26T19:47:53Z"
+    name: data-0-1-svc-external
+    namespace: dracula
+    resourceVersion: "18438539"
+    selfLink: /api/v1/namespaces/dracula/services/data-0-1-svc-external
+    uid: 838a2cc4-5590-4126-8a2d-3e1291a585e2
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-sql
+      nodePort: 32001
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: data-0
+      plane: data
+      role: data-pool
+      statefulset.kubernetes.io/pod-name: data-0-1
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-26T19:47:53Z"
+    labels:
+      MSSQL_CLUSTER: dracula
+      app: data-0
+      plane: data
+      role: data-pool
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:MSSQL_CLUSTER: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":1433,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:nodePort: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: FxVersion
+      operation: Update
+      time: "2020-06-26T19:47:53Z"
+    name: data-0-2-svc-external
+    namespace: dracula
+    resourceVersion: "18438539"
+    selfLink: /api/v1/namespaces/dracula/services/data-0-2-svc-external
+    uid: 838a2cc4-5590-4126-8a2d-3e1291a585e2
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-sql
+      nodePort: 32002
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: data-0
+      plane: data
+      role: data-pool
+      statefulset.kubernetes.io/pod-name: data-0-2
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-26T19:47:53Z"
+    labels:
+      MSSQL_CLUSTER: dracula
+      app: data-0
+      plane: data
+      role: data-pool
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:MSSQL_CLUSTER: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":1433,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:nodePort: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:app: {}
+            f:mssql.microsoft.com/sql-instance: {}
+            f:plane: {}
+            f:role: {}
+            f:type: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: FxVersion
+      operation: Update
+      time: "2020-06-26T19:47:53Z"
+    name: data-0-3-svc-external
+    namespace: dracula
+    resourceVersion: "18438539"
+    selfLink: /api/v1/namespaces/dracula/services/data-0-3-svc-external
+    uid: 838a2cc4-5590-4126-8a2d-3e1291a585e2
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: port-sql
+      nodePort: 32003
+      port: 1433
+      protocol: TCP
+      targetPort: 1433
+    selector:
+      app: data-0
+      plane: data
+      role: data-pool
+      statefulset.kubernetes.io/pod-name: data-0-3
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
